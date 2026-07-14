@@ -1,0 +1,792 @@
+/* TeacherProfilePage.module.css */
+
+.profilePage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 48px;
+}
+
+/* Custom Page Breadcrumbs */
+.breadcrumbs {
+  font-size: 0.75rem;
+  color: var(--text-light, #94a3b8);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  margin-bottom: -12px;
+}
+
+.crumbLink {
+  color: var(--text-light, #94a3b8);
+  text-decoration: none;
+}
+
+.crumbLink:hover {
+  color: var(--primary-color, #10b981);
+}
+
+/* 1. Header Profile Card */
+.profileHeaderCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.01);
+}
+
+.coverPhoto {
+  height: 160px;
+  background-color: #0f766e;
+  background-image: linear-gradient(135deg, #0ea5e9 0%, #0f766e 40%, #10b981 100%);
+  position: relative;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 32px;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .headerContent {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.avatarSection {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-top: -84px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.profileAvatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  object-fit: cover;
+}
+
+.editAvatarBtn {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 150ms ease;
+}
+
+.editAvatarBtn:hover {
+  background: #f8fafc;
+  color: var(--primary-color, #10b981);
+  border-color: var(--primary-color, #10b981);
+}
+
+.mainInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nameRow h1 {
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.facultyBadge {
+  background-color: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 99px;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.subtitle {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-muted, #64748b);
+  margin: 0;
+}
+
+.metaRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--text-muted, #64748b);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.metaRow span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaSeparator {
+  color: #cbd5e1;
+  font-weight: 300;
+}
+
+.actionsBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+@media (min-width: 992px) {
+  .actionsBox {
+    align-items: flex-end;
+  }
+}
+
+.qrCodeBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 12px 18px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+}
+
+.qrCodeBox svg {
+  color: var(--primary-color, #10b981);
+}
+
+.qrCodeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.qrCodeInfo span {
+  font-size: 0.62rem;
+  color: var(--text-light, #94a3b8);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.qrCodeInfo strong {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-main, #1e293b);
+  font-family: monospace;
+}
+
+.actionBtn {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 150ms;
+}
+
+.actionBtn:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: var(--text-main, #1e293b);
+}
+
+/* Grid Layout */
+.gridLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .gridLayout {
+    grid-template-columns: 1.22fr 0.78fr;
+  }
+}
+
+.leftCol, .rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Card layout configurations */
+.infoCard, .statsCard, .achievementsCard, .settingsPreview {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.01);
+}
+
+.cardHeaderIcon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cardIconWrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.iconWrapGreen { background-color: rgba(16, 185, 129, 0.08); color: #10b981; }
+.iconWrapBlue { background-color: rgba(59, 130, 246, 0.08); color: #3b82f6; }
+.iconWrapPurple { background-color: rgba(139, 92, 246, 0.08); color: #8b5cf6; }
+.iconWrapOrange { background-color: rgba(245, 158, 11, 0.08); color: #f59e0b; }
+
+.infoCard h3, .statsCard h3, .achievementsCard h3, .settingsPreview h3 {
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  font-size: 0.95rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 480px) {
+  .infoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.infoItemRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.infoItemIconBox {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: rgba(16, 185, 129, 0.06);
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.infoItemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.infoItemContent label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-light, #94a3b8);
+  text-transform: uppercase;
+}
+
+.infoItemContent p {
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+/* Subjects & Classes Tags */
+.tagsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tagsSection:last-child {
+  margin-bottom: 0;
+}
+
+.tagsSection h4 {
+  font-size: 0.68rem;
+  font-weight: 750;
+  color: var(--text-light, #94a3b8);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.tagsWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background-color: rgba(16, 185, 129, 0.06);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 99px;
+}
+
+.tagAlt {
+  background-color: rgba(59, 130, 246, 0.06);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 99px;
+}
+
+/* Certifications Layout */
+.certsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 640px) {
+  .certsList {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .certItem {
+    flex: 1;
+    min-width: 180px;
+  }
+}
+
+.certItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #f0fdf4;
+  border: 1px solid #d1f7e0;
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+
+.certIconWrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #d1f7e0;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.certName {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+/* Leave Balance List */
+.leaveRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.leaveItemRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.leaveIconBox {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.leaveIconGreen { background-color: rgba(16, 185, 129, 0.08); color: #10b981; }
+.leaveIconPurple { background-color: rgba(139, 92, 246, 0.08); color: #8b5cf6; }
+.leaveIconOrange { background-color: rgba(245, 158, 11, 0.08); color: #f59e0b; }
+
+.leaveDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.leaveDetails label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--text-light, #94a3b8);
+  text-transform: uppercase;
+}
+
+.leaveDetails p {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+/* Plan Banner Box */
+.planBox {
+  background-color: #eefdf5;
+  border: 1px solid #d1f7e0;
+  border-radius: 24px;
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 150px;
+}
+
+.planLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 60%;
+  z-index: 2;
+}
+
+.planTitle {
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 750;
+  color: #1e293b;
+  margin: 0;
+}
+
+.planSubtitle {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.planBtn {
+  align-self: flex-start;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+  transition: all 150ms;
+}
+
+.planBtn:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+}
+
+.planIllustration {
+  position: absolute;
+  right: 24px;
+  bottom: 0;
+  height: 130px;
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
+/* Today's Schedule Card styles */
+.scheduleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.scheduleHeader h3 {
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  font-size: 0.95rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.viewAllLink {
+  color: #10b981;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.viewAllLink:hover {
+  color: #059669;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scheduleItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.scheduleTime {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #10b981;
+  width: 68px;
+  flex-shrink: 0;
+}
+
+.scheduleIconBox {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.scheduleIconGreen { background-color: rgba(16, 185, 129, 0.08); color: #10b981; }
+.scheduleIconPurple { background-color: rgba(139, 92, 246, 0.08); color: #8b5cf6; }
+.scheduleIconOrange { background-color: rgba(245, 158, 11, 0.08); color: #f59e0b; }
+.scheduleIconPink { background-color: rgba(236, 72, 153, 0.08); color: #ec4899; }
+.scheduleIconBlue { background-color: rgba(37, 99, 235, 0.08); color: #2563eb; }
+
+.scheduleDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.scheduleDetails h4 {
+  font-size: 0.8rem !important;
+  font-weight: 750;
+  color: #1e293b;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scheduleDetails p {
+  font-size: 0.76rem;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}
+
+.statusBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: capitalize;
+}
+
+.badgeCompleted { background: rgba(16, 185, 129, 0.08); color: #10b981; }
+.badgeOngoing { background: rgba(37, 99, 235, 0.08); color: #2563eb; }
+.badgeUpcoming { background: #f1f5f9; color: #64748b; }
+
+.scheduleFooterLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: #10b981;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+  transition: all 150ms;
+}
+
+.scheduleFooterLink:hover {
+  color: #059669;
+}
+
+/* Recent Activity Cards */
+.activityHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.activityHeader h3 {
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  font-size: 0.95rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.achievementsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.achievementItem {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.achievementItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.achIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.achIconRed { background-color: rgba(239, 68, 68, 0.08); color: #ef4444; }
+.achIconGreen { background-color: rgba(16, 185, 129, 0.08); color: #10b981; }
+.achIconMegaRed { background-color: rgba(239, 68, 68, 0.08); color: #dc2626; }
+.achIconBlue { background-color: rgba(59, 130, 246, 0.08); color: #3b82f6; }
+.achIconGrey { background-color: #f1f5f9; color: #64748b; }
+
+.achContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.achContent h4 {
+  font-size: 0.85rem !important;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.achContent p {
+  font-size: 0.72rem;
+  color: var(--text-muted, #64748b);
+  margin: 0;
+}
+
+/* Quick Settings Preview */
+.settingsHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.settingsHeader h3 {
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  font-size: 0.95rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.settingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settingBtn {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 150ms;
+  text-align: left;
+}
+
+.settingBtn:hover {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+  color: var(--text-main, #1e293b);
+}
+
+.settingBtn svg:first-child {
+  color: var(--text-muted, #64748b);
+}
+
+.settingBtnChevron {
+  margin-left: auto;
+  color: #cbd5e1;
+}

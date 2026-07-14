@@ -1,0 +1,704 @@
+.container {
+  padding: var(--space-3) 0 var(--space-4) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Breadcrumbs nav */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.813rem;
+  color: var(--text-muted, #64748b);
+  margin-bottom: 12px;
+}
+
+.crumbLink {
+  cursor: pointer;
+  transition: color 150ms;
+}
+
+.crumbLink:hover {
+  color: var(--primary-color, #10b981);
+}
+
+.headerMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.headerIconBox {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.headerSticker {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.titleArea h1 {
+  font-size: 1.6rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+
+.titleArea p {
+  font-size: 0.88rem;
+  color: var(--text-muted, #64748b);
+  margin: 0;
+}
+
+.clipboardIllustration {
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+  margin-right: -10px;
+}
+/* Class selector grid */
+.classSelectorGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .classSelectorGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .classSelectorGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.classTabCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid rgba(226, 232, 240, 0.65);
+  border-radius: 18px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+  transition: all 200ms ease;
+  overflow: hidden;
+  outline: none;
+  width: 100%;
+}
+
+.classTabCardActive {
+  background-color: rgba(34, 197, 94, 0.03) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.05);
+}
+
+.classTabCard:hover:not(.classTabCardActive) {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.tabIconBox {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Color highlights for active tab icons */
+.tabIconGradeA { background-color: rgba(34, 197, 94, 0.08); color: #16a34a; }
+.tabIconGradeB { background-color: rgba(168, 85, 247, 0.08); color: #8b5cf6; }
+.tabIconGradeC { background-color: rgba(249, 115, 22, 0.08); color: #ea580c; }
+.tabIconGradeD { background-color: rgba(59, 130, 246, 0.08); color: #2563eb; }
+
+.tabIconInactive {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+}
+
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tabClassName {
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+
+.tabSubjectName {
+  font-size: 0.72rem;
+  color: var(--text-muted, #64748b);
+  font-weight: 500;
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+
+.tabActiveIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #10b981;
+}
+
+/* Summary stats grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 20px;
+  padding: 28px 20px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: all 200ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Bottom corner blob decorations */
+.statCard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  border-top-left-radius: 100%;
+  pointer-events: none;
+  opacity: 0.12;
+}
+.cardTotal::after { background-color: #10b981; }
+.cardPresent::after { background-color: #10b981; }
+.cardAbsent::after { background-color: #ef4444; }
+.cardLate::after { background-color: #f59e0b; }
+
+/* Bottom left dot matrix decoration (5x3 grid of themed dots) */
+.statCard::before {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 34px;
+  height: 18px;
+  background-size: 8px 8px;
+  opacity: 0.85;
+}
+.cardTotal::before, .cardPresent::before {
+  background-image: radial-gradient(circle, #a7f3d0 2px, transparent 2px);
+}
+.cardAbsent::before {
+  background-image: radial-gradient(circle, #fca5a5 2px, transparent 2px);
+}
+.cardLate::before {
+  background-image: radial-gradient(circle, #fdba74 2px, transparent 2px);
+}
+
+/* Specific text colors for numbers */
+.cardTotal .statValue { color: #16a34a; }
+.cardPresent .statValue { color: #16a34a; }
+.cardAbsent .statValue { color: #ef4444; }
+.cardLate .statValue { color: #f59e0b; }
+
+.cardIllustration {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+}
+
+/* Circular pastel background behind sticker */
+.illustrationBg {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.illustrationBgGreen { background-color: #ecfdf5; }
+.illustrationBgPink { background-color: #fef2f2; }
+.illustrationBgOrange { background-color: #fff7ed; }
+
+.statInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.statValue {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  margin-top: 4px;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: #475569;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  margin-top: 2px;
+}
+
+/* Small indicator lines below label */
+.accentIndicator {
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  margin-top: 10px;
+}
+.indicatorTotal { background-color: #16a34a; }
+.indicatorPresent { background-color: #16a34a; }
+.indicatorAbsent { background-color: #ef4444; }
+.indicatorLate { background-color: #f59e0b; }
+
+/* Mark Attendance Card */
+.attendanceCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.attendanceHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color, #cbd5e1);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.attendanceHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.attendanceHeaderLeft img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.attendanceHeaderLeft h3 {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 1rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.legendsList {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.dotPresent {
+  color: #22c55e;
+}
+.dotAbsent {
+  color: #ef4444;
+}
+.dotLate {
+  color: #f59e0b;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dotGreen {
+  background-color: #22c55e;
+}
+.dotRed {
+  background-color: #ef4444;
+}
+.dotOrange {
+  background-color: #f59e0b;
+}
+
+/* Student List inside Card */
+.studentList {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.studentRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color, #f1f5f9);
+}
+
+.studentRow:last-child {
+  border-bottom: none;
+}
+
+.studentMeta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.studentAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--border-color, #cbd5e1);
+}
+
+.studentName {
+  font-size: 0.88rem !important;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+}
+
+.attendanceActions {
+  display: flex;
+  gap: 8px;
+}
+
+.btnOption {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: var(--radius-full, 9999px);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  color: var(--text-muted, #64748b);
+  transition: all 180ms ease;
+}
+
+.btnOption:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.btnActivePresent {
+  background-color: rgba(34, 197, 94, 0.08) !important;
+  border-color: #22c55e !important;
+  color: #22c55e !important;
+}
+
+.btnActiveAbsent {
+  background-color: rgba(239, 68, 68, 0.08) !important;
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+}
+
+.btnActiveLate {
+  background-color: rgba(245, 158, 11, 0.08) !important;
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+}
+
+/* Footer Section of Form Card */
+.formControlsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.backpackIllustration {
+  height: 100px;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+  margin-bottom: -16px;
+  margin-left: -12px;
+}
+
+.actionButtonsRight {
+  display: flex;
+  gap: 12px;
+}
+
+.btnSaveDraft {
+  background-color: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  color: var(--text-main, #1e293b);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: var(--radius-md, 12px);
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.btnSaveDraft:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.btnPublish {
+  background-color: var(--primary-color, #10b981);
+  color: white;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: var(--radius-md, 12px);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+  transition: all 180ms ease;
+}
+
+.btnPublish:hover:not(:disabled) {
+  background-color: var(--primary-hover, #059669);
+  transform: translateY(-1px);
+}
+
+.btnPublish:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Recent History Card */
+.historyCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color, #cbd5e1);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.historyHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.historyHeaderLeft img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.calendarIcon {
+  height: 36px !important;
+  width: auto !important;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.historyHeaderLeft h3 {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 1rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.historySticker {
+  height: 75px;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+  margin-right: -10px;
+  margin-top: -12px;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.historyRowItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px var(--space-1);
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color var(--transition-fast) ease;
+}
+
+.historyRowItem:last-child {
+  border-bottom: none;
+}
+
+.historyItemLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.historyItemTitle {
+  font-size: 0.88rem !important;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.historyItemReason {
+  font-size: 0.76rem;
+  color: var(--text-muted, #64748b);
+  margin: 0;
+}
+
+.historyItemRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.historyBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 6px;
+  text-transform: capitalize;
+}
+
+.badgePresent {
+  background: rgba(34, 197, 94, 0.08);
+  color: #22c55e;
+}
+.badgeLate {
+  background: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+}
+.badgeAbsent {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+}
+
+.chevronIcon {
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+}
+
+.viewAllBtnFooter {
+  background-color: rgba(16, 185, 129, 0.04);
+  color: #10b981;
+  font-size: 0.82rem;
+  font-weight: 750;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 180ms ease;
+}
+
+.viewAllBtnFooter:hover {
+  background-color: rgba(16, 185, 129, 0.08);
+  color: #059669;
+}

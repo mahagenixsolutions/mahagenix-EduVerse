@@ -1,0 +1,608 @@
+/* TeacherReportsPage.module.css — Matching Attendance page design pattern */
+
+/* Page container */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted, #94a3b8);
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+
+.crumbLink {
+  cursor: pointer;
+  color: var(--text-muted, #94a3b8);
+  transition: color 150ms ease;
+}
+
+.crumbLink:hover {
+  color: var(--primary-color, #10b981);
+}
+
+/* Page header */
+.headerMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 90px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerIconBox {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.headerSticker {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+}
+
+.titleArea h1 {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.titleArea p {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.82rem;
+  color: var(--text-muted, #64748b);
+  margin: 4px 0 0 0;
+  font-weight: 500;
+}
+
+.headerIllustration {
+  height: 100px;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+  margin-right: -10px;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid rgba(226, 232, 240, 0.7);
+  border-radius: 20px;
+  padding: 24px 20px 0 20px; /* Leave bottom padding 0 for the absolute wave */
+  height: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.015);
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* Icon container circle (smaller outline style matching mockup) */
+.illustrationBg {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 12px;
+  border: 1px solid transparent;
+}
+
+.illustrationBgGreen {
+  background-color: #ecfdf5;
+  border-color: #d1fae5;
+  color: #10b981;
+}
+
+.illustrationBgBlue {
+  background-color: #eff6ff;
+  border-color: #dbeafe;
+  color: #3b82f6;
+}
+
+.illustrationBgOrange {
+  background-color: #fdf4ff; /* Purple/pink in mockup for performance */
+  border-color: #f3e8ff;
+  color: #8b5cf6;
+}
+
+.illustrationBgPurple {
+  background-color: #fff7ed; /* Orange for homework */
+  border-color: #ffedd5;
+  color: #f59e0b;
+}
+
+/* Icon custom stroke weights */
+.illustrationBg svg {
+  stroke-width: 2px;
+}
+
+.statInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.statValue {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+
+/* Specific text colors for numbers to match mockup */
+.cardGreen .statValue {
+  color: #16a34a;
+}
+.cardBlue .statValue {
+  color: #16a34a;
+} /* Avg attendance is also green in mockup (93%) */
+.cardOrange .statValue {
+  color: #1e1b4b;
+} /* Avg Performance (76.6%) is dark blue/indigo */
+.cardPurple .statValue {
+  color: #ea580c;
+} /* Pending homework (18) is orange */
+
+.statLabel {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 700;
+  text-transform: capitalize; /* Title case matching mockup */
+  font-family: "Century Gothic", "Inter", sans-serif;
+  margin-top: 2px;
+}
+
+/* Wave chart container */
+.waveContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 48px;
+  pointer-events: none;
+}
+
+/* Two-column section grid */
+.sectionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .sectionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Section card */
+.sectionCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Section header */
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sectionHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sectionHeaderLeft img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.sectionIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sectionIconGreen {
+  background-color: rgba(34, 197, 94, 0.08);
+  color: #16a34a;
+}
+.sectionIconBlue {
+  background-color: rgba(59, 130, 246, 0.08);
+  color: #2563eb;
+}
+.sectionIconRed {
+  background-color: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+}
+.sectionIconGold {
+  background-color: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+}
+
+.sectionTitle {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.viewLink {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-color, #10b981);
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.viewLink:hover {
+  text-decoration: underline;
+}
+
+/* Bar chart rows */
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+}
+
+.barLabel {
+  min-width: 90px;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-main, #1e293b);
+}
+
+.barTrack {
+  flex: 1;
+  height: 10px;
+  background: #f1f5f9;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+.barFillGreen {
+  background: linear-gradient(90deg, #34d399, #10b981);
+}
+.barFillOrange {
+  background: linear-gradient(90deg, #fbbf24, #f59e0b);
+}
+.barFillRed {
+  background: linear-gradient(90deg, #f87171, #ef4444);
+}
+
+.barPercent {
+  min-width: 48px;
+  text-align: right;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+}
+
+/* Highlight row (star/checkmark at bottom of section) */
+.highlightRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 48px 12px 16px; /* Extra right padding for the inline sticker */
+  border-radius: 14px;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.highlightRowGold {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.highlightRowGreen {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.highlightIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Inline row stickers (e.g. party popper / calendar badge) */
+.rowSticker {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Performers Card corner stickers */
+.stickerBottomLeft {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.stickerBottomRight {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Performance Alerts section */
+.alertsCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.alertRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  margin-bottom: 10px;
+  transition: all 150ms ease;
+}
+
+.alertRowHigh {
+  background: rgba(239, 68, 68, 0.03);
+  border-color: rgba(239, 68, 68, 0.15);
+}
+
+.alertRowMedium {
+  background: rgba(245, 158, 11, 0.03);
+  border-color: rgba(245, 158, 11, 0.15);
+}
+
+.alertLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.alertAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f1f5f9;
+}
+
+.alertName {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+}
+
+.alertMessage {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.72rem;
+  color: var(--text-muted, #64748b);
+  margin-top: 2px;
+}
+
+.alertBadge {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badgeDanger {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+}
+
+.badgeWarning {
+  background: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+}
+
+.badgeBlue {
+  background: rgba(59, 130, 246, 0.08);
+  color: #3b82f6;
+}
+
+/* Top Performers section */
+.performersCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  border-radius: 24px;
+  padding: 24px 24px 90px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.performerRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.performerRow:last-child {
+  border-bottom: none;
+}
+
+.rankBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.rankGold {
+  background: rgba(245, 158, 11, 0.12);
+  color: #f59e0b;
+}
+
+.rankSilver {
+  background: rgba(148, 163, 184, 0.12);
+  color: #64748b;
+}
+
+.rankBronze {
+  background: rgba(180, 83, 9, 0.12);
+  color: #b45309;
+}
+
+.rankDefault {
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+
+.performerAvatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.performerName {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+}
+
+.performerClass {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.72rem;
+  color: var(--text-muted, #64748b);
+  margin-left: 8px;
+}
+
+.performerBar {
+  flex: 1;
+}
+
+.performerScore {
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #16a34a;
+  min-width: 40px;
+  text-align: right;
+}
+
+.bottomSticker {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: brightness(1.08) contrast(1.08);
+  mix-blend-mode: multiply;
+  margin-top: 12px;
+}

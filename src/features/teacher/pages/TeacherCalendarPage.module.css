@@ -1,0 +1,894 @@
+/* TeacherCalendarPage.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 48px;
+}
+
+/* Custom Header styling matching screenshot */
+.breadcrumbs {
+  font-size: 0.75rem;
+  color: var(--text-light, #94a3b8);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.crumbLink {
+  color: var(--text-light, #94a3b8);
+  text-decoration: none;
+}
+
+.crumbLink:hover {
+  color: var(--primary-color, #10b981);
+}
+
+.headerMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerIconBox {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background-color: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+}
+
+.titleArea h1 {
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.titleArea p {
+  font-size: 0.85rem;
+  color: var(--text-muted, #64748b);
+  margin: 4px 0 0 0;
+}
+
+.addEventBtn {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+  transition: all 180ms ease;
+}
+
+.addEventBtn:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+}
+
+/* Two column layout */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .gridContainer {
+    grid-template-columns: 1fr 380px;
+  }
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Calendar Card styling */
+.calendarCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.01);
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.navArrows {
+  display: flex;
+  gap: 8px;
+}
+
+.arrowBtn {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.arrowBtn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.monthDropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.todayBtn {
+  border: 1px solid #10b981;
+  color: #10b981;
+  background: white;
+  border-radius: 12px;
+  padding: 8px 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.todayBtn:hover {
+  background: rgba(16, 185, 129, 0.02);
+}
+
+/* Weekday header row */
+.weekdaysRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.weekdayHeader {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  padding: 8px 0;
+}
+
+.weekdaySunday {
+  color: #ef4444 !important;
+}
+
+.weekdaySaturday {
+  color: #3b82f6 !important;
+}
+
+/* Calendar Day Grid */
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.dayCell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-main, #1e293b);
+  transition: all 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  font-weight: 500;
+}
+
+.dayCell:hover:not(.daySelected):not(.dayEmpty) {
+  background: #f8fafc;
+}
+
+.dayEmpty {
+  cursor: default;
+  color: transparent;
+}
+
+.dayOutside {
+  color: #cbd5e1;
+}
+
+.daySelected {
+  background: #10b981 !important;
+  color: white !important;
+  font-weight: 700;
+  box-shadow: 0 8px 16px rgba(16, 185, 129, 0.2);
+}
+
+.dayNumber {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.dayDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 8px;
+}
+
+.dotSelected {
+  background-color: white;
+}
+
+.dotGreen {
+  background-color: #10b981;
+}
+
+.dotBlue {
+  background-color: #3b82f6;
+}
+
+.dotPink {
+  background-color: #ec4899;
+}
+
+.dotOrange {
+  background-color: #f59e0b;
+}
+
+/* Calendar Footer Legend */
+.legendRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color, #e2e8f0);
+}
+
+.legendList {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.syncBtn {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #1e293b;
+  background: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.syncBtn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Upcoming This Week Card */
+.upcomingWeekCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.cardHeader h3 {
+  font-size: 0.95rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+}
+
+.viewAllLink {
+  color: #10b981;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.viewAllLink:hover {
+  color: #059669;
+}
+
+.upcomingWeekCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.sectionHeaderWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.sectionHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.headerSticker {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.headerTitleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.headerTitleArea h3 {
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  font-size: 1.15rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0;
+}
+
+.headerTitleArea p {
+  font-size: 0.82rem;
+  color: var(--text-muted, #64748b);
+  margin: 0;
+}
+
+.viewAllBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(16, 185, 129, 0.06);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.viewAllBtn:hover {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.upcomingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.upcomingItem {
+  position: relative;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid transparent;
+  overflow: hidden;
+  padding-top: 24px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.upcomingItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+.topAccentBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+}
+
+.itemBlue {
+  background-color: #f0f7ff;
+  border-color: rgba(59, 130, 246, 0.12);
+}
+.itemBlue .topAccentBar {
+  background-color: #3b82f6;
+}
+.itemBlue .upcomingDate {
+  color: #2563eb;
+}
+.itemBlue .timeBadge {
+  background-color: rgba(59, 130, 246, 0.08);
+  color: #2563eb;
+}
+
+.itemGreen {
+  background-color: #f0fdf4;
+  border-color: rgba(16, 185, 129, 0.12);
+}
+.itemGreen .topAccentBar {
+  background-color: #10b981;
+}
+.itemGreen .upcomingDate {
+  color: #10b981;
+}
+.itemGreen .timeBadge {
+  background-color: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+}
+
+.itemPink {
+  background-color: #fdf2f8;
+  border-color: rgba(236, 72, 153, 0.12);
+}
+.itemPink .topAccentBar {
+  background-color: #ec4899;
+}
+.itemPink .upcomingDate {
+  color: #ec4899;
+}
+.itemPink .timeBadge {
+  background-color: rgba(236, 72, 153, 0.08);
+  color: #ec4899;
+}
+
+.itemPurple {
+  background-color: #f5f3ff;
+  border-color: rgba(139, 92, 246, 0.12);
+}
+.itemPurple .topAccentBar {
+  background-color: #8b5cf6;
+}
+.itemPurple .upcomingDate {
+  color: #8b5cf6;
+}
+.itemPurple .timeBadge {
+  background-color: rgba(139, 92, 246, 0.08);
+  color: #8b5cf6;
+}
+
+.upcomingDate {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.stickerWrap {
+  width: 100px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.itemSticker {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 200ms ease;
+}
+
+.upcomingItem:hover .itemSticker {
+  transform: scale(1.08) rotate(2deg);
+}
+
+.upcomingTitle {
+  font-size: 0.88rem !important;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin: 0 0 12px 0;
+  line-height: 1.35;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dottedSeparator {
+  width: 100%;
+  border-top: 2px dotted #cbd5e1;
+  margin-bottom: 12px;
+}
+
+.timeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+/* Quote Box styling */
+.quoteBox {
+  background-color: #eefdf5;
+  border: 1px solid #d1f7e0;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  height: 120px;
+}
+
+.quoteLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 65%;
+  z-index: 2;
+}
+
+.quoteIconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #d1f7e0;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.quoteText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quoteText blockquote {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.45;
+  font-style: normal;
+}
+
+.quoteText cite {
+  font-size: 0.78rem;
+  color: #64748b;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.quoteIllustration {
+  position: absolute;
+  right: 24px;
+  bottom: 0;
+  height: 100px;
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
+/* Right Column Side container */
+.sideContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Today's Schedule Card */
+.scheduleCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scheduleItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.scheduleTime {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #10b981;
+  width: 68px;
+  flex-shrink: 0;
+}
+
+.scheduleIconBox {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.scheduleIconGreen { background-color: rgba(16, 185, 129, 0.08); color: #10b981; }
+.scheduleIconPurple { background-color: rgba(139, 92, 246, 0.08); color: #8b5cf6; }
+.scheduleIconOrange { background-color: rgba(245, 158, 11, 0.08); color: #f59e0b; }
+.scheduleIconPink { background-color: rgba(236, 72, 153, 0.08); color: #ec4899; }
+.scheduleIconBlue { background-color: rgba(37, 99, 235, 0.08); color: #2563eb; }
+
+.scheduleDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.scheduleDetails h4 {
+  font-size: 0.8rem !important;
+  font-weight: 750;
+  color: #1e293b;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.scheduleDetails p {
+  font-size: 0.76rem;
+  color: #64748b;
+  margin: 2px 0 0 0;
+}
+
+.statusBadge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: capitalize;
+}
+
+.badgeCompleted { background: rgba(16, 185, 129, 0.08); color: #10b981; }
+.badgeOngoing { background: rgba(37, 99, 235, 0.08); color: #2563eb; }
+.badgeUpcoming { background: #f1f5f9; color: #64748b; }
+
+/* Upcoming Events Card */
+.eventsCard {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.eventsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.eventsItem {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.eventsDateBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 72px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.eventsDateMonth {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.eventsDateDay {
+  font-size: 1.35rem;
+  font-weight: 850;
+  color: #1e293b;
+  line-height: 1;
+  margin: 2px 0;
+}
+
+.eventsDateWeekday {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.eventsDetails {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.categoryBadge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+  text-transform: capitalize;
+}
+
+.catBadgeMeeting { background: rgba(37, 99, 235, 0.08); color: #2563eb; }
+.catBadgeAcademic { background: rgba(139, 92, 246, 0.08); color: #8b5cf6; }
+.catBadgeWorkshop { background: rgba(245, 158, 11, 0.08); color: #ea580c; }
+
+.eventsItemTitle {
+  font-size: 0.8rem !important;
+  font-weight: 750;
+  color: #1e293b;
+  margin: 2px 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eventsItemTime {
+  font-size: 0.78rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.allEventsFooterBtn {
+  background: #f8fafc;
+  color: #10b981;
+  font-size: 0.82rem;
+  font-weight: 700;
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 150ms;
+}
+
+.allEventsFooterBtn:hover {
+  background: #f1f5f9;
+  color: #059669;
+}
+
+/* Academic Year Box */
+.academicYearBox {
+  background: var(--surface-color, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 24px;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.academicYearText {
+  display: flex;
+  flex-direction: column;
+}
+
+.academicYearLabel {
+  font-size: 0.75rem;
+  color: var(--text-muted, #64748b);
+  font-weight: 500;
+}
+
+.academicYearValue {
+  font-size: 1rem;
+  font-weight: 750;
+  color: var(--text-main, #1e293b);
+  margin-top: 2px;
+}
+
+.academicYearBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: rgba(16, 185, 129, 0.08);
+  border: none;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 150ms;
+}
+
+.academicYearBtn:hover {
+  background-color: rgba(16, 185, 129, 0.12);
+  transform: scale(1.05);
+}

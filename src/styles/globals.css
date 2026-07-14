@@ -1,0 +1,391 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Century Gothic fallback to system fonts */
+@font-face {
+  font-family: 'Century Gothic';
+  src: local('Century Gothic');
+}
+
+:root {
+  /* Colors - Sage Green + Milky White design system */
+  --primary-color: #5FAF88; /* Sage Green primary brand */
+  --primary-hover: #4D9D78; /* Sage Green primary hover */
+  --primary-light: #EAF6EF; /* Sage Green light brand tint */
+  --nav-active: #E5F5EC; /* Navigation Active background */
+  
+  --bg-color: #F8FAF8; /* Primary background */
+  --bg-secondary: #F4F7F5; /* Secondary background */
+  --surface-color: #FFFFFF; /* Cards background */
+  --section-bg: #F5F7F6; /* Section Background */
+  
+  --text-main: #1F2937; /* Primary Text */
+  --text-muted: #6B7280; /* Secondary Text */
+  --text-light: #94A3B8; /* Muted Text */
+  
+  --border-color: #E8ECEA; /* Borders */
+  
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #3B82F6;
+
+  /* Spacing System (8px based) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px; /* Card spacing, internal padding */
+  --space-4: 32px; /* Page padding, section spacing */
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  
+  /* Typography */
+  --font-family: 'Century Gothic', 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px; /* Card border radius: 18px */
+  --radius-full: 9999px;
+  
+  /* Shadows - Soft premium system */
+  --shadow-sm: 0 8px 30px rgba(15, 23, 42, 0.08); /* Card Shadow: 0 8px 30px */
+  --shadow-md: 0 18px 40px rgba(15, 23, 42, 0.12); /* Hover Shadow: 0 18px 40px */
+  --shadow-lg: 0 20px 50px rgba(15, 23, 42, 0.15); /* Modal shadow */
+  --shadow-soft: 0 8px 30px rgba(15, 23, 42, 0.08);
+  
+  /* Transitions */
+  --transition-fast: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6; /* generous line spacing */
+  font-size: 15px !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: 34px !important;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+h3 {
+  font-size: 20px !important; /* Card title */
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+h4, .section-title {
+  font-size: 18px !important; /* Section title */
+  font-weight: 600;
+  letter-spacing: -0.1px;
+}
+
+caption, .caption, .newsDate, .timelineTime {
+  font-size: 13px !important; /* Caption */
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Global Tables Style */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.813rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+}
+
+td {
+  padding: 18px 16px;
+  font-size: 0.938rem;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color var(--transition-fast) ease;
+}
+
+tr:hover td {
+  background-color: var(--bg-secondary) !important;
+}
+
+tr:nth-child(even) td {
+  background-color: rgba(244, 247, 245, 0.4);
+}
+
+/* Global Inputs, Selects, and Textareas */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 3px rgba(95, 175, 136, 0.15) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-light);
+}
+
+/* Grid Layouts */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-2);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* 12 col desktop, 8 col tablet, 4 col mobile */
+.grid-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (min-width: 768px) {
+  .grid-cols {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-cols {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* Utilities */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.flex-col { flex-direction: column; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+/* Micro-animations */
+.hover-lift {
+  transition: transform 180ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1), background-color 180ms ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px) !important; /* Lift 3px */
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10) !important; /* Hover Shadow: 0 18px 40px */
+}
+
+/* Card Button overrides for radius: 12px, height: 42px */
+.card button,
+.card .btn,
+[class*="Card_card"] button,
+[class*="Card_card"] .btn,
+[class*="sectionCard"] button,
+[class*="sectionCard"] .btn {
+  border-radius: 12px !important;
+  height: 42px !important;
+  font-size: 14px !important;
+  padding: 0 16px !important;
+}
+
+/* Card header hierarchy */
+.cardHeader,
+[class*="cardHeader"],
+[class*="cardTitleRow"] {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  margin-bottom: var(--space-3) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding-bottom: 16px !important;
+  width: 100% !important;
+}
+
+.cardHeader h3,
+[class*="cardHeader"] h3,
+[class*="cardTitleRow"] h3 {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: var(--text-main) !important;
+  margin: 0 !important;
+}
+
+.viewAll,
+[class*="viewAll"] {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--primary-color) !important;
+  transition: color 180ms ease !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+
+.viewAll:hover,
+[class*="viewAll"]:hover {
+  color: var(--primary-hover) !important;
+  text-decoration: underline !important;
+}
+
+/* Unified Premium Summary/Metric Cards (Banking-dashboard Style) */
+.metricCard,
+[class*="metricCard"],
+/* statCard styles are handled in TeacherAttendancePage.module.css */
+
+.metricCard:hover,
+[class*="metricCard"]:hover {
+  transform: translateY(-3px) !important; /* Lift 3px */
+  box-shadow: var(--shadow-md) !important; /* Hover Shadow */
+}
+
+/* Accent strip decoration for summary cards */
+.metricCard::after,
+[class*="metricCard"]::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  width: 48px !important;
+  height: 48px !important;
+  background: radial-gradient(circle, rgba(95, 175, 136, 0.04) 0%, transparent 70%) !important;
+  pointer-events: none !important;
+}
+
+/* Styling contents of summary cards */
+.metricCard h2,
+[class*="metricCard"] h2 {
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  color: var(--text-main) !important;
+  margin: 6px 0 !important;
+}
+
+.metricCard span,
+[class*="metricCard"] span {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--text-muted) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* Metric card header styling and icons */
+.metricHeader,
+[class*="metricHeader"] {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin-bottom: var(--space-1) !important;
+}
+
+.metricHeader svg,
+[class*="metricHeader"] svg,
+[class*="metricCard"] svg {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 10px !important;
+  border-radius: 50% !important;
+  background-color: var(--primary-light) !important;
+  color: var(--primary-color) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Skeleton Loading Animations */
+.skeleton {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%) !important;
+  background-size: 200% 100% !important;
+  animation: skeleton-loading 1.5s infinite ease-in-out !important;
+  color: transparent !important;
+  border-color: transparent !important;
+  user-select: none !important;
+  pointer-events: none !important;
+  border-radius: 6px;
+}
+
+.skeleton-text {
+  height: 16px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.skeleton-title {
+  height: 24px;
+  margin-bottom: 12px;
+  width: 60%;
+}
+
+.skeleton-circle {
+  border-radius: 50% !important;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

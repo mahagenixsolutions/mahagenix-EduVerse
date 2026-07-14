@@ -1,0 +1,479 @@
+.attendancePage {
+  padding: 8px 0 32px;
+  color: #1f2a44;
+}
+
+.hero {
+  min-height: 158px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: #74819b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.breadcrumbs button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.breadcrumbs button:hover {
+  color: #22b875;
+}
+
+.breadcrumbs svg {
+  color: #9aa6bb;
+  stroke-width: 3;
+}
+
+.hero h1 {
+  margin: 0 0 12px;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 800;
+  color: #202941;
+  letter-spacing: 0;
+}
+
+.hero p {
+  margin: 0;
+  color: #65718b;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.heroArt {
+  width: 210px;
+  height: 148px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.heroArt::before {
+  content: "";
+  position: absolute;
+  inset: 0 10px 0 6px;
+  border-radius: 46% 54% 52% 48%;
+  background: rgba(202, 232, 215, 0.36);
+  transform: rotate(12deg);
+}
+
+.heroArt img {
+  width: 142px;
+  height: 110px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  filter: brightness(1.05) contrast(1.04);
+  mix-blend-mode: normal;
+}
+
+.orbitDotOne,
+.orbitDotTwo {
+  position: absolute;
+  border-radius: 50%;
+  background: #9fd8b9;
+  z-index: 2;
+}
+
+.orbitDotOne {
+  width: 15px;
+  height: 15px;
+  left: -24px;
+  top: 74px;
+  box-shadow: 10px 8px 0 -4px #bfe7d0;
+}
+
+.orbitDotTwo {
+  width: 9px;
+  height: 9px;
+  right: 10px;
+  top: 8px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px;
+  margin: 18px 0 48px;
+}
+
+.statCard {
+  min-height: 178px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.72);
+  border-radius: 18px;
+  box-shadow: 0 16px 34px rgba(31, 42, 68, 0.08);
+  padding: 34px 28px 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 999px;
+}
+
+.statGreen::before {
+  background: #24be74;
+}
+
+.statRed::before {
+  background: #ff4f52;
+}
+
+.statOrange::before {
+  background: #ff9a22;
+}
+
+.statTop {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 58px;
+}
+
+.iconBubble {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.iconGreen {
+  background: #e0f6ec;
+  color: #24b96f;
+}
+
+.iconRed {
+  background: #ffe8eb;
+  color: #f43d43;
+}
+
+.iconOrange {
+  background: #fff1dd;
+  color: #fb9418;
+}
+
+.statCard strong {
+  font-size: 2.05rem;
+  line-height: 1;
+  font-weight: 800;
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+
+.statGreen strong {
+  color: #23bf72;
+}
+
+.statRed strong {
+  color: #f43d43;
+}
+
+.statOrange strong {
+  color: #fb9418;
+}
+
+.statCard p {
+  margin: 6px 0 0 82px;
+  color: #49556f;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.sparkline {
+  display: block;
+  width: 158px;
+  max-width: calc(100% - 28px);
+  height: 48px;
+  margin: 20px auto 0;
+}
+
+.sparkline path {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sparkGreen {
+  stroke: #27bf72;
+}
+
+.sparkRed {
+  stroke: #ff3f43;
+}
+
+.sparkOrange {
+  stroke: #ff9417;
+}
+
+.historyCard {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(226, 232, 240, 0.82);
+  border-radius: 20px;
+  box-shadow: 0 22px 44px rgba(31, 42, 68, 0.08);
+  padding: 16px 26px 36px;
+}
+
+.historyHeader {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 2px;
+}
+
+.historyHeader h2 {
+  margin: 0;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  color: #202941;
+  font-size: 1.25rem;
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.weekFilter {
+  height: 40px;
+  min-width: 168px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid #e0e6ef;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #65718b;
+  font-size: 0.83rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(31, 42, 68, 0.03);
+}
+
+.weekFilter svg {
+  color: #71809a;
+}
+
+.filterChevron {
+  transform: rotate(90deg);
+}
+
+.historyList {
+  border: 1px solid #e6ebf2;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.historyRow {
+  min-height: 82px;
+  display: grid;
+  grid-template-columns: 58px 1fr 10px 96px 28px;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px 14px 12px;
+  border-bottom: 1px solid #e6ebf2;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.historyRow:last-child {
+  border-bottom: 0;
+}
+
+.dateTile {
+  width: 50px;
+  height: 50px;
+  border-radius: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+
+.dateTile strong {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.dateTile span {
+  margin-top: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.datePresent {
+  background: #eaf9f2;
+  color: #1fa96a;
+}
+
+.dateLate {
+  background: #fff2e4;
+  color: #ff8f13;
+}
+
+.dateAbsent {
+  background: #ffeaed;
+  color: #ff3f43;
+}
+
+.historyText {
+  min-width: 0;
+}
+
+.historyRowTitle {
+  margin: 0;
+  font-family: "Century Gothic", "Inter", sans-serif;
+  color: #172039;
+  font-size: 13.8px;
+  font-weight: 600;
+}
+
+.historyText p {
+  margin: 9px 0 0;
+  color: #707b94;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.statusDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  justify-self: center;
+}
+
+.dotPresent {
+  background: #24be74;
+}
+
+.dotLate {
+  background: #ff9417;
+}
+
+.dotAbsent {
+  background: #ff3f43;
+}
+
+.statusBadge {
+  min-width: 74px;
+  justify-self: center;
+  border-radius: 999px;
+  padding: 7px 16px;
+  text-align: center;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.badgePresent {
+  background: #dcf7e9;
+  color: #23bd72;
+}
+
+.badgeLate {
+  background: #fff0df;
+  color: #ff9015;
+}
+
+.badgeAbsent {
+  background: #ffe1e6;
+  color: #ff4046;
+}
+
+.rowChevron {
+  color: #18233c;
+  justify-self: end;
+  stroke-width: 2.5;
+}
+
+@media (max-width: 1100px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: auto;
+  }
+
+  .heroArt {
+    display: none;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .historyCard {
+    padding: 16px;
+  }
+
+  .historyHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .weekFilter {
+    width: 100%;
+  }
+
+  .historyRow {
+    grid-template-columns: 58px 1fr 28px;
+    gap: 12px;
+    padding-right: 12px;
+  }
+
+  .statusDot,
+  .statusBadge {
+    display: none;
+  }
+}
+
+@media (max-width: 460px) {
+  .breadcrumbs {
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-size: 1.65rem;
+  }
+
+  .statCard {
+    padding: 26px 20px 12px;
+  }
+
+  .statCard p {
+    margin-left: 74px;
+  }
+}

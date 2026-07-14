@@ -1,0 +1,26 @@
+export const attendanceData = {
+  overall: 92,
+  thisMonth: 95,
+  thisWeek: 100,
+  totalDays: 120,
+  present: 110,
+  absent: 6,
+  late: 4,
+  monthly: [
+    { month: 'Apr', percentage: 96 },
+    { month: 'May', percentage: 88 },
+    { month: 'Jun', percentage: 92 },
+    { month: 'Jul', percentage: 94 },
+    { month: 'Aug', percentage: 90 },
+    { month: 'Sep', percentage: 95 },
+    { month: 'Oct', percentage: 100 },
+  ],
+  recent: [
+    { date: 'Oct 11', day: 'Friday', status: 'present' as const },
+    { date: 'Oct 10', day: 'Thursday', status: 'present' as const },
+    { date: 'Oct 9', day: 'Wednesday', status: 'present' as const },
+    { date: 'Oct 8', day: 'Tuesday', status: 'late' as const, reason: 'Traffic delay' },
+    { date: 'Oct 7', day: 'Monday', status: 'present' as const },
+    { date: 'Oct 4', day: 'Friday', status: 'absent' as const, reason: 'Medical leave' },
+  ],
+};

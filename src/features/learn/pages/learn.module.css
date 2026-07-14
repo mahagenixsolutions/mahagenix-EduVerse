@@ -1,0 +1,204 @@
+/* Learn domain shared styles */
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.courseCard { padding: 0; overflow: hidden; }
+
+.courseThumb {
+  position: relative;
+  height: 140px;
+  overflow: hidden;
+}
+.courseThumb img { width: 100%; height: 100%; object-fit: cover; }
+.courseGrade {
+  position: absolute; top: var(--space-1); right: var(--space-1);
+  background-color: var(--primary-color); color: white;
+  padding: 2px 8px; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600;
+}
+
+.courseBody {
+  padding: var(--space-3);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.courseTitle {
+  font-size: 13.8px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-main);
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+.courseTeacher, .courseMeta {
+  font-size: 0.813rem; color: var(--text-muted);
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* Generic list page layout */
+.pageList { display: flex; flex-direction: column; gap: 16px; margin-top: var(--space-4); }
+.pageItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.pageItem:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.itemIcon {
+  width: 48px; height: 48px; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.itemContent { flex: 1; min-width: 0; }
+.itemTitle {
+  font-size: 13.8px;
+  font-weight: 600;
+  margin: 0 0 2px 0;
+  color: var(--text-main);
+  font-family: "Century Gothic", "Inter", sans-serif;
+}
+.itemContent p { font-size: 0.813rem; color: var(--text-muted); }
+.itemActions { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+
+/* Attendance chart bars */
+.chartBars { display: flex; align-items: flex-end; gap: var(--space-2); height: 120px; margin-top: var(--space-3); }
+.chartBar {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.barFill {
+  width: 100%; border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: height 0.5s ease;
+}
+.barLabel { font-size: 0.7rem; color: var(--text-muted); }
+
+/* Stats row */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.statCard {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-color); /* Soft green accent strip */
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.statCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.statCard::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(circle, rgba(95, 175, 136, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.statValue {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.statLabel {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Results table */
+.resultsTable { width: 100%; border-collapse: collapse; margin-top: var(--space-3); }
+.resultsTable th, .resultsTable td {
+  padding: 16px 20px; text-align: left; font-size: 14px; border-bottom: 1px solid var(--border-color);
+}
+.resultsTable th { font-weight: 700; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Notes grid */
+.notesGrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-3); margin-top: var(--space-4);
+}
+.noteCard { cursor: pointer; }
+.noteCard h4 { margin-bottom: 4px; }
+.noteMeta { font-size: 0.813rem; color: var(--text-muted); display: flex; justify-content: space-between; margin-top: var(--space-2); }
+
+/* Practice grid */
+.practiceGrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-3); margin-top: var(--space-4);
+}
+.testMeta { display: flex; gap: var(--space-3); font-size: 0.813rem; color: var(--text-muted); margin-top: var(--space-1); }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-4);
+}
+
+.modal {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  padding: var(--space-5);
+  box-shadow: var(--shadow-lg);
+}
+
+.modal h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  color: var(--text-main);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroup label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+

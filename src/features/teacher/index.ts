@@ -1,0 +1,13 @@
+export { TeacherDashboard } from './pages/TeacherDashboard';
+export { TeacherProfilePage } from './pages/TeacherProfilePage';
+export { MyClassesPage } from './pages/MyClassesPage';
+export { StudentsDirectoryPage } from './pages/StudentsDirectoryPage';
+export { TeacherAttendancePage } from './pages/TeacherAttendancePage';
+export { TeacherHomeworkPage } from './pages/TeacherHomeworkPage';
+export { TeacherAssignmentsPage } from './pages/TeacherAssignmentsPage';
+export { TeacherMarksPage } from './pages/TeacherMarksPage';
+export { TeacherAnnouncementsPage } from './pages/TeacherAnnouncementsPage';
+export { TeacherEventsPage } from './pages/TeacherEventsPage';
+export { TeacherCalendarPage } from './pages/TeacherCalendarPage';
+export { TeacherReportsPage } from './pages/TeacherReportsPage';
+export { TeacherCoursesPage } from './pages/TeacherCoursesPage';
