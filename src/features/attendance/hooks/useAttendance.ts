@@ -14,8 +14,8 @@ export const useAttendance = () => {
       setLoading(true);
       const data = await attendanceService.getAttendanceList();
       setAttendance(data);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load attendance');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to load attendance');
     } finally {
       setLoading(false);
     }
@@ -38,8 +38,8 @@ export const useAttendance = () => {
       setIsMarking(true);
       const result = await attendanceService.markAttendance(records);
       return result;
-    } catch (err: any) {
-      setError(err.message || 'Failed to publish attendance');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to publish attendance');
       throw err;
     } finally {
       setIsMarking(false);

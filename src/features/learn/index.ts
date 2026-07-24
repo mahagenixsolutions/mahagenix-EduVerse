@@ -1,4 +1,5 @@
 export { LearnHub } from './pages/LearnHub';
+export { LessonsPage } from './pages/LessonsPage';
 export { HomeworkPage } from './pages/HomeworkPage';
 export { AssignmentsPage } from './pages/AssignmentsPage';
 export { NotesPage } from './pages/NotesPage';

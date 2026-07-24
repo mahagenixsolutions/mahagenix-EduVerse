@@ -31,8 +31,8 @@ export const PendingHomework: React.FC = () => {
   ];
 
   return (
-    <Card style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
         <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
           Pending Homework
         </p>
@@ -41,7 +41,7 @@ export const PendingHomework: React.FC = () => {
         </a>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
         {homework.map(hw => (
           <div 
             key={hw.id} 
@@ -49,17 +49,21 @@ export const PendingHomework: React.FC = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '16px',
-              padding: '12px 16px',
+              gap: '12px',
+              padding: '12px 14px',
               border: '1px solid var(--border-color)',
               borderRadius: '16px',
               background: 'var(--surface-color)',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              width: '100%',
+              maxWidth: '100%',
+              boxSizing: 'border-box',
+              overflow: 'hidden'
             }}
           >
             <div style={{
-              width: '40px',
-              height: '40px',
+              width: '36px',
+              height: '36px',
               borderRadius: '10px',
               background: 'rgba(16, 185, 129, 0.08)',
               color: '#10B981',
@@ -68,26 +72,28 @@ export const PendingHomework: React.FC = () => {
               justifyContent: 'center',
               flexShrink: 0
             }}>
-              <BookOpen size={20} />
+              <BookOpen size={18} />
             </div>
 
-            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px' }}>
-              <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
+              <h4 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
                 {hw.title}
               </h4>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {hw.subject}
               </span>
             </div>
 
             {/* Status badge */}
             <div style={{
-              fontSize: '0.72rem',
+              fontSize: '0.7rem',
               fontWeight: 600,
-              padding: '4px 10px',
+              padding: '4px 8px',
               borderRadius: '99px',
               background: hw.status === 'completed' ? 'rgba(16, 185, 129, 0.08)' : 'rgba(245, 158, 11, 0.08)',
-              color: hw.status === 'completed' ? '#10B981' : '#D97706'
+              color: hw.status === 'completed' ? '#10B981' : '#D97706',
+              flexShrink: 0,
+              whiteSpace: 'nowrap'
             }}>
               {hw.dueDate}
             </div>

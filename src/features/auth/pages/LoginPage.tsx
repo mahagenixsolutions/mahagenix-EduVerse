@@ -1,18 +1,27 @@
 import React from "react";
 import { useRole, type UserRole } from "@/contexts/RoleContext";
+import { useSplashScreen } from "@/hooks/useSplashScreen";
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
+import { motion } from "framer-motion";
 import { Avatar } from "@/components/ui/Avatar";
 import { GraduationCap, Briefcase, Users, LogIn } from "lucide-react";
 import styles from "./login.module.css";
 
 export const LoginPage: React.FC = () => {
   const { login } = useRole();
+  const { triggerLaunchExperience } = useSplashScreen();
   const navigate = useNavigate();
 
   const handleSelectRole = (role: UserRole) => {
+    // 1. Authenticate user & load user profile/permissions
     login(role);
-    navigate("/");
+
+    // 2. Launch post-login splash video experience
+    // Navigation to dashboard occurs only after the splash video finishes and fades out
+    triggerLaunchExperience(role, () => {
+      navigate("/");
+    });
   };
 
   const identities = [
@@ -58,44 +67,69 @@ export const LoginPage: React.FC = () => {
             alt="Logo Icon"
             style={{ height: "10rem", objectFit: "contain", borderRadius: "50%" }}
           />
-          {/* <img src="/logo-text.png" alt="EduVerse" style={{ height: '75px', objectFit: 'contain' }} /> */}
         </div>
         <p style={{ marginTop: "8px" }}>Select your workspace to log in</p>
       </div>
 
-      <div className={styles.identitiesGrid}>
+      <motion.div
+        className={styles.identitiesGrid}
+        initial="hidden"
+        animate="show"
+        variants={{
+          hidden: { opacity: 0 },
+          show: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.12,
+            },
+          },
+        }}
+      >
         {identities.map((item) => {
           const Icon = item.icon;
           return (
-            <Card
+            <motion.div
               key={item.role}
-              className={`${styles.identityCard} hover-lift`}
-              onClick={() => handleSelectRole(item.role)}
+              variants={{
+                hidden: { opacity: 0, y: 24, scale: 0.96 },
+                show: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: { type: "spring", stiffness: 100, damping: 15 },
+                },
+              }}
+              style={{ display: "contents" }}
             >
-              <div
-                className={styles.iconWrap}
-                style={{
-                  backgroundColor: `${item.color}15`,
-                  color: item.color,
-                }}
+              <Card
+                className={`${styles.identityCard} hover-lift`}
+                onClick={() => handleSelectRole(item.role)}
               >
-                <Icon size={24} />
-              </div>
-              <Avatar
-                src={item.avatar}
-                alt={item.title}
-                size="lg"
-                className={styles.identityAvatar}
-              />
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-              <button className={styles.loginBtn}>
-                Enter Workspace <LogIn size={16} />
-              </button>
-            </Card>
+                <div
+                  className={styles.iconWrap}
+                  style={{
+                    backgroundColor: `${item.color}15`,
+                    color: item.color,
+                  }}
+                >
+                  <Icon size={24} />
+                </div>
+                <Avatar
+                  src={item.avatar}
+                  alt={item.title}
+                  size="lg"
+                  className={styles.identityAvatar}
+                />
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <button className={styles.loginBtn}>
+                  Enter Workspace <LogIn size={16} />
+                </button>
+              </Card>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 };

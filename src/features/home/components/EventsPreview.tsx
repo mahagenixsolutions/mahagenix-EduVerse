@@ -38,10 +38,10 @@ export const EventsPreview: React.FC = () => {
   };
 
   return (
-    <Card style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
         <p style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
-          <Calendar size={20} color="var(--primary-color)" /> Upcoming School Events
+          <Calendar size={18} color="var(--primary-color)" /> Upcoming School Events
         </p>
         <button 
           onClick={() => navigate('/school/events')}
@@ -49,8 +49,8 @@ export const EventsPreview: React.FC = () => {
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
             borderRadius: '12px',
-            padding: '6px 14px',
-            fontSize: '0.8rem',
+            padding: '6px 12px',
+            fontSize: '0.78rem',
             fontWeight: 600,
             color: 'var(--text-main)',
             cursor: 'pointer',
@@ -64,12 +64,12 @@ export const EventsPreview: React.FC = () => {
       </div>
 
       {loading ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
           <div className="skeleton" style={{ height: '80px', borderRadius: '16px' }} />
           <div className="skeleton" style={{ height: '80px', borderRadius: '16px' }} />
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
           {events.map(event => {
             const reg = getEventReg(event.id);
             const countdown = getMockCountdown(event.id);
@@ -81,20 +81,24 @@ export const EventsPreview: React.FC = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '16px',
-                  padding: '12px 16px',
+                  gap: '12px',
+                  padding: '12px 14px',
                   border: '1px solid var(--border-color)',
                   borderRadius: '20px',
                   background: 'var(--surface-color)',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  width: '100%',
+                  maxWidth: '100%',
+                  boxSizing: 'border-box',
+                  overflow: 'hidden'
                 }}
                 onClick={() => navigate(`/school/events?id=${event.id}`)}
               >
                 {/* Event thumbnail (embedded rounded box) */}
                 <div 
                   style={{
-                    width: '72px',
-                    height: '72px',
+                    width: '56px',
+                    height: '56px',
                     borderRadius: '12px',
                     backgroundImage: `url(${event.coverImage || 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=200'})`,
                     backgroundSize: 'cover',
@@ -104,47 +108,48 @@ export const EventsPreview: React.FC = () => {
                 />
 
                 {/* Event details */}
-                <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', overflow: 'hidden' }}>
                     <span style={{ 
-                      fontSize: '0.68rem', 
+                      fontSize: '0.65rem', 
                       background: 'rgba(95, 175, 136, 0.08)', 
                       color: 'var(--primary-color)', 
-                      padding: '2px 8px', 
+                      padding: '2px 6px', 
                       borderRadius: '99px', 
-                      fontWeight: 700 
+                      fontWeight: 700,
+                      whiteSpace: 'nowrap'
                     }}>
                       {event.category}
                     </span>
                     {countdown && (
-                      <span style={{ fontSize: '0.68rem', color: '#F59E0B', fontWeight: 700 }}>
+                      <span style={{ fontSize: '0.65rem', color: '#F59E0B', fontWeight: 700, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         • {countdown}
                       </span>
                     )}
                   </div>
 
-                  <h4 style={{ margin: 0, fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  <h4 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
                     {event.title}
                   </h4>
 
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {event.date} • {event.location}
                   </span>
 
                   {/* Status pill row */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.72rem', color: 'var(--text-light)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.7rem', color: 'var(--text-light)' }}>
                     <span>Status:</span>
                     {reg ? (
                       reg.status === 'registered' ? (
                         <span style={{ display: 'inline-flex', gap: '4px' }}>
-                          <span style={{ background: 'rgba(16, 185, 129, 0.08)', color: '#10B981', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>Registered</span>
-                          <span style={{ background: 'rgba(16, 185, 129, 0.08)', color: '#10B981', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>Paid</span>
+                          <span style={{ background: 'rgba(16, 185, 129, 0.08)', color: '#10B981', padding: '1px 6px', borderRadius: '4px', fontWeight: 700, fontSize: '0.65rem' }}>Registered</span>
+                          <span style={{ background: 'rgba(16, 185, 129, 0.08)', color: '#10B981', padding: '1px 6px', borderRadius: '4px', fontWeight: 700, fontSize: '0.65rem' }}>Paid</span>
                         </span>
                       ) : (
-                        <span style={{ background: 'rgba(245, 158, 11, 0.08)', color: '#D97706', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>Interested</span>
+                        <span style={{ background: 'rgba(245, 158, 11, 0.08)', color: '#D97706', padding: '1px 6px', borderRadius: '4px', fontWeight: 700, fontSize: '0.65rem' }}>Interested</span>
                       )
                     ) : (
-                      <span style={{ color: 'var(--text-light)', fontWeight: 600 }}>Not Registered</span>
+                      <span style={{ color: 'var(--text-light)', fontWeight: 600, fontSize: '0.65rem' }}>Not Registered</span>
                     )}
                   </div>
                 </div>
@@ -152,8 +157,8 @@ export const EventsPreview: React.FC = () => {
                 {/* Circular action button */}
                 <button
                   style={{
-                    width: '32px',
-                    height: '32px',
+                    width: '28px',
+                    height: '28px',
                     borderRadius: '50%',
                     background: 'var(--bg-secondary)',
                     border: 'none',
@@ -165,7 +170,7 @@ export const EventsPreview: React.FC = () => {
                     flexShrink: 0
                   }}
                 >
-                  <ChevronRight size={16} />
+                  <ChevronRight size={14} />
                 </button>
               </div>
             );

@@ -14,8 +14,8 @@ export const useAnnouncements = () => {
       setLoading(true);
       const data = await announcementService.getAnnouncements();
       setAnnouncements(data);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load announcements');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to load announcements');
     } finally {
       setLoading(false);
     }
@@ -38,8 +38,8 @@ export const useAnnouncements = () => {
       setIsPublishing(true);
       const result = await announcementService.publishAnnouncement(ann);
       return result;
-    } catch (err: any) {
-      setError(err.message || 'Failed to publish announcement');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to publish announcement');
       throw err;
     } finally {
       setIsPublishing(false);

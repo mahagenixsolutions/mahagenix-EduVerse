@@ -11,3 +11,12 @@ export { TeacherEventsPage } from './pages/TeacherEventsPage';
 export { TeacherCalendarPage } from './pages/TeacherCalendarPage';
 export { TeacherReportsPage } from './pages/TeacherReportsPage';
 export { TeacherCoursesPage } from './pages/TeacherCoursesPage';
+
+// New Enterprise Information Architecture Modules
+export { TeacherLessonPlannerPage } from './pages/TeacherLessonPlannerPage';
+export { TeacherBehaviourPage } from './pages/TeacherBehaviourPage';
+export { TeacherQuestionsPage } from './pages/TeacherQuestionsPage';
+export { TeacherGradebookPage } from './pages/TeacherGradebookPage';
+export { TeacherResourcesPage } from './pages/TeacherResourcesPage';
+export { TeacherParentMeetingsPage } from './pages/TeacherParentMeetingsPage';
+export { TeacherCurriculumPage } from './pages/TeacherCurriculumPage';

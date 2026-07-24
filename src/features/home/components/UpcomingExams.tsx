@@ -24,8 +24,8 @@ export const UpcomingExams: React.FC = () => {
   ];
 
   return (
-    <Card style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
         <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
           Upcoming Exams
         </p>
@@ -34,7 +34,7 @@ export const UpcomingExams: React.FC = () => {
         </a>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
         {exams.map(exam => (
           <div 
             key={exam.id} 
@@ -42,12 +42,16 @@ export const UpcomingExams: React.FC = () => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '16px',
-              padding: '12px 16px',
+              gap: '12px',
+              padding: '12px 14px',
               border: '1px solid var(--border-color)',
               borderRadius: '16px',
               background: 'var(--surface-color)',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              width: '100%',
+              maxWidth: '100%',
+              boxSizing: 'border-box',
+              overflow: 'hidden'
             }}
           >
             {/* Left Column: Date block */}
@@ -56,33 +60,33 @@ export const UpcomingExams: React.FC = () => {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              width: '48px',
-              height: '48px',
+              width: '44px',
+              height: '44px',
               backgroundColor: 'var(--surface-color)',
               border: '1px solid var(--border-color)',
               borderRadius: '12px',
               flexShrink: 0
             }}>
-              <span style={{ fontSize: '0.62rem', fontWeight: 700, color: 'var(--primary-color)', letterSpacing: '0.5px' }}>
+              <span style={{ fontSize: '0.6rem', fontWeight: 700, color: 'var(--primary-color)', letterSpacing: '0.5px' }}>
                 {exam.month}
               </span>
-              <strong style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-main)', marginTop: '-2px' }}>
+              <strong style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-main)', marginTop: '-2px' }}>
                 {exam.day}
               </strong>
             </div>
 
             {/* Middle Column: Details */}
-            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px' }}>
-              <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-main)' }}>
+            <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
+              <h4 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {exam.subject}
               </h4>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                 {exam.type}
               </span>
             </div>
 
             {/* Right Column: Countdown */}
-            <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#EF4444' }}>
+            <div style={{ fontSize: '0.72rem', fontWeight: 600, color: '#EF4444', flexShrink: 0, whiteSpace: 'nowrap' }}>
               {exam.countdown}
             </div>
           </div>

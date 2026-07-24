@@ -65,7 +65,7 @@ export interface CalendarEvent {
   time?: string;
   endTime?: string;
   location?: string;
-  category?: 'Educational Trip' | 'Sports' | 'Cultural' | 'Workshop' | 'Competition' | 'Industrial Visit' | 'Seminar' | 'Other';
+  category?: 'Educational Trip' | 'Sports' | 'Cultural' | 'Workshop' | 'Competition' | 'Industrial Visit' | 'Seminar' | 'Extracurricular' | 'Technology' | 'Academics' | 'Campus Store' | 'Science' | 'Arts' | 'Other';
   registered?: boolean;
   coverImage?: string;
   description?: string;
@@ -137,7 +137,7 @@ class MockServerClass {
       try {
         this.db = JSON.parse(saved);
         // Automatically migrate/reset database if it's from an older version
-        if (!this.db.registrations || !this.db.events || !this.db.events.some(e => e.id === 101) || !this.db.notifications || !this.db.notifications.some(n => n.id === 1003)) {
+        if (!this.db.registrations || !this.db.events || !this.db.events.some(e => e.id === 108) || !this.db.notifications || !this.db.notifications.some(n => n.id === 1003)) {
           this.seed();
         } else {
           // Self-heal: Deduplicate events
@@ -170,7 +170,7 @@ class MockServerClass {
         }
         return;
       } catch (e) {
-        console.error('Failed to parse localStorage db, resetting to seeds');
+        // Reset DB to initial seed state on parse failure
       }
     }
     this.seed();
@@ -191,146 +191,279 @@ class MockServerClass {
     this.db.announcements = seedAnnouncements;
     this.db.results = seedResults;
     
-    // Seed detailed events
+    // Seed detailed events for Student Event Hub
     this.db.events = [
       {
         id: 101,
-        title: 'Ooty Educational Trip',
-        date: '2026-10-15',
-        time: '06:00 AM',
-        endTime: '08:00 PM',
+        title: 'Summer Camp 2025',
+        date: '2026-06-01',
+        time: '08:00 AM',
+        endTime: '05:00 PM',
         type: 'event',
-        color: '#5FAF88',
-        location: 'Ooty Hills, TN',
-        venue: 'Botanical Gardens & Lake',
-        category: 'Educational Trip',
-        coverImage: 'https://images.unsplash.com/photo-1506461883276-594a12b11cc3?q=80&w=1200',
-        description: 'Explore the rich flora, tea manufacturing processes, and botanical research in Ooty. This three-day educational trip will cover tea garden visits, science center explorations, and historical heritage walkabouts.',
+        color: '#10B981',
+        location: 'Campus Activity Grounds',
+        venue: 'Outdoor Pavilion & Science Wing',
+        category: 'Extracurricular',
+        coverImage: 'https://images.unsplash.com/photo-1526976668912-1a811878dd37?q=80&w=1200',
+        description: 'Join our exciting 2-week Summer Camp featuring robotics workshops, outdoor athletics, creative arts, leadership training, and nature trails for all student grade levels.',
         highlights: [
-          'Visit to the famous Ooty Botanical Gardens',
-          'Interactive tour of the Tea Factory & Museum',
-          'Physics laboratory demonstration at Ooty Science Centre',
-          'Campfire and team-building night games'
+          '2 Weeks of outdoor athletics & team survival challenges',
+          'Hands-on robotics and coding bootcamps',
+          'Art, acoustic music, and drama workshops',
+          'Campfire grand finale and team trophy ceremony'
         ],
-        googleMapLink: 'https://maps.google.com/?q=Ooty+Botanical+Gardens',
-        organizer: 'Grade 10 Science Department',
+        googleMapLink: 'https://maps.google.com/?q=Campus+Activity+Grounds',
+        organizer: 'Student Affairs & Activities Council',
         contactNumber: '+91 98765 43211',
-        maxSeats: 60,
-        registrationDeadline: '2026-10-05T23:59:59',
-        fee: 2500,
+        maxSeats: 150,
+        registrationDeadline: '2026-05-25T23:59:59',
+        fee: 1500,
         paymentRequired: true,
-        pdfUrl: 'Ooty_Trip_Itinerary.pdf',
+        pdfUrl: 'Summer_Camp_2025_Schedule.pdf',
         gallery: [
-          'https://images.unsplash.com/photo-1582515073490-39981397c445?q=80&w=600',
-          'https://images.unsplash.com/photo-1542224566-6e85f2e6772f?q=80&w=600',
-          'https://images.unsplash.com/photo-1566847438217-76e82d383f84?q=80&w=600'
+          'https://images.unsplash.com/photo-1526976668912-1a811878dd37?q=80&w=600',
+          'https://images.unsplash.com/photo-1506461883276-594a12b11cc3?q=80&w=600'
         ],
-        instructions: 'Students must carry warm clothing, their school ID card, a water bottle, and a note pad. Mobile phones are allowed only during specified times.',
+        instructions: 'Students should bring comfortable sports gear, water bottles, and school ID. Lunch and refreshments provided daily.',
         status: 'published',
         registered: false
       },
       {
         id: 102,
-        title: 'Inter-School Basketball Tournament',
-        date: '2026-10-22',
-        time: '09:00 AM',
+        title: 'AI & Machine Learning for Beginners',
+        date: '2026-08-10',
+        time: '10:00 AM',
         endTime: '04:00 PM',
         type: 'event',
-        color: '#3B82F6',
-        location: 'Sports Complex Court 1',
-        venue: 'Main Indoor Arena',
-        category: 'Sports',
-        coverImage: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200',
-        description: 'Welcome to the annual inter-school basketball playoffs. Greenfield Academy will be hosting 8 regional school teams. Come and cheer for our champions!',
+        color: '#2563EB',
+        location: 'Senior Computer Lab 2',
+        venue: 'Tech & Innovation Hub',
+        category: 'Technology',
+        coverImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200',
+        description: 'Master Python programming, build smart chatbots, neural networks, and explore machine learning models with hands-on projects and industry mentorship.',
         highlights: [
-          'Opening ceremony with march past',
-          '8 schools competing in knockout format',
-          'Award ceremony with Chief Guest representation',
-          'Participation medals for all support squad volunteers'
+          'Python for Data Science and Machine Learning basics',
+          'Building neural networks & computer vision models',
+          'Hands-on chatbot and AI agent deployment',
+          'Official EduVerse AI Certification upon completion'
         ],
-        googleMapLink: 'https://maps.google.com/?q=School+Sports+Complex',
-        organizer: 'Physical Education Department',
+        googleMapLink: 'https://maps.google.com/?q=Senior+IT+Lab',
+        organizer: 'Department of Computer Science',
         contactNumber: '+91 98765 43222',
-        maxSeats: 200,
-        registrationDeadline: '2026-10-20T18:00:00',
+        maxSeats: 80,
+        registrationDeadline: '2026-08-05T18:00:00',
         fee: 0,
         paymentRequired: false,
-        pdfUrl: 'Tournament_Bracket_Guidelines.pdf',
+        pdfUrl: 'AI_Course_Syllabus.pdf',
         gallery: [
-          'https://images.unsplash.com/photo-1519766304817-4f37bda74a27?q=80&w=600',
-          'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=600'
+          'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600'
         ],
-        instructions: 'Please bring clean non-marking indoor court shoes. Volunteers must report to the PE Room at 08:00 AM sharp.',
+        instructions: 'Workstations with pre-configured Python environments will be provided. Bringing your own laptop is optional.',
         status: 'published',
         registered: false
       },
       {
         id: 103,
-        title: 'Coding Hackathon 2026',
-        date: '2026-11-01',
-        time: '10:00 AM',
-        endTime: '06:00 PM',
+        title: 'Merit Scholarship Test 2025',
+        date: '2026-05-31',
+        time: '09:00 AM',
+        endTime: '12:00 PM',
         type: 'event',
-        color: '#EF4444',
-        location: 'Senior IT Lab',
-        venue: 'Computer Science Wing',
-        category: 'Competition',
-        coverImage: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200',
-        description: 'A 8-hour sprint of pure creation. Form teams of 3 and build innovative solutions for "Sustainable Campus Living". Prizes include tablet devices and internship opportunities.',
+        color: '#D97706',
+        location: 'Main Examination Block',
+        venue: 'Hall A & B',
+        category: 'Academics',
+        coverImage: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1200',
+        description: 'EduVerse Annual Merit Scholarship Test offers tuition fee waivers up to 100% for top performing students in Grade 8 to 12.',
         highlights: [
-          '8 Hours continuous coding session',
-          'Mentorship by tech founders and software architects',
-          'Pitch session in front of an expert panel of judges',
-          'Complimentary pizza and energy drinks'
+          'Rank 1-5: 100% Tuition Fee Waiver',
+          'Rank 6-20: 50% Tuition Fee Waiver',
+          'Comprehensive STEM & Aptitude evaluation paper',
+          'Personalized performance diagnostic report'
         ],
-        googleMapLink: 'https://maps.google.com/?q=Senior+IT+Lab+Greenfield',
-        organizer: 'Coding & Robotics Club',
+        googleMapLink: 'https://maps.google.com/?q=Main+Examination+Block',
+        organizer: 'Academic Scholarship Board',
         contactNumber: '+91 98765 43233',
-        maxSeats: 50,
-        registrationDeadline: '2026-10-28T23:59:59',
-        fee: 250,
-        paymentRequired: true,
-        pdfUrl: 'Hackathon_Rules_and_API_Packs.pdf',
+        maxSeats: 500,
+        registrationDeadline: '2026-05-28T23:59:59',
+        fee: 0,
+        paymentRequired: false,
+        pdfUrl: 'Scholarship_Test_Syllabus.pdf',
         gallery: [
-          'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=600',
-          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600'
+          'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600'
         ],
-        instructions: 'Teams must register together. Own laptops are permitted but school workstations will be available. Code templates will be shared on GitHub.',
+        instructions: 'Reporting time is 08:30 AM. Carry printed admit slip and transparent geometry pouch.',
         status: 'published',
         registered: false
       },
       {
         id: 104,
-        title: 'Art & Craft Creative Seminar',
-        date: '2026-11-15',
-        time: '02:00 PM',
+        title: 'Study Material & Textbook Sale',
+        date: '2026-04-20',
+        time: '09:00 AM',
         endTime: '05:00 PM',
         type: 'event',
-        color: '#F59E0B',
-        location: 'Fine Arts Studio',
-        venue: 'Building C Room 402',
-        category: 'Workshop',
-        coverImage: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1200',
-        description: 'Learn modern watercolor blending and pottery basic structures from regional artisans. This workshop is perfect for beginners and intermediate artists.',
+        color: '#C026D3',
+        location: 'Student Resource Center',
+        venue: 'Library Ground Floor',
+        category: 'Campus Store',
+        coverImage: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1200',
+        description: 'Get deep discounts on official STEM reference guides, solved past papers, lab manuals, and digital learning subscriptions.',
         highlights: [
-          'Live blending showcase by painter Mr. Roy',
-          'Hands-on pottery wheels training',
-          'Exhibition of student creations at the end of the day',
-          'Art kit worth 500 INR included in registration'
+          'Up to 40% discount on standard textbooks',
+          'Free digital e-book access code bundled with physical purchases',
+          'Curated past 10-year board examination answer keys',
+          'Lab manual kits for Physics & Chemistry'
         ],
-        googleMapLink: 'https://maps.google.com/?q=Fine+Arts+Studio+Greenfield',
-        organizer: 'Creative Arts Guild',
+        googleMapLink: 'https://maps.google.com/?q=Student+Resource+Center',
+        organizer: 'Campus Store & Library Department',
         contactNumber: '+91 98765 43244',
-        maxSeats: 30,
-        registrationDeadline: '2026-11-10T12:00:00',
-        fee: 500,
-        paymentRequired: true,
-        pdfUrl: 'Art_Workshop_Kit_Inventory.pdf',
+        maxSeats: 1000,
+        registrationDeadline: '2026-04-20T17:00:00',
+        fee: 0,
+        paymentRequired: false,
+        pdfUrl: 'Catalog_Discount_List.pdf',
         gallery: [
-          'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?q=80&w=600'
+          'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=600'
         ],
-        instructions: 'Students should wear aprons or casual clothing that they don\'t mind staining. All paints and clay will be provided.',
-        status: 'draft',
+        instructions: 'Digital invoice will be delivered via EduVerse app. Physical store open till 5 PM.',
+        status: 'published',
+        registered: false
+      },
+      {
+        id: 105,
+        title: 'Annual Sports Meet 2025',
+        date: '2026-04-15',
+        time: '08:00 AM',
+        endTime: '04:00 PM',
+        type: 'event',
+        color: '#EF4444',
+        location: 'Main Athletics Stadium',
+        venue: 'Sports Complex',
+        category: 'Sports',
+        coverImage: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1200',
+        description: 'Compete in track & field sprints, relay races, football, basketball, and table tennis. Showcase your athletic talent and win gold medals!',
+        highlights: [
+          '100m, 200m, 400m track sprints & relay finals',
+          'Inter-house football & basketball championship',
+          'Trophies & certificates presented by Olympic Athlete Chief Guest',
+          'Refreshments & victory march for winning houses'
+        ],
+        googleMapLink: 'https://maps.google.com/?q=Sports+Complex',
+        organizer: 'Physical Education Department',
+        contactNumber: '+91 98765 43255',
+        maxSeats: 400,
+        registrationDeadline: '2026-04-12T18:00:00',
+        fee: 0,
+        paymentRequired: false,
+        pdfUrl: 'Sports_Meet_Rulebook.pdf',
+        gallery: [
+          'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=600'
+        ],
+        instructions: 'All participants must wear official house jerseys and athletic footwear.',
+        status: 'published',
+        registered: false
+      },
+      {
+        id: 106,
+        title: 'Robotics & Science Fair',
+        date: '2026-04-30',
+        time: '10:00 AM',
+        endTime: '04:00 PM',
+        type: 'event',
+        color: '#059669',
+        location: 'Science Building Hall B',
+        venue: 'Innovation Lab',
+        category: 'Science',
+        coverImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200',
+        description: 'Present your working hardware prototypes, IoT devices, automated bots, and green energy innovations to distinguished industry judges.',
+        highlights: [
+          'Hardware & software prototype exhibition',
+          'IoT & drone flight obstacle arena',
+          'Jury evaluation by IIT engineering professors',
+          'Best Innovation Trophy + ₹15,000 cash grant'
+        ],
+        googleMapLink: 'https://maps.google.com/?q=Science+Building',
+        organizer: 'Robotics & STEM Club',
+        contactNumber: '+91 98765 43266',
+        maxSeats: 100,
+        registrationDeadline: '2026-04-26T23:59:59',
+        fee: 100,
+        paymentRequired: true,
+        pdfUrl: 'Exhibition_Safety_Guidelines.pdf',
+        gallery: [
+          'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600'
+        ],
+        instructions: 'Setup starts at 08:30 AM. Power sockets and Wi-Fi access will be provided per booth.',
+        status: 'published',
+        registered: false
+      },
+      {
+        id: 107,
+        title: 'Campus CodeFest 2025',
+        date: '2026-05-10',
+        time: '09:00 AM',
+        endTime: '06:00 PM',
+        type: 'event',
+        color: '#7C3AED',
+        location: 'Senior IT Lab',
+        venue: 'Computer Science Wing',
+        category: 'Competition',
+        coverImage: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200',
+        description: 'Team up with fellow student developers, code innovative solutions for real community challenges, and win cash prizes worth ₹50,000!',
+        highlights: [
+          '24-Hour continuous coding hackathon',
+          'Mentorship by tech founders and cloud architects',
+          'Pitch session in front of venture investor judges',
+          'Cash prizes up to ₹50,000 + tablet accessories'
+        ],
+        googleMapLink: 'https://maps.google.com/?q=Senior+IT+Lab',
+        organizer: 'Coding & Developer Society',
+        contactNumber: '+91 98765 43277',
+        maxSeats: 60,
+        registrationDeadline: '2026-05-07T23:59:59',
+        fee: 250,
+        paymentRequired: true,
+        pdfUrl: 'CodeFest_API_Pack.pdf',
+        gallery: [
+          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600'
+        ],
+        instructions: 'Teams of up to 3 members allowed. Starter codebase repositories will be provided on GitHub.',
+        status: 'published',
+        registered: false
+      },
+      {
+        id: 108,
+        title: 'Campus Arts & Music Fest',
+        date: '2026-05-20',
+        time: '02:00 PM',
+        endTime: '08:00 PM',
+        type: 'event',
+        color: '#EA580C',
+        location: 'Auditorium & Fine Arts Studio',
+        venue: 'Cultural Center',
+        category: 'Arts',
+        coverImage: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1200',
+        description: 'Express your artistic soul! Audition for live acoustic band performances, solo singing, digital painting, and street drama competitions.',
+        highlights: [
+          'Live acoustic band battle of the bands',
+          'Canvas & digital painting live contest',
+          'Solo vocal & instrument performance showcases',
+          'Celebrity musician guest performance & trophy presentation'
+        ],
+        googleMapLink: 'https://maps.google.com/?q=Cultural+Center',
+        organizer: 'Cultural & Arts Society',
+        contactNumber: '+91 98765 43288',
+        maxSeats: 250,
+        registrationDeadline: '2026-05-16T18:00:00',
+        fee: 0,
+        paymentRequired: false,
+        pdfUrl: 'Arts_Fest_Rules.pdf',
+        gallery: [
+          'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=600'
+        ],
+        instructions: 'Musicians may bring their own instruments. Sound check opens at 12:00 PM.',
+        status: 'published',
         registered: false
       }
     ];

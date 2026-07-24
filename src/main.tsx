@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "@/styles/globals.css";
-import { QueryProvider } from "./providers/QueryProvider";
+import { QueryProvider } from "@/providers/QueryProvider";
 
-async function ennableMocking() {
-  const { worker } = await import("../src/mock/browser");
+async function enableMocking() {
+  const { worker } = await import("@/mock/browser");
 
   await worker.start({
     onUnhandledRequest: "bypass",
@@ -14,7 +14,8 @@ async function ennableMocking() {
     },
   });
 }
-ennableMocking().then(() => {
+
+enableMocking().then(() => {
   ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <QueryProvider>
       <App />

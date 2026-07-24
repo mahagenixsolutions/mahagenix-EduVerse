@@ -49,9 +49,11 @@ export const SummaryCards: React.FC = () => {
   return (
     <div style={{
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-      gap: '16px',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+      gap: '12px',
       width: '100%',
+      maxWidth: '100%',
+      boxSizing: 'border-box',
       marginBottom: '24px'
     }}>
       {cards.map(card => {

@@ -15,8 +15,8 @@ export const useHomework = () => {
       setLoading(true);
       const data = await homeworkService.getHomeworkList();
       setHomework(data);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load homework');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to load homework');
     } finally {
       setLoading(false);
     }
@@ -48,8 +48,8 @@ export const useHomework = () => {
       setIsPublishing(true);
       const newItem = await homeworkService.publishHomework(hw);
       return newItem;
-    } catch (err: any) {
-      setError(err.message || 'Failed to publish homework');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to publish homework');
       throw err;
     } finally {
       setIsPublishing(false);
@@ -61,8 +61,8 @@ export const useHomework = () => {
       setIsSubmitting(true);
       const updated = await homeworkService.submitHomework(id, content);
       return updated;
-    } catch (err: any) {
-      setError(err.message || 'Failed to submit homework');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to submit homework');
       throw err;
     } finally {
       setIsSubmitting(false);
@@ -74,8 +74,8 @@ export const useHomework = () => {
       setIsSubmitting(true);
       const updated = await homeworkService.gradeHomework(id, grade, feedback);
       return updated;
-    } catch (err: any) {
-      setError(err.message || 'Failed to grade homework');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to grade homework');
       throw err;
     } finally {
       setIsSubmitting(false);

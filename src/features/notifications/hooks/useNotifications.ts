@@ -13,8 +13,8 @@ export const useNotifications = () => {
       setLoading(true);
       const data = await notificationService.getNotifications();
       setNotifications(data);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load notifications');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to load notifications');
     } finally {
       setLoading(false);
     }
@@ -36,8 +36,8 @@ export const useNotifications = () => {
     try {
       await notificationService.markAllRead();
       fetchNotifications();
-    } catch (err: any) {
-      setError(err.message || 'Failed to mark read');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Failed to mark read');
     }
   };
 

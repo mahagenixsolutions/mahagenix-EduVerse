@@ -31,8 +31,8 @@ export const AchievementsPreview: React.FC = () => {
   ];
 
   return (
-    <Card style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
         <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
           Recent Achievements
         </p>
@@ -41,7 +41,7 @@ export const AchievementsPreview: React.FC = () => {
         </a>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
         {achievements.map(a => {
           const Icon = a.icon;
           return (
@@ -51,17 +51,21 @@ export const AchievementsPreview: React.FC = () => {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '16px',
-                padding: '12px 16px',
+                gap: '12px',
+                padding: '12px 14px',
                 border: '1px solid var(--border-color)',
                 borderRadius: '16px',
                 background: 'var(--surface-color)',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                width: '100%',
+                maxWidth: '100%',
+                boxSizing: 'border-box',
+                overflow: 'hidden'
               }}
             >
               <div style={{
-                width: '40px',
-                height: '40px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '10px',
                 background: a.bg,
                 color: a.color,
@@ -70,13 +74,13 @@ export const AchievementsPreview: React.FC = () => {
                 justifyContent: 'center',
                 flexShrink: 0
               }}>
-                <Icon size={20} />
+                <Icon size={18} />
               </div>
-              <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
+                <h4 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
                   {a.title}
                 </h4>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {a.detail}
                 </span>
               </div>

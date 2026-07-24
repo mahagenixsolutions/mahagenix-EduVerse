@@ -27,7 +27,7 @@ export const NewsPreview: React.FC = () => {
   ];
 
   return (
-    <Card style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
           School News

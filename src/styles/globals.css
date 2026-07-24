@@ -58,6 +58,63 @@
   --transition-normal: 180ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ============================================ */
+/* Dark Mode Token Overrides                    */
+/* ============================================ */
+[data-theme="dark"] {
+  --primary-color: #6BC49A;
+  --primary-hover: #5FAF88;
+  --primary-light: rgba(107, 196, 154, 0.12);
+  --nav-active: rgba(107, 196, 154, 0.1);
+
+  --bg-color: #0F1419;
+  --bg-secondary: #1A1F2E;
+  --surface-color: #1E2433;
+  --section-bg: #161B26;
+
+  --text-main: #E8ECF1;
+  --text-muted: #8B95A5;
+  --text-light: #5A6577;
+
+  --border-color: #2A3142;
+
+  --shadow-sm: 0 8px 30px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 18px 40px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================================ */
+/* System State Color Tokens                    */
+/* ============================================ */
+:root {
+  --system-error-bg: #FEF2F2;
+  --system-error-color: #DC2626;
+  --system-error-border: #FECACA;
+  --system-warning-bg: #FFFBEB;
+  --system-warning-color: #D97706;
+  --system-warning-border: #FDE68A;
+  --system-success-bg: #ECFDF5;
+  --system-success-color: #059669;
+  --system-success-border: #A7F3D0;
+  --system-info-bg: #EFF6FF;
+  --system-info-color: #2563EB;
+  --system-info-border: #BFDBFE;
+  --system-offline-bg: #F8FAFC;
+  --system-offline-color: #64748B;
+}
+
+[data-theme="dark"] {
+  --system-error-bg: rgba(220, 38, 38, 0.1);
+  --system-error-border: rgba(220, 38, 38, 0.25);
+  --system-warning-bg: rgba(217, 119, 6, 0.1);
+  --system-warning-border: rgba(217, 119, 6, 0.25);
+  --system-success-bg: rgba(5, 150, 105, 0.1);
+  --system-success-border: rgba(5, 150, 105, 0.25);
+  --system-info-bg: rgba(37, 99, 235, 0.1);
+  --system-info-border: rgba(37, 99, 235, 0.25);
+  --system-offline-bg: rgba(100, 116, 139, 0.1);
+}
 
 
 * {
@@ -187,12 +244,67 @@ textarea::placeholder {
   color: var(--text-light);
 }
 
-/* Grid Layouts */
+/* Grid & Layout Utilities */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-3);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1600px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .container {
+    max-width: 1800px;
+  }
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-md);
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: rgba(95, 175, 136, 0.2);
+  border-radius: 99px;
+}
+
+/* Responsive Auto-Fit Grid */
+.grid-responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
 }
 
 .grid {
@@ -214,6 +326,19 @@ textarea::placeholder {
 @media (min-width: 1024px) {
   .grid-cols {
     grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* Mobile Typography Scaling */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 24px !important;
+  }
+  h3 {
+    font-size: 18px !important;
+  }
+  h4, .section-title {
+    font-size: 16px !important;
   }
 }
 

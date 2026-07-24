@@ -7,7 +7,7 @@ import { teacherCourses } from "../data/teacher/courses";
 import { teacherRecentActivity } from "../data/teacher/recentActivity";
 import { teacherSchedule } from "../data/teacher/schedule";
 import { studentDirectory } from "../data/teacher/students";
-import { MockServer } from "../../mock-server/MockServer";
+import { MockServer } from "@/mock-server/MockServer";
 
 export const teacherHandlers = [
   http.get("/api/teacher/profile", () => {

@@ -3,6 +3,11 @@
   flex-direction: column;
   gap: var(--space-3);
   padding-bottom: var(--space-4);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  margin: 0 auto;
 }
 
 /* Hero Banner */
@@ -106,12 +111,17 @@
 
 /* Grid Layout */
 .mainGrid {
+  display: grid;
   grid-template-columns: 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
   .mainGrid {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+    gap: var(--space-4);
   }
 }
 
@@ -120,6 +130,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* Card Header */

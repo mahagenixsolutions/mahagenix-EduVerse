@@ -9,6 +9,8 @@ import { EventBus } from '@/mock-server/EventBus';
 import { Button } from '@/components/ui/Button';
 import { Calendar, X } from 'lucide-react';
 import { AIAssistantDrawer } from './AIAssistantDrawer';
+import { OfflineBanner } from '@/components/feedback/OfflineBanner';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './layout.module.css';
 
 const SkeletonPageLoader: React.FC<{ pathname: string }> = ({ pathname }) => {
@@ -101,6 +103,17 @@ const SkeletonPageLoader: React.FC<{ pathname: string }> = ({ pathname }) => {
   );
 };
 
+interface ToastItem {
+  notificationId: number; 
+  title: string; 
+  description: string; 
+  type: string; 
+  eventId?: number;
+  coverImage?: string;
+  date?: string;
+  time?: string;
+}
+
 export const MainLayout: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -117,23 +130,14 @@ export const MainLayout: React.FC = () => {
     };
   }, []);
 
-  const [toasts, setToasts] = useState<{ 
-    notificationId: number; 
-    title: string; 
-    description: string; 
-    type: string; 
-    eventId?: number;
-    coverImage?: string;
-    date?: string;
-    time?: string;
-  }[]>([]);
+  const [toasts, setToasts] = useState<ToastItem[]>([]);
 
   const fetchUnreadEventToasts = async () => {
     if (currentUser?.role !== 'student') return;
     const allNotif = await MockServer.getNotifications();
     const unread = allNotif.filter(n => !n.read);
     
-    const toastItems: any[] = [];
+    const toastItems: ToastItem[] = [];
     for (const notif of unread) {
       if (notif.type === 'event_new' && notif.eventId) {
         const event = await MockServer.getEventById(notif.eventId);
@@ -177,7 +181,7 @@ export const MainLayout: React.FC = () => {
     });
 
     // Simulation: Pop up 4 announcements sequentially every 3 seconds for visual testing
-    let simulationTimer: any;
+    let simulationTimer: ReturnType<typeof setInterval> | undefined;
     if (currentUser?.role === 'student') {
       let counter = 0;
       const titles = [
@@ -256,11 +260,36 @@ export const MainLayout: React.FC = () => {
 
   return (
     <div className={styles.layout}>
+      <OfflineBanner />
       <Sidebar />
       <div className={styles.mainContentContainer}>
         <TopNav />
         <main className={styles.contentArea}>
-          {pageLoading ? <SkeletonPageLoader pathname={location.pathname} /> : <Outlet />}
+          <AnimatePresence mode="wait">
+            {pageLoading ? (
+              <motion.div
+                key="skeleton"
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.25, ease: 'easeInOut' }}
+                style={{ width: '100%' }}
+              >
+                <SkeletonPageLoader pathname={location.pathname} />
+              </motion.div>
+            ) : (
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+                style={{ width: '100%' }}
+              >
+                <Outlet />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </main>
       </div>
       <BottomNav />

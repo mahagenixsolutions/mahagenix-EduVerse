@@ -645,12 +645,6 @@
   background: var(--border-color);
 }
 
-.settingRowLeft {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .settingRowLeft svg {
   color: var(--text-muted);
 }
@@ -662,3 +656,356 @@
 .settingRowLeft.dangerSetting svg {
   color: #ef4444;
 }
+
+/* Parent Portal Redesign Styles matching Reference Image */
+.parentHeroCard {
+  background: linear-gradient(135deg, #065F46 0%, #047857 100%) !important;
+  box-shadow: 0 10px 45px rgba(4, 120, 87, 0.12) !important;
+}
+
+.parentBadge {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 99px;
+  height: fit-content;
+}
+
+.cameraBadge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #047857;
+  border: 2px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.parentVerifiedBox {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+  max-width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+@media (max-width: 991px) {
+  .parentVerifiedBox {
+    margin-left: 0;
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.verifiedIconCircle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.verifiedDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.verifiedDetails strong {
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.verifiedDetails p {
+  font-size: 12px;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.verifiedDetails span {
+  font-size: 11px;
+  opacity: 0.65;
+}
+
+.parentGrid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+}
+
+@media (max-width: 991px) {
+  .parentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.parentCard {
+  background: #FFFFFF;
+  border: 1px solid #EEF2F7;
+  border-radius: 22px;
+  padding: 24px 28px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+}
+
+.parentCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.parentCardIconCircle {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(34, 197, 94, 0.08);
+  color: #22C55E;
+}
+
+.parentCardHeaderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.parentCardHeaderInfo h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.parentCardHeaderInfo p {
+  font-size: 12px;
+  color: #64748B;
+  margin: 0;
+}
+
+/* Child Information Profile Inner Card */
+.childProfileCard {
+  border: 1px solid #EEF2F7;
+  border-radius: 18px;
+  padding: 20px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.childProfileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.childMetaRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.childAvatarImg {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.childTextMeta h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.childTextMeta p {
+  font-size: 13px;
+  color: #64748B;
+  margin: 4px 0 0 0;
+}
+
+.childTextMeta span {
+  font-size: 11.5px;
+  color: #94A3B8;
+}
+
+.studentStatusBadge {
+  background: #EAF6EF;
+  color: #22C55E;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 99px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+
+/* Child Statistics Grid */
+.childStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 576px) {
+  .childStatsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.childStatCol {
+  background: #F8FAFC;
+  border: 1px solid #EEF2F7;
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.childStatIconCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid #EEF2F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748B;
+  flex-shrink: 0;
+}
+
+.childStatText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.childStatText span {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+.childStatText strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+/* Add another child button */
+.addChildBtn {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px dashed #CBD5E1;
+  background: #FFFFFF;
+  color: #64748B;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.addChildBtn:hover {
+  border-color: #22C55E;
+  color: #22C55E;
+  background: #EAF6EF;
+}
+
+/* Settings navigation List items */
+.settingsNavList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settingsNavItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #F8FAFC;
+  border: 1px solid #EEF2F7;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settingsNavItem:hover {
+  transform: translateX(4px);
+  border-color: #E2E8F0;
+  background: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+}
+
+.settingsNavItemLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.settingsNavIconBox {
+  color: #64748B;
+  display: flex;
+}
+
+.settingsNavText h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+}
+
+.settingsNavText p {
+  font-size: 12px;
+  color: #64748B;
+  margin: 4px 0 0 0;
+}
+
+.logoutRow {
+  background: rgba(239, 68, 68, 0.04) !important;
+  border-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+.logoutRow:hover {
+  background: rgba(239, 68, 68, 0.08) !important;
+  border-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+.logoutRow .settingsNavIconBox {
+  color: #EF4444 !important;
+}
+
+.logoutRow h4 {
+  color: #EF4444 !important;
+}
+

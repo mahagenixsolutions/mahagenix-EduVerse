@@ -1,11 +1,6 @@
 import React, { useState } from "react";
-import { Card } from "@/components/ui/Card";
-import { Avatar } from "@/components/ui/Avatar";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { Tabs } from "@/components/ui/Tabs";
+import { Card, Avatar, Badge, Button, Tabs } from "@/components/ui";
 import { PageHeader } from "@/components/navigation/PageHeader";
-// import { studentDirectory } from '@/mock/teacher';
 import {
   Search,
   Mail,
@@ -18,24 +13,45 @@ import {
   User,
 } from "lucide-react";
 import styles from "./teacher.module.css";
-import { useTeacherStudents } from "@/hooks/useTeacher";
+import { useTeacherStudents } from "../hooks/useTeacher";
+
+export interface Student {
+  id: number | string;
+  name: string;
+  rollNo?: string;
+  rollNumber?: string;
+  class: string;
+  section: string;
+  attendance?: string | number;
+  attendanceRate?: number;
+  homeworkCompletion?: number;
+  lastExamScore?: number;
+  behaviourNotes?: string;
+  guardianPhone?: string;
+  grade?: string;
+  guardianName?: string;
+  contact?: string;
+  email?: string;
+  address?: string;
+  status?: string;
+  avatar?: string;
+  performance?: string;
+}
 
 export const StudentsDirectoryPage: React.FC = () => {
   const { data: studentDirectory = [] } = useTeacherStudents();
   const [searchQuery, setSearchQuery] = useState("");
   const [filterClass, setFilterClass] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
-  const [selectedStudent, setSelectedStudent] = useState<
-    (typeof studentDirectory)[0] | null
-  >(null);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
   const classes: string[] = [
     "all",
     ...Array.from(
-      new Set(studentDirectory.map((s: any) => `${s.class}-${s.section}`)),
+      new Set((studentDirectory as Student[]).map((s) => `${s.class}-${s.section}`)),
     ) as string[],
   ];
-  const filtered = studentDirectory.filter((s: any) => {
+  const filtered = (studentDirectory as Student[]).filter((s) => {
     const matchesSearch = s.name
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
@@ -219,7 +235,7 @@ export const StudentsDirectoryPage: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((student: any) => (
+            {filtered.map((student: Student) => (
               <tr
                 key={student.id}
                 style={{
@@ -261,14 +277,14 @@ export const StudentsDirectoryPage: React.FC = () => {
                     style={{
                       fontWeight: 600,
                       color:
-                        student.attendanceRate >= 90
+                        (student.attendanceRate ?? 0) >= 90
                           ? "var(--success)"
-                          : student.attendanceRate >= 75
+                          : (student.attendanceRate ?? 0) >= 75
                             ? "var(--warning)"
                             : "var(--danger)",
                     }}
                   >
-                    {student.attendanceRate}%
+                    {student.attendanceRate ?? 0}%
                   </span>
                 </td>
                 <td style={{ padding: "var(--space-3)", textAlign: "center" }}>
@@ -276,14 +292,14 @@ export const StudentsDirectoryPage: React.FC = () => {
                     style={{
                       fontWeight: 600,
                       color:
-                        student.homeworkCompletion >= 80
+                        (student.homeworkCompletion ?? 0) >= 80
                           ? "var(--success)"
-                          : student.homeworkCompletion >= 60
+                          : (student.homeworkCompletion ?? 0) >= 60
                             ? "var(--warning)"
                             : "var(--danger)",
                     }}
                   >
-                    {student.homeworkCompletion}%
+                    {student.homeworkCompletion ?? 0}%
                   </span>
                 </td>
                 <td
@@ -408,12 +424,12 @@ export const StudentsDirectoryPage: React.FC = () => {
                     fontSize: "1.25rem",
                     fontWeight: 700,
                     color:
-                      selectedStudent.attendanceRate >= 90
+                      (selectedStudent.attendanceRate ?? 0) >= 90
                         ? "var(--success)"
                         : "var(--warning)",
                   }}
                 >
-                  {selectedStudent.attendanceRate}%
+                  {selectedStudent.attendanceRate ?? 0}%
                 </div>
                 <div
                   style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}

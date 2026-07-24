@@ -6,14 +6,18 @@ export type EventType =
   | 'RESULT_PUBLISHED'
   | 'ANNOUNCEMENT_PUBLISHED'
   | 'NOTIFICATION_DISPATCHED'
-  | 'OPEN_AI_ASSISTANT';
+  | 'OPEN_AI_ASSISTANT'
+  | 'BEHAVIOUR_RECORDED'
+  | 'MARKS_PUBLISHED'
+  | 'LESSON_PUBLISHED'
+  | 'MEETING_SCHEDULED';
 
-type Listener = (payload: any) => void;
+type Listener<T = unknown> = (payload?: T) => void;
 
 class EventBusClass {
-  private listeners: Record<string, Listener[]> = {};
+  private listeners: Record<string, Listener<any>[]> = {};
 
-  subscribe(event: EventType, callback: Listener): () => void {
+  subscribe<T = unknown>(event: EventType, callback: Listener<T>): () => void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -25,13 +29,13 @@ class EventBusClass {
     };
   }
 
-  publish(event: EventType, payload?: any): void {
+  publish<T = unknown>(event: EventType, payload?: T): void {
     if (!this.listeners[event]) return;
     this.listeners[event].forEach(callback => {
       try {
         callback(payload);
       } catch (err) {
-        console.error(`Error in event listener for ${event}:`, err);
+        // Log in dev environment if needed
       }
     });
   }

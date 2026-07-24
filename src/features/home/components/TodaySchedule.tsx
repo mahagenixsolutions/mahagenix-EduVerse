@@ -47,26 +47,26 @@ export const TodaySchedule: React.FC = () => {
   ];
 
   return (
-    <Card style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap', width: '100%' }}>
         <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
           Today's Schedule
         </p>
         <a href="/learn/attendance" style={{ fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'none' }}>
-          View Full Timetable
+          View Timetable
         </a>
       </div>
 
       {/* Timeline container */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', position: 'relative' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', position: 'relative', width: '100%' }}>
         {schedule.map((item, idx) => {
           const Icon = item.icon;
           return (
-            <div key={item.time} style={{ display: 'flex', gap: '16px', alignItems: 'stretch' }}>
+            <div key={item.time} style={{ display: 'flex', gap: '8px', alignItems: 'stretch', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
               {/* Left Column: Time */}
               <div style={{
-                width: '68px',
-                fontSize: '0.75rem',
+                width: '56px',
+                fontSize: '0.72rem',
                 color: 'var(--text-light)',
                 fontWeight: 600,
                 textAlign: 'right',
@@ -77,7 +77,7 @@ export const TodaySchedule: React.FC = () => {
               </div>
 
               {/* Middle Column: Line and Dot */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', width: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', width: '16px', flexShrink: 0 }}>
                 <div style={{
                   width: '10px',
                   height: '10px',
@@ -104,21 +104,23 @@ export const TodaySchedule: React.FC = () => {
                 className="hover-lift"
                 style={{
                   flex: 1,
+                  minWidth: 0,
                   background: 'var(--surface-color)',
                   border: '1px solid var(--border-color)',
                   borderLeft: `4px solid ${item.color}`,
                   borderRadius: '16px',
-                  padding: '12px 16px',
+                  padding: '10px 12px',
                   margin: '4px 0',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
-                  boxShadow: '0 2px 8px rgba(15, 23, 42, 0.01)'
+                  gap: '10px',
+                  boxShadow: '0 2px 8px rgba(15, 23, 42, 0.01)',
+                  overflow: 'hidden'
                 }}
               >
                 <div style={{
-                  width: '36px',
-                  height: '36px',
+                  width: '32px',
+                  height: '32px',
                   borderRadius: '8px',
                   background: item.bg,
                   color: item.color,
@@ -127,13 +129,13 @@ export const TodaySchedule: React.FC = () => {
                   justifyContent: 'center',
                   flexShrink: 0
                 }}>
-                  <Icon size={18} />
+                  <Icon size={16} />
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                  <h4 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: 0, overflow: 'hidden' }}>
+                  <h4 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {item.subject}
                   </h4>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-light)' }}>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {item.detail}
                   </span>
                 </div>

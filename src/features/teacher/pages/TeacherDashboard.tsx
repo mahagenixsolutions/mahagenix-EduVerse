@@ -25,6 +25,9 @@ export const TeacherDashboard: React.FC = () => {
 
   // Modals / Dialogs states
   const [activeModal, setActiveModal] = useState<'homework' | 'attendance' | 'announcement' | 'marks' | null>(null);
+  const [selectedReviewHw, setSelectedReviewHw] = useState<any | null>(null);
+  const [reviewGrade, setReviewGrade] = useState('A');
+  const [reviewFeedback, setReviewFeedback] = useState('');
 
   // Form states
   const [hwTitle, setHwTitle] = useState('');
@@ -475,21 +478,30 @@ export const TeacherDashboard: React.FC = () => {
           {/* Homework Waiting for Review */}
           <Card className={styles.card}>
             <div className={styles.cardHeaderFlex}>
-              <h3><ClipboardList size={18} color="#8b5cf6" /> Homework Waiting for Review ({pendingGrading.length || 1})</h3>
+              <h3><ClipboardList size={18} color="#8b5cf6" /> Homework Waiting for Review ({pendingGrading.length})</h3>
             </div>
             
-            <div className={styles.homeworkBox}>
-              <div className={styles.homeworkDetails}>
-                <h4>Lab Report: Kinematics Experiment</h4>
-                <p>Physics • Submitted: Today</p>
-              </div>
-              <button className={styles.gradeBtn} onClick={() => {
-                const grade = prompt('Enter Grade (A+, A, B, etc):', 'A');
-                const feedback = prompt('Enter Feedback:', 'Excellent analytical thinking.');
-                if (grade) alert('Grade submitted successfully!');
-              }}>
-                Grade <ChevronRight size={14} />
-              </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {pendingGrading.length === 0 ? (
+                <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-light)', fontSize: '0.85rem' }}>
+                  All homework review submissions graded!
+                </div>
+              ) : (
+                pendingGrading.map(hw => (
+                  <div key={hw.id} className={styles.homeworkBox}>
+                    <div className={styles.homeworkDetails}>
+                      <h4>{hw.title}</h4>
+                      <p>{hw.subject} • Submitted: {hw.submittedAt || 'Today'}</p>
+                    </div>
+                    <button className={styles.gradeBtn} onClick={() => {
+                      setSelectedReviewHw(hw);
+                      setReviewFeedback('');
+                    }}>
+                      Grade <ChevronRight size={14} />
+                    </button>
+                  </div>
+                ))
+              )}
             </div>
           </Card>
 
@@ -854,6 +866,69 @@ export const TeacherDashboard: React.FC = () => {
                 }}>Publish Marks</Button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Review Grading Modal */}
+      {selectedReviewHw && (
+        <div className={styles.overlay}>
+          <div className={styles.modal}>
+            <h3>Grade Student Submission</h3>
+            <p className="text-muted" style={{ marginBottom: 'var(--space-2)', fontSize: '0.85rem' }}>
+              <strong>Assignment:</strong> {selectedReviewHw.title}
+            </p>
+            <div style={{ padding: '12px', background: 'var(--bg-color)', borderRadius: 'var(--radius-md)', marginBottom: '16px', fontSize: '0.85rem' }}>
+              <strong>Answer Submission:</strong>
+              <p style={{ margin: '4px 0 0 0', color: 'var(--text-main)', fontStyle: 'italic' }}>
+                "{selectedReviewHw.submissionContent || 'No submission content provided.'}"
+              </p>
+            </div>
+
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              await gradeHomework(selectedReviewHw.id, reviewGrade, reviewFeedback);
+              setSelectedReviewHw(null);
+            }}>
+              <div className={styles.formGroup} style={{ marginBottom: '12px' }}>
+                <label>Grade (A+, A, B, C, F)</label>
+                <select 
+                  value={reviewGrade} 
+                  onChange={e => setReviewGrade(e.target.value)}
+                  style={{
+                    width: '100%', padding: '10px 12px', borderRadius: '12px', border: '1px solid var(--border-color)',
+                    background: 'var(--surface-color)', color: 'var(--text-main)', fontSize: '0.875rem'
+                  }}
+                >
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="B+">B+</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="F">F</option>
+                </select>
+              </div>
+
+              <div className={styles.formGroup} style={{ marginBottom: '16px' }}>
+                <label>Feedback</label>
+                <textarea 
+                  value={reviewFeedback} 
+                  onChange={e => setReviewFeedback(e.target.value)}
+                  placeholder="Provide guidance or corrections..."
+                  rows={3}
+                  style={{
+                    width: '100%', padding: '10px 12px', borderRadius: '12px', border: '1px solid var(--border-color)',
+                    background: 'var(--surface-color)', color: 'var(--text-main)', fontSize: '0.875rem', fontFamily: 'inherit', resize: 'none'
+                  }}
+                  required
+                />
+              </div>
+
+              <div className={styles.formActions}>
+                <Button variant="outline" type="button" onClick={() => setSelectedReviewHw(null)}>Cancel</Button>
+                <Button variant="primary" type="submit">Submit Grade</Button>
+              </div>
+            </form>
           </div>
         </div>
       )}

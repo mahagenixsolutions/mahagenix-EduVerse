@@ -446,7 +446,7 @@ export const TeacherEventsPage: React.FC = () => {
                           onClick={() => openStudentDrawer(reg.studentId, reg)}
                           style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                         >
-                          <Eye size={12} /> View Profile
+                          <Eye size={12} /> View
                         </Button>
                       </td>
                     </tr>

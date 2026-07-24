@@ -7,15 +7,18 @@ export const AITutorCard: React.FC = () => (
     background: 'linear-gradient(135deg, #F0EDFF 0%, #E3DCFF 100%)',
     border: '1px solid rgba(197, 180, 255, 0.4)',
     borderRadius: '24px',
-    padding: '24px',
+    padding: 'var(--space-3)',
     display: 'flex',
     alignItems: 'center',
     gap: '16px',
     position: 'relative',
     overflow: 'hidden',
-    boxShadow: '0 4px 20px rgba(139, 92, 246, 0.05)'
+    boxShadow: '0 4px 20px rgba(139, 92, 246, 0.05)',
+    width: '100%',
+    maxWidth: '100%',
+    boxSizing: 'border-box'
   }}>
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '10px', zIndex: 2, maxWidth: '65%' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '10px', zIndex: 2, maxWidth: '75%' }}>
       <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: '#3A2E80', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>Stuck on a concept?</p>
       <p style={{ margin: 0, fontSize: '0.82rem', color: '#5B4FDB', lineHeight: 1.4 }}>
         EduVerse AI Tutor is ready to help you with Physics and Math.
@@ -58,7 +61,8 @@ export const AITutorCard: React.FC = () => (
         pointerEvents: 'none',
         zIndex: 1,
         borderTopRightRadius: '24px',
-        borderBottomRightRadius: '24px'
+        borderBottomRightRadius: '24px',
+        opacity: 0.85
       }}
     />
   </Card>

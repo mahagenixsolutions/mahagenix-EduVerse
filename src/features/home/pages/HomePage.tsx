@@ -1,5 +1,6 @@
 import React from 'react';
 import { HomeHero } from '../components/HomeHero';
+import { AnnouncementsSection } from '../components/AnnouncementsSection';
 import { SummaryCards } from '../components/SummaryCards';
 import { ContinueLearning } from '../components/ContinueLearning';
 import { TodaySchedule } from '../components/TodaySchedule';
@@ -16,14 +17,10 @@ export const HomePage: React.FC = () => {
   return (
     <div className={styles.dashboard}>
       <HomeHero />
+      <AnnouncementsSection />
       <SummaryCards />
 
-      <div className={`grid ${styles.mainGrid}`} style={{
-        display: 'grid',
-        gridTemplateColumns: '2fr 1.2fr',
-        gap: '24px',
-        alignItems: 'start'
-      }}>
+      <div className={styles.mainGrid}>
         {/* Left Column: Learning activities */}
         <div className={styles.leftCol} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <ContinueLearning />
