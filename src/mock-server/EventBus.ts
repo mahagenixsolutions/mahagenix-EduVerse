@@ -10,7 +10,8 @@ export type EventType =
   | 'BEHAVIOUR_RECORDED'
   | 'MARKS_PUBLISHED'
   | 'LESSON_PUBLISHED'
-  | 'MEETING_SCHEDULED';
+  | 'MEETING_SCHEDULED'
+  | 'TOGGLE_MOBILE_MENU';
 
 type Listener<T = unknown> = (payload?: T) => void;
 
