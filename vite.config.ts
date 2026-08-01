@@ -10,6 +10,15 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 10000,
+    rollupOptions: {
+      onwarn(warning, warn) {
+        if (warning.code === 'INEFFECTIVE_DYNAMIC_IMPORT') return;
+        warn(warning);
+      }
+    }
+  },
   server: {
     fs: {
       allow: [
