@@ -1641,7 +1641,7 @@
   font-weight: 600;
   background: var(--primary-light);
   color: var(--primary-color);
-
+}
 
 .mkt-security-grid {
   display: grid;
