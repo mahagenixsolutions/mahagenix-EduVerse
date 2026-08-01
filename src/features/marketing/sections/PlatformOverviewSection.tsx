@@ -3,8 +3,8 @@ import {
   Heart, User, GraduationCap, Users, ShieldCheck, 
   Settings, Briefcase, Phone, Bus, Infinity 
 } from 'lucide-react';
-import laptopMockupImg from 'C:/Users/vasal/.gemini/antigravity-ide/brain/3960ea9f-1b16-445e-af54-44ccfb108293/media__1785408486097.jpg';
-import phoneMockupImg from 'C:/Users/vasal/.gemini/antigravity-ide/brain/3960ea9f-1b16-445e-af54-44ccfb108293/media__1785408509788.png';
+const laptopMockupImg = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop';
+const phoneMockupImg = 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=400&auto=format&fit=crop';
 
 export const PlatformOverviewSection: React.FC = () => (
   <section className="mkt-section" id="platform" style={{ padding: '80px 0', background: '#fff' }}>
