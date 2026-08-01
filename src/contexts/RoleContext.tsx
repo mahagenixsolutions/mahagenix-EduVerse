@@ -19,11 +19,15 @@ export interface Permissions {
   canCreateAnnouncements: boolean;
 }
 
+export type PlanTierId = 'starter' | 'professional' | 'enterprise';
+
 interface RoleContextType {
   currentUser: UserProfile | null;
+  currentPlan: PlanTierId;
   permissions: Permissions;
   login: (role: UserRole) => void;
   logout: () => void;
+  setPlan: (plan: PlanTierId) => void;
 }
 
 const DEFAULT_PERMISSIONS: Record<UserRole, Permissions> = {
@@ -88,6 +92,14 @@ export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return null;
   });
 
+  const [currentPlan, setCurrentPlan] = useState<PlanTierId>(() => {
+    const saved = localStorage.getItem('eduverse_plan');
+    if (saved && ['starter', 'professional', 'enterprise'].includes(saved)) {
+      return saved as PlanTierId;
+    }
+    return 'professional';
+  });
+
   const login = (role: UserRole) => {
     localStorage.setItem('eduverse_role', role);
     setCurrentUser(USER_MOCKS[role]);
@@ -98,10 +110,15 @@ export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setCurrentUser(null);
   };
 
+  const setPlan = (plan: PlanTierId) => {
+    localStorage.setItem('eduverse_plan', plan);
+    setCurrentPlan(plan);
+  };
+
   const permissions = currentUser ? DEFAULT_PERMISSIONS[currentUser.role] : DEFAULT_PERMISSIONS.student;
 
   return (
-    <RoleContext.Provider value={{ currentUser, permissions, login, logout }}>
+    <RoleContext.Provider value={{ currentUser, currentPlan, permissions, login, logout, setPlan }}>
       {children}
     </RoleContext.Provider>
   );

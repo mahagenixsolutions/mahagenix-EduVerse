@@ -1,4 +1,15 @@
 import React, { lazy, Suspense } from "react";
+
+// Lazy Loaded Marketing & Registration Pages
+const MarketingPage = lazy(() =>
+  import("@/features/marketing").then((m) => ({ default: m.MarketingPage })),
+);
+const PlanDetailsPage = lazy(() =>
+  import("@/features/marketing").then((m) => ({ default: m.PlanDetailsPage })),
+);
+const RegisterPage = lazy(() =>
+  import("@/features/registration").then((m) => ({ default: m.RegisterPage })),
+);
 import {
   BrowserRouter,
   Routes,
@@ -7,6 +18,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { RoleProvider, useRole } from "@/contexts/RoleContext";
+import { SubscriptionProvider } from "@/contexts/SubscriptionContext";
 import { MainLayout } from "@/layouts/MainLayout";
 import { RoleResolver } from "@/routes/RoleResolver";
 import { RoleGuard } from "@/routes/RoleGuard";
@@ -280,11 +292,16 @@ const MainAppContent: React.FC = () => {
         <GlobalErrorBoundary>
           <Suspense fallback={<PageFallbackLoader />}>
             <Routes>
+              <Route path="/" element={<MarketingPage />} />
+              <Route path="/pricing/:planId" element={<PlanDetailsPage />} />
+              <Route path="/plan/:planId" element={<PlanDetailsPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+
               <Route path="/login" element={<LoginPage />} />
 
               {/* Main Application Layout */}
               <Route
-                path="/"
+                path="/app"
                 element={
                   <GuardedRoute>
                     <MainLayout />
@@ -298,7 +315,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/classes"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="my_classes">
                       <MyClassesPage />
                     </RoleGuard>
                   }
@@ -306,7 +323,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/curriculum"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="curriculum_planner">
                       <TeacherCurriculumPage />
                     </RoleGuard>
                   }
@@ -314,7 +331,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/lesson-planner"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="lesson_planner">
                       <TeacherLessonPlannerPage />
                     </RoleGuard>
                   }
@@ -322,7 +339,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/students"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="my_students">
                       <StudentsDirectoryPage />
                     </RoleGuard>
                   }
@@ -330,7 +347,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/attendance"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="attendance">
                       <TeacherAttendancePage />
                     </RoleGuard>
                   }
@@ -338,7 +355,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/behaviour"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="behavior_tracking">
                       <TeacherBehaviourPage />
                     </RoleGuard>
                   }
@@ -346,7 +363,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/questions"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="questions_bank">
                       <TeacherQuestionsPage />
                     </RoleGuard>
                   }
@@ -386,7 +403,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/resources"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="resources_repository">
                       <TeacherResourcesPage />
                     </RoleGuard>
                   }
@@ -394,7 +411,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/courses"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="my_courses">
                       <TeacherCoursesPage />
                     </RoleGuard>
                   }
@@ -402,7 +419,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/announcements"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="announcements">
                       <TeacherAnnouncementsPage />
                     </RoleGuard>
                   }
@@ -410,7 +427,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/meetings"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="parent_meetings">
                       <TeacherParentMeetingsPage />
                     </RoleGuard>
                   }
@@ -418,7 +435,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/events"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="live_classes">
                       <TeacherEventsPage />
                     </RoleGuard>
                   }
@@ -426,7 +443,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/calendar"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="calendar">
                       <TeacherCalendarPage />
                     </RoleGuard>
                   }
@@ -434,7 +451,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="teacher/reports"
                   element={
-                    <RoleGuard allowedRoles={["teacher"]}>
+                    <RoleGuard allowedRoles={["teacher"]} featureFlag="advanced_reports">
                       <TeacherReportsPage />
                     </RoleGuard>
                   }
@@ -444,7 +461,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="learn"
                   element={
-                    <RoleGuard allowedRoles={["student", "parent"]}>
+                    <RoleGuard allowedRoles={["student", "parent"]} featureFlag="my_courses">
                       <LearnHub />
                     </RoleGuard>
                   }
@@ -452,7 +469,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="learn/lessons"
                   element={
-                    <RoleGuard allowedRoles={["student", "parent"]}>
+                    <RoleGuard allowedRoles={["student", "parent"]} featureFlag="live_classes">
                       <LessonsPage />
                     </RoleGuard>
                   }
@@ -460,7 +477,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="learn/homework"
                   element={
-                    <RoleGuard allowedRoles={["student", "parent"]}>
+                    <RoleGuard allowedRoles={["student", "parent"]} featureFlag="homework">
                       <HomeworkPage />
                     </RoleGuard>
                   }
@@ -468,7 +485,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="learn/assignments"
                   element={
-                    <RoleGuard allowedRoles={["student", "parent"]}>
+                    <RoleGuard allowedRoles={["student", "parent"]} featureFlag="assignments">
                       <AssignmentsPage />
                     </RoleGuard>
                   }
@@ -476,7 +493,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="learn/notes"
                   element={
-                    <RoleGuard allowedRoles={["student", "parent"]}>
+                    <RoleGuard allowedRoles={["student", "parent"]} featureFlag="digital_documents">
                       <NotesPage />
                     </RoleGuard>
                   }
@@ -484,7 +501,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="learn/practice"
                   element={
-                    <RoleGuard allowedRoles={["student", "parent"]}>
+                    <RoleGuard allowedRoles={["student", "parent"]} featureFlag="practice_tests">
                       <PracticePage />
                     </RoleGuard>
                   }
@@ -492,7 +509,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="learn/attendance"
                   element={
-                    <RoleGuard allowedRoles={["student", "parent"]}>
+                    <RoleGuard allowedRoles={["student", "parent"]} featureFlag="attendance">
                       <AttendancePage />
                     </RoleGuard>
                   }
@@ -500,7 +517,7 @@ const MainAppContent: React.FC = () => {
                 <Route
                   path="learn/results"
                   element={
-                    <RoleGuard allowedRoles={["student", "parent"]}>
+                    <RoleGuard allowedRoles={["student", "parent"]} featureFlag="results">
                       <ResultsPage />
                     </RoleGuard>
                   }
@@ -691,6 +708,16 @@ const MainAppContent: React.FC = () => {
                 {/* 404 Catch-All Route */}
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
+
+              {/* Redirect legacy top-level routes to /app */}
+              <Route path="/learn/*" element={<Navigate to="/app/learn" replace />} />
+              <Route path="/teacher/*" element={<Navigate to="/app/teacher/classes" replace />} />
+              <Route path="/school/*" element={<Navigate to="/app/school/announcements" replace />} />
+              <Route path="/messages/*" element={<Navigate to="/app/messages" replace />} />
+              <Route path="/services/*" element={<Navigate to="/app/services" replace />} />
+              <Route path="/activity/*" element={<Navigate to="/app/activity" replace />} />
+              <Route path="/profile" element={<Navigate to="/app/profile" replace />} />
+              <Route path="/settings" element={<Navigate to="/app/settings" replace />} />
             </Routes>
           </Suspense>
         </GlobalErrorBoundary>
@@ -701,11 +728,13 @@ const MainAppContent: React.FC = () => {
 
 function App() {
   return (
-    <RoleProvider>
-      <SplashProvider>
-        <MainAppContent />
-      </SplashProvider>
-    </RoleProvider>
+    <SubscriptionProvider>
+      <RoleProvider>
+        <SplashProvider>
+          <MainAppContent />
+        </SplashProvider>
+      </RoleProvider>
+    </SubscriptionProvider>
   );
 }
 

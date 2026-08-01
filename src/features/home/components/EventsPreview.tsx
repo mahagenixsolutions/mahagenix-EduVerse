@@ -44,7 +44,7 @@ export const EventsPreview: React.FC = () => {
           <Calendar size={18} color="var(--primary-color)" /> Upcoming School Events
         </p>
         <button 
-          onClick={() => navigate('/school/events')}
+          onClick={() => navigate('/app/school/events')}
           style={{
             background: 'var(--bg-secondary)',
             border: '1px solid var(--border-color)',
@@ -92,7 +92,7 @@ export const EventsPreview: React.FC = () => {
                   boxSizing: 'border-box',
                   overflow: 'hidden'
                 }}
-                onClick={() => navigate(`/school/events?id=${event.id}`)}
+                onClick={() => navigate(`/app/school/events?id=${event.id}`)}
               >
                 {/* Event thumbnail (embedded rounded box) */}
                 <div 

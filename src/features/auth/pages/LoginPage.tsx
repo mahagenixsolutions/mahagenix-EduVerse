@@ -20,7 +20,7 @@ export const LoginPage: React.FC = () => {
     // 2. Launch post-login splash video experience
     // Navigation to dashboard occurs only after the splash video finishes and fades out
     triggerLaunchExperience(role, () => {
-      navigate("/");
+      navigate("/app");
     });
   };
 

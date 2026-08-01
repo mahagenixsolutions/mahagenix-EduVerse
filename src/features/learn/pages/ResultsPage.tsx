@@ -59,7 +59,7 @@ export const ResultsPage: React.FC = () => {
       <header className={styles.hero}>
         <div className={styles.heroContent}>
           <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-            <button type="button" onClick={() => navigate('/')}>Home</button>
+            <button type="button" onClick={() => navigate('/app')}>Home</button>
             <ChevronRight size={14} />
             <button type="button" onClick={() => navigate('/learn')}>Learn</button>
             <ChevronRight size={14} />

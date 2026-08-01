@@ -10,7 +10,7 @@ import {
   ArrowLeft, Calendar, MapPin, Clock, Users, Download, CreditCard, 
   Wallet, QrCode, Phone, Mail, FileText, CheckCircle2, ChevronDown, 
   ChevronUp, Check, AlertCircle, Info, Landmark, HelpCircle, Eye,
-  XCircle
+  XCircle, Shield, Ticket, IdCard, Printer
 } from 'lucide-react';
 import styles from './events.module.css';
 
@@ -776,104 +776,166 @@ export const EventsPage: React.FC = () => {
         {/* Payment Success & Ticket Display Overlay */}
         {checkoutStep === 'success' && createdReg && (
           <div className={styles.paymentOverlay}>
-            <div className={styles.paymentModal} style={{ maxWidth: '440px' }}>
-              <div className={styles.modalHeader}>
-                <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <CheckCircle2 size={20} color="var(--primary-color)" /> Registration Completed
-                </h3>
-                <button 
-                  onClick={() => { setCheckoutStep(null); closeDetails(); }} 
-                  style={{ cursor: 'pointer', color: 'var(--text-light)' }}
-                >
-                  ✕
-                </button>
-              </div>
-
+            <button 
+              className={styles.overlayCloseBtn}
+              onClick={() => { setCheckoutStep(null); closeDetails(); }}
+              aria-label="Close"
+            >
+              <XCircle size={36} />
+            </button>
+            <div className={`${styles.paymentModal} ${styles.successModal}`} style={{ maxWidth: '540px' }}>
               <div className={styles.successContainer}>
-                <div className={styles.successIcon}>
-                  <CheckCircle2 size={32} />
+                {/* Confetti added via CSS pseudo-elements in successModal, but we can add some explicit shapes if needed */}
+                <div className={`${styles.confettiShape} ${styles.confetti1}`} />
+                <div className={`${styles.confettiShape} ${styles.confetti2}`} />
+                <div className={`${styles.confettiShape} ${styles.confetti3}`} />
+                <div className={`${styles.confettiShape} ${styles.confetti4}`} />
+
+                <div className={styles.successIconWrap}>
+                  <div className={styles.successIcon}>
+                    <Check strokeWidth={3} size={28} />
+                  </div>
                 </div>
                 <div>
-                  <h4 style={{ fontWeight: 700, fontSize: '1.2rem', color: 'var(--primary-color)' }}>Payment Successful</h4>
-                  <p style={{ fontSize: '0.813rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                  <h4 className={styles.successTitle}>Payment Successful!</h4>
+                  <p className={styles.successSubtitle}>
                     Your ticket for {selectedEvent.title} has been generated.
                   </p>
                 </div>
 
-                {/* Printable Ticket Box */}
-                <div className={styles.ticketBox}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed var(--border-color)', paddingBottom: '8px', fontSize: '0.78rem' }}>
-                    <span style={{ fontWeight: 700 }}>GREENFIELD ACADEMY</span>
-                    <span style={{ color: 'var(--primary-color)', fontWeight: 600 }}>CONFIRMED PASS</span>
-                  </div>
+                <div className={styles.ticketOuter}>
+                  {/* Fake cutouts for the perforated tear line */}
+                  <div className={styles.ticketCutoutLeft} />
+                  <div className={styles.ticketCutoutRight} />
 
-                  <div style={{ display: 'flex', gap: '12px', alignItems: 'center', textAlign: 'left', margin: '6px 0' }}>
-                    <img 
-                      src="https://i.pravatar.cc/150?u=sarah" 
-                      alt="Sarah" 
-                      style={{ width: 44, height: 44, borderRadius: '8px', objectFit: 'cover' }}
-                    />
-                    <div>
-                      <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>{createdReg.studentName}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Class: {createdReg.class} ({createdReg.section}) • Roll: {createdReg.rollNumber}</div>
+                  <div className={styles.ticketShape}>
+                    <div className={styles.ticketGreenHeader}>
+                      <div className={styles.ticketHeaderLeft}>
+                        <div className={styles.ticketHeaderLogo}>
+                          <Shield size={24} />
+                        </div>
+                        <div>
+                          <div className={styles.ticketHeaderTitle}>GREENFIELD ACADEMY</div>
+                          <div className={styles.ticketHeaderSub}>Excellence In Education</div>
+                        </div>
+                      </div>
+                      <div className={styles.ticketStamp}>
+                        <CheckCircle2 size={16} /> CONFIRMED PASS
+                      </div>
+                    </div>
+
+                    <div className={styles.ticketBody}>
+                      <div className={styles.ticketUser}>
+                        <img 
+                          src="https://i.pravatar.cc/150?u=sarah" 
+                          alt="Sarah Doe" 
+                          className={styles.ticketUserImg}
+                        />
+                        <div>
+                          <div className={styles.ticketUserName}>{createdReg.studentName}</div>
+                          <div className={styles.ticketUserMeta}>
+                            Class: <span className={styles.ticketUserMetaHighlight}>{createdReg.class} ({createdReg.section})</span> &nbsp;|&nbsp; Roll: {createdReg.rollNumber}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={styles.ticketDivider} />
+
+                      <div className={styles.ticketDetailsGrid}>
+                        <div className={styles.ticketDetailItem}>
+                          <Ticket size={20} className={styles.ticketDetailIcon} />
+                          <div className={styles.ticketDetailContent}>
+                            <span className={styles.ticketDetailLabel}>Ticket Reference</span>
+                            <span className={styles.ticketDetailValue}>{createdReg.ticketNumber}</span>
+                          </div>
+                        </div>
+                        <div className={styles.ticketDetailItem}>
+                          <IdCard size={20} className={styles.ticketDetailIcon} />
+                          <div className={styles.ticketDetailContent}>
+                            <span className={styles.ticketDetailLabel}>Transaction ID</span>
+                            <span className={styles.ticketDetailValue}>{createdReg.transactionId}</span>
+                          </div>
+                        </div>
+                        <div className={styles.ticketDetailItem}>
+                          <Calendar size={20} className={styles.ticketDetailIcon} />
+                          <div className={styles.ticketDetailContent}>
+                            <span className={styles.ticketDetailLabel}>Registration Date</span>
+                            <span className={styles.ticketDetailValue}>{new Date(createdReg.registrationDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                          </div>
+                        </div>
+                        <div className={styles.ticketDetailItem}>
+                          <Wallet size={20} className={styles.ticketDetailIcon} />
+                          <div className={styles.ticketDetailContent}>
+                            <span className={styles.ticketDetailLabel}>Fee Paid</span>
+                            <span className={styles.ticketDetailValueGreen}>₹{createdReg.amountPaid}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={styles.ticketDivider} />
+
+                      <div className={styles.ticketBottomSection}>
+                        <div className={styles.ticketQrWrap}>
+                          {/* SVG generated QR Code mockup */}
+                          <svg viewBox="0 0 100 100" style={{ shapeRendering: 'crispEdges' }}>
+                            <rect x="0" y="0" width="100" height="100" fill="#ffffff" />
+                            <rect x="10" y="10" width="30" height="30" fill="#1F2937" />
+                            <rect x="15" y="15" width="20" height="20" fill="#ffffff" />
+                            <rect x="18" y="18" width="14" height="14" fill="#1F2937" />
+                            <rect x="60" y="10" width="30" height="30" fill="#1F2937" />
+                            <rect x="65" y="15" width="20" height="20" fill="#ffffff" />
+                            <rect x="68" y="18" width="14" height="14" fill="#1F2937" />
+                            <rect x="10" y="60" width="30" height="30" fill="#1F2937" />
+                            <rect x="15" y="65" width="20" height="20" fill="#ffffff" />
+                            <rect x="60" y="60" width="30" height="30" fill="#1F2937" />
+                            <rect x="75" y="75" width="15" height="15" fill="#1F2937" />
+                            <rect x="45" y="45" width="10" height="10" fill="#1F2937" />
+                            <rect x="35" y="55" width="10" height="10" fill="#1F2937" />
+                            <rect x="15" y="45" width="15" height="10" fill="#1F2937" />
+                            <rect x="45" y="65" width="10" height="25" fill="#1F2937" />
+                            <rect x="20" y="45" width="10" height="10" fill="#1F2937" />
+                            <rect x="60" y="45" width="15" height="10" fill="#1F2937" />
+                            <rect x="80" y="45" width="10" height="25" fill="#1F2937" />
+                          </svg>
+                        </div>
+                        
+                        <div className={styles.ticketInstructions}>
+                          <div className={styles.ticketInstructionsHeader}>
+                            <Info size={14} /> Important Instructions
+                          </div>
+                          <div className={styles.ticketInstructionItem}>
+                            <CheckCircle2 size={12} /> Please carry this e-ticket on the day of the test.
+                          </div>
+                          <div className={styles.ticketInstructionItem}>
+                            <CheckCircle2 size={12} /> Show this QR code at the exam center.
+                          </div>
+                          <div className={styles.ticketInstructionItem}>
+                            <CheckCircle2 size={12} /> This ticket is non-transferable.
+                          </div>
+                          <div className={styles.ticketInstructionItem}>
+                            <CheckCircle2 size={12} /> Contact school authority for any queries.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={styles.ticketTearLine} />
+
+                    <div className={styles.ticketFooter}>
+                      <button 
+                        className={styles.btnDownload}
+                        onClick={() => alert(`Downloading Ticket for ${createdReg.ticketNumber}`)}
+                      >
+                        <Download size={18} /> Download Ticket
+                      </button>
+                      <button 
+                        className={styles.btnReceipt}
+                        onClick={() => alert(`Downloading ERP Transaction Invoice: ${createdReg.transactionId}`)}
+                      >
+                        <Printer size={18} /> Receipt Invoice
+                      </button>
                     </div>
                   </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', textAlign: 'left', fontSize: '0.75rem' }}>
-                    <div>
-                      <span style={{ color: 'var(--text-light)', display: 'block' }}>Ticket Reference</span>
-                      <span style={{ fontWeight: 600 }}>{createdReg.ticketNumber}</span>
-                    </div>
-                    <div>
-                      <span style={{ color: 'var(--text-light)', display: 'block' }}>Transaction ID</span>
-                      <span style={{ fontWeight: 600 }}>{createdReg.transactionId}</span>
-                    </div>
-                    <div>
-                      <span style={{ color: 'var(--text-light)', display: 'block' }}>Registration Date</span>
-                      <span style={{ fontWeight: 600 }}>{new Date(createdReg.registrationDate).toLocaleDateString()}</span>
-                    </div>
-                    <div>
-                      <span style={{ color: 'var(--text-light)', display: 'block' }}>Fee Paid</span>
-                      <span style={{ fontWeight: 600, color: 'var(--primary-color)' }}>₹{createdReg.amountPaid}</span>
-                    </div>
-                  </div>
-
-                  <div className={styles.qrWrapper}>
-                    {/* SVG generated QR Code mockup */}
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" style={{ shapeRendering: 'crispEdges' }}>
-                      <rect x="0" y="0" width="100" height="100" fill="#ffffff" />
-                      <rect x="10" y="10" width="30" height="30" fill="#1F2937" />
-                      <rect x="15" y="15" width="20" height="20" fill="#ffffff" />
-                      <rect x="18" y="18" width="14" height="14" fill="#1F2937" />
-                      <rect x="60" y="10" width="30" height="30" fill="#1F2937" />
-                      <rect x="65" y="15" width="20" height="20" fill="#ffffff" />
-                      <rect x="68" y="18" width="14" height="14" fill="#1F2937" />
-                      <rect x="10" y="60" width="30" height="30" fill="#1F2937" />
-                      <rect x="15" y="65" width="20" height="20" fill="#ffffff" />
-                      <rect x="60" y="60" width="30" height="30" fill="#1F2937" />
-                      <rect x="75" y="75" width="15" height="15" fill="#1F2937" />
-                      <rect x="45" y="45" width="10" height="10" fill="#1F2937" />
-                      <rect x="35" y="55" width="10" height="10" fill="#1F2937" />
-                      <rect x="15" y="45" width="15" height="10" fill="#1F2937" />
-                    </svg>
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-                  <Button 
-                    variant="primary" 
-                    onClick={() => alert(`Downloading Ticket for ${createdReg.ticketNumber}`)}
-                    style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
-                  >
-                    <Download size={14} /> Download Ticket
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    onClick={() => alert(`Downloading ERP Transaction Invoice: ${createdReg.transactionId}`)}
-                    style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
-                  >
-                    <FileText size={14} /> Receipt Invoice
-                  </Button>
                 </div>
               </div>
             </div>

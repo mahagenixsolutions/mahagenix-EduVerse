@@ -12,6 +12,15 @@ import {
   Clock,
   TrendingUp,
   UserX,
+  BarChart2,
+  PieChart,
+  CheckCircle,
+  ChevronDown,
+  MoreVertical,
+  ArrowUp,
+  AlertTriangle,
+  Trophy,
+  ArrowRight
 } from "lucide-react";
 import styles from "./AttendancePage.module.css";
 
@@ -220,111 +229,329 @@ export const AttendancePage: React.FC = () => {
 
   return (
     <div className={styles.attendancePage}>
-      <header className={styles.hero}>
-        <div>
-          <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
-            <button type="button" onClick={() => navigate("/")}>
-              Home
+      <div className={styles.overviewContainer}>
+        <div className={styles.overviewHeader}>
+          <div className={styles.overviewTitleWrap}>
+            <h2>Attendance Overview</h2>
+            <p>Track daily attendance trends and stay updated</p>
+          </div>
+          <div className={styles.overviewControls}>
+            <button className={styles.controlDropdown}>
+              <Calendar size={16} />
+              This Month
+              <ChevronDown size={16} />
             </button>
-            <ChevronRight size={14} />
-            <button type="button" onClick={() => navigate("/learn")}>
-              Learn
+            <button className={styles.controlButton}>
+              <TrendingUp size={16} />
+              View Detailed Report
             </button>
-            <ChevronRight size={14} />
-            <span>Attendance</span>
-          </nav>
-          <h1>{title}</h1>
-          <p>Track daily attendance trends and stay updated</p>
+          </div>
         </div>
-        <div className={styles.heroArt} aria-hidden="true">
-          <span className={styles.orbitDotOne} />
-          <span className={styles.orbitDotTwo} />
-          <img src="/assets/stickers/student_attendance_hero.png" alt="" />
+
+        <div className={styles.overviewCards}>
+          <div className={`${styles.overviewCard} ${styles.green}`}>
+            <div className={styles.cardTopRow}>
+              <div className={`${styles.cardIconWrap} ${styles.green}`}>
+                <TrendingUp size={24} />
+              </div>
+              <div className={styles.cardBadgeWrap}>
+                <div className={`${styles.cardBadge} ${styles.green}`}>
+                  <ArrowUp size={14} /> 12%
+                </div>
+                <span className={styles.cardBadgeSub}>vs last 30 days</span>
+              </div>
+            </div>
+            <div className={`${styles.cardNumber} ${styles.green}`}>{overallRate}%</div>
+            <div className={styles.cardTitle}>Overall Attendance</div>
+            <div className={styles.cardSubtitle}>Average attendance percentage</div>
+            <div className={styles.cardChart}>
+              <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="gradGreen" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.2" />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <path d="M0 35 C 15 35, 20 20, 35 25 C 50 30, 60 25, 75 25 C 85 25, 95 15, 100 15 L 100 40 L 0 40 Z" fill="url(#gradGreen)" />
+                <path d="M0 35 C 15 35, 20 20, 35 25 C 50 30, 60 25, 75 25 C 85 25, 95 15, 100 15" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="100" cy="15" r="3" fill="#10b981" />
+              </svg>
+            </div>
+          </div>
+
+          <div className={`${styles.overviewCard} ${styles.blue}`}>
+            <div className={styles.cardTopRow}>
+              <div className={`${styles.cardIconWrap} ${styles.blue}`}>
+                <CalendarDays size={24} />
+              </div>
+              <div className={styles.cardBadgeWrap}>
+                <div className={`${styles.cardBadge} ${styles.blue}`}>
+                  <CheckCircle size={14} /> Good
+                </div>
+              </div>
+            </div>
+            <div className={`${styles.cardNumber} ${styles.blue}`}>{presentDays}</div>
+            <div className={styles.cardTitle}>Days Present</div>
+            <div className={styles.cardSubtitle}>Total days students were present</div>
+            <div className={styles.cardChart}>
+              <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
+                <rect x="5" y="25" width="6" height="15" fill="#93c5fd" rx="2" />
+                <rect x="18" y="25" width="6" height="15" fill="#93c5fd" rx="2" />
+                <rect x="31" y="20" width="6" height="20" fill="#93c5fd" rx="2" />
+                <rect x="44" y="25" width="6" height="15" fill="#93c5fd" rx="2" />
+                <rect x="57" y="15" width="6" height="25" fill="#93c5fd" rx="2" />
+                <rect x="70" y="20" width="6" height="20" fill="#93c5fd" rx="2" />
+                <rect x="83" y="25" width="6" height="15" fill="#93c5fd" rx="2" />
+                <rect x="94" y="10" width="6" height="30" fill="#3b82f6" rx="2" />
+              </svg>
+            </div>
+          </div>
+
+          <div className={`${styles.overviewCard} ${styles.red}`}>
+            <div className={styles.cardTopRow}>
+              <div className={`${styles.cardIconWrap} ${styles.red}`}>
+                <UserX size={24} />
+              </div>
+              <div className={styles.cardBadgeWrap}>
+                <div className={`${styles.cardBadge} ${styles.red}`}>
+                  <AlertTriangle size={14} /> Needs Attention
+                </div>
+              </div>
+            </div>
+            <div className={`${styles.cardNumber} ${styles.red}`}>{absentDays}</div>
+            <div className={styles.cardTitle}>Days Absent</div>
+            <div className={styles.cardSubtitle}>Total days students were absent</div>
+            <div className={styles.cardChart}>
+              <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="gradRed" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#ef4444" stopOpacity="0.15" />
+                    <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <path d="M0 35 C 15 35, 20 32, 35 32 C 45 32, 55 18, 65 25 C 75 32, 85 30, 100 28 L 100 40 L 0 40 Z" fill="url(#gradRed)" />
+                <path d="M0 35 C 15 35, 20 32, 35 32 C 45 32, 55 18, 65 25 C 75 32, 85 30, 100 28" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="100" cy="28" r="3" fill="#ef4444" />
+              </svg>
+            </div>
+          </div>
+
+          <div className={`${styles.overviewCard} ${styles.orange}`}>
+            <div className={styles.cardTopRow}>
+              <div className={`${styles.cardIconWrap} ${styles.orange}`}>
+                <Clock size={24} />
+              </div>
+              <div className={styles.cardBadgeWrap}>
+                <div className={`${styles.cardBadge} ${styles.orange}`}>
+                  <ArrowUp size={14} /> 8%
+                </div>
+                <span className={styles.cardBadgeSub}>vs last 30 days</span>
+              </div>
+            </div>
+            <div className={`${styles.cardNumber} ${styles.orange}`}>{lateDays}</div>
+            <div className={styles.cardTitle}>Days Late</div>
+            <div className={styles.cardSubtitle}>Total days students were late</div>
+            <div className={styles.cardChart}>
+              <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="gradOrange" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.15" />
+                    <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <path d="M0 35 L 20 35 C 30 35, 35 25, 45 25 C 55 25, 60 33, 75 33 C 85 33, 95 28, 100 28 L 100 40 L 0 40 Z" fill="url(#gradOrange)" />
+                <path d="M0 35 L 20 35 C 30 35, 35 25, 45 25 C 55 25, 60 33, 75 33 C 85 33, 95 28, 100 28" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="100" cy="28" r="3" fill="#f59e0b" />
+              </svg>
+            </div>
+          </div>
         </div>
-      </header>
 
-      <section className={styles.statsGrid} aria-label="Attendance summary">
-        <article className={`${styles.statCard} ${styles.statGreen}`}>
-          <div className={styles.statTop}>
-            <span className={`${styles.iconBubble} ${styles.iconGreen}`}>
-              <TrendingUp size={28} />
-            </span>
-            <strong>{overallRate}%</strong>
+        <div className={styles.overviewFooter}>
+          <div className={styles.footerLeft}>
+            <div className={styles.footerIcon}>
+              <Trophy size={16} />
+            </div>
+            <div className={styles.footerText}>
+              <strong>Keep it up!</strong> Your attendance is better than 72% of other classes.
+            </div>
           </div>
-          <p>Overall Attendance</p>
-          <Sparkline tone="green" />
-        </article>
-
-        <article className={`${styles.statCard} ${styles.statGreen}`}>
-          <div className={styles.statTop}>
-            <span className={`${styles.iconBubble} ${styles.iconGreen}`}>
-              <CalendarDays size={27} />
-            </span>
-            <strong>{presentDays}</strong>
-          </div>
-          <p>Days Present</p>
-          <Sparkline tone="green" variant="peaks" />
-        </article>
-
-        <article className={`${styles.statCard} ${styles.statRed}`}>
-          <div className={styles.statTop}>
-            <span className={`${styles.iconBubble} ${styles.iconRed}`}>
-              <UserX size={27} />
-            </span>
-            <strong>{absentDays}</strong>
-          </div>
-          <p>Days Absent</p>
-          <Sparkline tone="red" />
-        </article>
-
-        <article className={`${styles.statCard} ${styles.statOrange}`}>
-          <div className={styles.statTop}>
-            <span className={`${styles.iconBubble} ${styles.iconOrange}`}>
-              <Clock size={27} />
-            </span>
-            <strong>{lateDays}</strong>
-          </div>
-          <p>Days Late</p>
-          <Sparkline tone="orange" variant="peaks" />
-        </article>
-      </section>
-
-      <section
-        className={styles.historyCard}
-        aria-labelledby="recent-history-heading"
-      >
-        <div className={styles.historyHeader}>
-          <h2 id="recent-history-heading">Recent History</h2>
-          <button type="button" className={styles.weekFilter}>
-            <Calendar size={16} />
-            This Week
-            <ChevronRight size={16} className={styles.filterChevron} />
+          <button className={styles.footerButton}>
+            View Insights <ArrowRight size={14} />
           </button>
         </div>
+      </div>
 
-        <div className={styles.historyList}>
-          {attendance.map((day, index) => {
+      <section className={styles.notificationGrid}>
+        <div className={styles.notificationHeader}>
+          <h3>Attendance Alerts</h3>
+        </div>
+        <div className={styles.notificationCardsList}>
+          {attendance.filter(a => a.status !== 'present').map((day, index) => {
             const theme = statusTheme[day.status];
             const date = splitDate(day.date);
-
             return (
-              <div key={`${day.date}-${index}`} className={styles.historyRow}>
-                <div className={`${styles.dateTile} ${theme.date}`}>
-                  <strong>{date.day}</strong>
-                  <span>{date.month}</span>
+              <div key={`alert-${index}`} className={`${styles.notificationCard} ${theme.badge}`}>
+                <div className={`${styles.notificationIcon} ${theme.dot}`}></div>
+                <div className={styles.notificationContent}>
+                  <p className={styles.notificationTitle}>
+                    <strong>{theme.label}</strong> on {day.day}, {date.month} {date.day}
+                  </p>
+                  <p className={styles.notificationReason}>{day.reason || 'Please check with your teacher.'}</p>
                 </div>
-                <div className={styles.historyText}>
-                  <p className={styles.historyRowTitle}>{day.day}</p>
-                  {day.reason && <p>{day.reason}</p>}
-                </div>
-                <span className={`${styles.statusDot} ${theme.dot}`} />
-                <span className={`${styles.statusBadge} ${theme.badge}`}>
-                  {theme.label}
-                </span>
-                <ChevronRight size={22} className={styles.rowChevron} />
               </div>
             );
           })}
+        </div>
+      </section>
+
+      <section className={styles.dashboardGrid}>
+        {/* Attendance Overview (Area Chart) */}
+        <div className={styles.chartCard}>
+          <div className={styles.chartHeader}>
+            <div className={styles.chartTitleWrap}>
+              <BarChart2 size={20} className={styles.chartIcon} />
+              <h3>Attendance Overview</h3>
+            </div>
+            <div className={styles.chartControls}>
+              <button className={styles.filterSelect}>
+                <Calendar size={14} color="#64748B" />
+                Last 30 Days
+                <ChevronDown size={14} color="#64748B" />
+              </button>
+              <MoreVertical size={16} color="#94A3B8" style={{ cursor: 'pointer' }} />
+            </div>
+          </div>
+          
+          <div className={styles.areaChartContainer}>
+            <svg width="100%" height="100%" viewBox="0 0 800 250" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="greenGradient" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(16, 185, 129, 0.25)" />
+                  <stop offset="100%" stopColor="rgba(16, 185, 129, 0.0)" />
+                </linearGradient>
+              </defs>
+              
+              {/* Horizontal Grid Lines */}
+              <line x1="0" y1="20" x2="800" y2="20" className={styles.gridLine} />
+              <line x1="0" y1="70" x2="800" y2="70" className={styles.gridLine} />
+              <line x1="0" y1="120" x2="800" y2="120" className={styles.gridLine} />
+              <line x1="0" y1="170" x2="800" y2="170" className={styles.gridLine} />
+              <line x1="0" y1="220" x2="800" y2="220" className={styles.gridLine} />
+              
+              {/* Y-axis Labels */}
+              <text x="0" y="24" className={styles.axisLabel}>100%</text>
+              <text x="0" y="74" className={styles.axisLabel}>75%</text>
+              <text x="0" y="124" className={styles.axisLabel}>50%</text>
+              <text x="0" y="174" className={styles.axisLabel}>25%</text>
+              <text x="0" y="224" className={styles.axisLabel}>0%</text>
+
+              {/* X-axis Labels */}
+              <text x="60" y="245" className={styles.axisLabel}>Apr 24</text>
+              <text x="180" y="245" className={styles.axisLabel}>Apr 28</text>
+              <text x="300" y="245" className={styles.axisLabel}>May 2</text>
+              <text x="420" y="245" className={styles.axisLabel}>May 6</text>
+              <text x="540" y="245" className={styles.axisLabel}>May 10</text>
+              <text x="660" y="245" className={styles.axisLabel}>May 14</text>
+              <text x="760" y="245" className={styles.axisLabel}>May 18</text>
+
+              {/* Chart Paths */}
+              <g transform="translate(60, 0)">
+                <path className={styles.areaPath} d="M0 220 L0 100 C 60 100, 90 120, 120 120 C 180 120, 210 90, 240 90 C 300 90, 330 110, 360 110 C 420 110, 450 90, 480 120 C 540 150, 570 90, 600 100 C 660 110, 690 90, 720 100 L720 220 Z" />
+                <path className={styles.linePath} d="M0 100 C 60 100, 90 120, 120 120 C 180 120, 210 90, 240 90 C 300 90, 330 110, 360 110 C 420 110, 450 90, 480 120 C 540 150, 570 90, 600 100 C 660 110, 690 90, 720 100" />
+                
+                {/* Points */}
+                <circle cx="0" cy="100" r="4" className={styles.dataPoint} />
+                <circle cx="120" cy="120" r="4" className={styles.dataPoint} />
+                <circle cx="240" cy="90" r="4" className={styles.dataPoint} />
+                <circle cx="360" cy="110" r="4" className={styles.dataPoint} />
+                
+                {/* Active Point (May 10) */}
+                <g transform="translate(480, 120)">
+                  <circle cx="0" cy="0" r="6" className={styles.dataPointActive} />
+                  <line x1="0" y1="0" x2="0" y2="100" className={styles.gridLine} style={{ stroke: '#94A3B8' }} />
+                </g>
+
+                <circle cx="600" cy="100" r="4" className={styles.dataPoint} />
+                <circle cx="720" cy="100" r="4" className={styles.dataPoint} />
+              </g>
+            </svg>
+            
+            {/* Tooltip Overlay */}
+            <div className={styles.chartTooltip} style={{ left: '540px', top: '100px' }}>
+              <p className={styles.tooltipDate}>May 10</p>
+              <p className={styles.tooltipValue}>
+                <span className={styles.tooltipDot}></span>
+                Attendance: <strong>72%</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Attendance Summary (Donut Chart) */}
+        <div className={styles.chartCard}>
+          <div className={styles.chartHeader}>
+            <div className={styles.chartTitleWrap}>
+              <PieChart size={20} className={styles.chartIcon} color="#64748B" />
+              <h3>Attendance Summary</h3>
+            </div>
+          </div>
+
+          <div className={styles.donutContainer}>
+            <div className={styles.donutSvgWrap}>
+              <svg width="100%" height="100%" viewBox="0 0 100 100">
+                {/* Background Circle */}
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#F1F5F9" strokeWidth="12" />
+                
+                {/* Present (Green) */}
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#10B981" strokeWidth="12" 
+                        strokeDasharray="168.3 251.2" strokeDashoffset="62.8" strokeLinecap="round" />
+                
+                {/* Absent (Red) */}
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#EF4444" strokeWidth="12" 
+                        strokeDasharray="42.7 251.2" strokeDashoffset="-105.5" strokeLinecap="round" />
+                
+                {/* Late (Orange) */}
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#F59E0B" strokeWidth="12" 
+                        strokeDasharray="42.7 251.2" strokeDashoffset="-148.2" strokeLinecap="round" />
+              </svg>
+              <div className={styles.donutCenter}>
+                <span className={styles.donutNumber}>6</span>
+                <span className={styles.donutLabel}>Total Days</span>
+              </div>
+            </div>
+
+            <div className={styles.donutLegend}>
+              <div className={styles.legendItem}>
+                <div className={styles.legendLeft}>
+                  <span className={styles.legendDot} style={{ background: '#10B981' }}></span>
+                  Present
+                </div>
+                <div className={styles.legendRight}>4 (67%)</div>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={styles.legendLeft}>
+                  <span className={styles.legendDot} style={{ background: '#EF4444' }}></span>
+                  Absent
+                </div>
+                <div className={styles.legendRight}>1 (17%)</div>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={styles.legendLeft}>
+                  <span className={styles.legendDot} style={{ background: '#F59E0B' }}></span>
+                  Late
+                </div>
+                <div className={styles.legendRight}>1 (17%)</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 'auto' }}>
+            <div className={styles.successBanner}>
+              <CheckCircle size={16} />
+              Great job! Keep up the consistency.
+            </div>
+          </div>
         </div>
       </section>
     </div>

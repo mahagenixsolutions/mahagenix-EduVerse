@@ -10,4 +10,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    fs: {
+      allow: [
+        'C:/Users/vasal/.gemini',
+        'c:/javascript/CampusOne',
+        'C:/javascript/CampusOne'
+      ]
+    }
+  }
 });

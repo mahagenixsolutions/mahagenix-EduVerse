@@ -1,0 +1,208 @@
+import type { Module } from '../types';
+
+export const MODULES: Module[] = [
+  // ─── Core ─────────────────────────────────
+  {
+    id: 'dashboard',
+    name: 'Dashboard',
+    description: 'Centralized overview with real-time metrics, alerts, and quick actions',
+    longDescription: 'A unified command center that provides role-specific views, key performance indicators, real-time notifications, and one-click access to the most frequently used features across your institution.',
+    category: 'core',
+    icon: 'LayoutDashboard',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['teacher', 'student', 'parent', 'principal', 'hr', 'finance'],
+  },
+  {
+    id: 'admissions',
+    name: 'Admissions',
+    description: 'End-to-end online admission workflow with application tracking',
+    longDescription: 'Digitize your entire admissions funnel — from online applications and document uploads to entrance tests, merit lists, and enrollment confirmations. Track every applicant through customizable pipeline stages.',
+    category: 'core',
+    icon: 'UserPlus',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['principal', 'reception'],
+  },
+  {
+    id: 'students',
+    name: 'Student Management',
+    description: 'Comprehensive student profiles, enrollment, and academic records',
+    longDescription: 'Maintain 360° student profiles including personal information, academic history, attendance patterns, behavioural records, health data, and parent/guardian details — all in one secure location.',
+    category: 'core',
+    icon: 'Users',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['teacher', 'student', 'parent', 'principal'],
+  },
+  {
+    id: 'teachers',
+    name: 'Teacher Management',
+    description: 'Faculty profiles, timetables, workload tracking, and evaluations',
+    longDescription: 'Manage teacher profiles, qualifications, subject assignments, class schedules, leave records, and performance reviews. Optimize workload distribution across departments.',
+    category: 'core',
+    icon: 'GraduationCap',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['teacher', 'principal', 'hr'],
+  },
+  {
+    id: 'communication',
+    name: 'Communication',
+    description: 'Instant messaging, announcements, and parent-teacher communication',
+    longDescription: 'Unified communication hub with real-time chat, broadcast announcements, push notifications, email integration, and scheduled messages. Keep every stakeholder informed and connected.',
+    category: 'core',
+    icon: 'MessageSquare',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['teacher', 'student', 'parent', 'principal'],
+  },
+
+  // ─── Academic ─────────────────────────────
+  {
+    id: 'attendance',
+    name: 'Attendance',
+    description: 'Automated attendance tracking with biometric and QR code support',
+    longDescription: 'Track student and staff attendance using manual entry, biometric devices, QR codes, or RFID cards. Generate real-time reports, send absentee alerts to parents, and identify attendance patterns.',
+    category: 'academic',
+    icon: 'CalendarCheck',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['teacher', 'student', 'parent', 'principal'],
+  },
+  {
+    id: 'homework',
+    name: 'Homework',
+    description: 'Assign, submit, and grade homework with deadline tracking',
+    longDescription: 'Teachers create and distribute homework with rich media attachments. Students submit online with automatic deadline enforcement. Parents receive completion notifications. Built-in plagiarism indicators.',
+    category: 'academic',
+    icon: 'ClipboardList',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['teacher', 'student', 'parent'],
+  },
+  {
+    id: 'assignments',
+    name: 'Assignments',
+    description: 'Project-based assignments with rubrics and collaborative tools',
+    longDescription: 'Create structured assignments with customizable rubrics, peer review options, group collaboration tools, and auto-grading support. Track submission timelines and provide detailed feedback.',
+    category: 'academic',
+    icon: 'FileText',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['teacher', 'student', 'parent'],
+  },
+  {
+    id: 'results',
+    name: 'Results & Grades',
+    description: 'Exam results, grade books, report cards, and academic analytics',
+    longDescription: 'Comprehensive exam management from question paper creation to results publication. Generate report cards, maintain grade books, and analyze academic performance with visual analytics.',
+    category: 'academic',
+    icon: 'Award',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['teacher', 'student', 'parent', 'principal'],
+  },
+
+  // ─── Administration ───────────────────────
+  {
+    id: 'fees',
+    name: 'Fee Management',
+    description: 'Fee structure, collection, receipts, and payment gateway integration',
+    longDescription: 'Configure fee structures, automate fee generation, accept online payments via multiple gateways, generate receipts, track defaulters, and produce financial reconciliation reports.',
+    category: 'administration',
+    icon: 'CreditCard',
+    availableIn: ['starter', 'professional', 'enterprise'],
+    roles: ['parent', 'finance', 'principal'],
+  },
+  {
+    id: 'hr',
+    name: 'HR & Payroll',
+    description: 'Staff management, payroll processing, leave, and recruitment',
+    longDescription: 'End-to-end HR operations including recruitment pipelines, onboarding workflows, payroll computation with tax deductions, leave management, and staff performance appraisals.',
+    category: 'administration',
+    icon: 'Briefcase',
+    availableIn: ['professional', 'enterprise'],
+    roles: ['hr', 'principal', 'finance'],
+  },
+  {
+    id: 'finance',
+    name: 'Finance & Accounting',
+    description: 'Budgets, expenses, income tracking, and financial statements',
+    longDescription: 'Complete financial management with chart of accounts, budget planning, expense tracking, income management, bank reconciliation, and automated financial statement generation.',
+    category: 'administration',
+    icon: 'PiggyBank',
+    availableIn: ['professional', 'enterprise'],
+    roles: ['finance', 'principal'],
+  },
+  {
+    id: 'inventory',
+    name: 'Inventory',
+    description: 'Asset tracking, procurement, stock management, and vendor portal',
+    longDescription: 'Track all school assets from furniture to IT equipment. Manage procurement workflows, vendor relationships, purchase orders, and stock levels with automated reorder alerts.',
+    category: 'administration',
+    icon: 'Package',
+    availableIn: ['professional', 'enterprise'],
+    roles: ['finance', 'principal'],
+  },
+
+  // ─── Services ─────────────────────────────
+  {
+    id: 'library',
+    name: 'Library',
+    description: 'Catalog management, book lending, digital library, and e-books',
+    longDescription: 'Digitize your library with barcode scanning, automated cataloging, lending workflows, overdue alerts, digital resource management, and reading habit analytics.',
+    category: 'services',
+    icon: 'Library',
+    availableIn: ['professional', 'enterprise'],
+    roles: ['library', 'student', 'teacher'],
+  },
+  {
+    id: 'transport',
+    name: 'Transport',
+    description: 'Route management, GPS tracking, driver management, and fee collection',
+    longDescription: 'Plan and optimize bus routes, track vehicles in real-time with GPS, manage driver records, handle transport fee collection, and send pickup/drop notifications to parents.',
+    category: 'services',
+    icon: 'Bus',
+    availableIn: ['professional', 'enterprise'],
+    roles: ['transport', 'parent', 'principal'],
+  },
+  {
+    id: 'hostel',
+    name: 'Hostel',
+    description: 'Room allocation, hostel attendance, mess management, and complaints',
+    longDescription: 'Manage hostel operations including room allocation, bed assignment, hostel attendance, mess menu planning, fee tracking, maintenance requests, and visitor management.',
+    category: 'services',
+    icon: 'Building',
+    availableIn: ['enterprise'],
+    roles: ['hostel', 'student', 'parent', 'principal'],
+  },
+
+  // ─── Advanced ─────────────────────────────
+  {
+    id: 'reports',
+    name: 'Reports & Analytics',
+    description: 'Customizable reports, data visualization, and export capabilities',
+    longDescription: 'Generate over 100 pre-built reports across academics, finance, HR, and operations. Create custom report templates, schedule automated report delivery, and export to PDF, Excel, or CSV.',
+    category: 'advanced',
+    icon: 'BarChart3',
+    availableIn: ['professional', 'enterprise'],
+    roles: ['principal', 'hr', 'finance', 'teacher'],
+  },
+  {
+    id: 'ai-assistant',
+    name: 'AI Assistant',
+    description: 'AI-powered insights, automation, predictive analytics, and chatbot',
+    longDescription: 'Leverage artificial intelligence for predictive student performance analytics, automated report generation, smart scheduling recommendations, natural language data queries, and an intelligent chatbot for instant support.',
+    category: 'advanced',
+    icon: 'Sparkles',
+    availableIn: ['enterprise'],
+    roles: ['principal', 'teacher', 'student'],
+  },
+];
+
+export const MODULE_CATEGORIES: { id: string; label: string }[] = [
+  { id: 'all', label: 'All Modules' },
+  { id: 'core', label: 'Core' },
+  { id: 'academic', label: 'Academic' },
+  { id: 'administration', label: 'Administration' },
+  { id: 'services', label: 'Services' },
+  { id: 'advanced', label: 'Advanced' },
+];
+
+export const getModulesByPlan = (planId: string): Module[] =>
+  MODULES.filter(m => m.availableIn.includes(planId as any));
+
+export const getModulesByCategory = (category: string): Module[] =>
+  category === 'all' ? MODULES : MODULES.filter(m => m.category === category);

@@ -39,7 +39,9 @@ export interface Student {
 }
 
 export const StudentsDirectoryPage: React.FC = () => {
-  const { data: studentDirectory = [] } = useTeacherStudents();
+  const { data: rawData = [] } = useTeacherStudents();
+  // Ensure studentDirectory is an array, handling cases where the API might return { data: [...] } or other object structures
+  const studentDirectory = Array.isArray(rawData) ? rawData : ((rawData as any)?.data && Array.isArray((rawData as any).data)) ? (rawData as any).data : ((rawData as any)?.students && Array.isArray((rawData as any).students)) ? (rawData as any).students : [];
   const [searchQuery, setSearchQuery] = useState("");
   const [filterClass, setFilterClass] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");

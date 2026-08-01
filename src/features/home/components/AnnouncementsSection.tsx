@@ -173,11 +173,11 @@ export const AnnouncementsSection: React.FC = () => {
   }, [isPaused, isHovered, scroll]);
 
   const handleCardClick = (eventId: number) => {
-    navigate(`/school/events?id=${eventId}`);
+    navigate(`/app/school/events?id=${eventId}`);
   };
 
   const handleViewAllClick = () => {
-    navigate('/school/events');
+    navigate('/app/school/events');
   };
 
   return (

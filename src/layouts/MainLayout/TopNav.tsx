@@ -4,6 +4,7 @@ import {
   AlertCircle, FileText, CheckCircle2, ChevronRight 
 } from 'lucide-react';
 import { Avatar } from '@/components/ui/Avatar';
+import { LogoutFeedbackModal } from '@/components/feedback/LogoutFeedbackModal';
 import { useRole } from '@/contexts/RoleContext';
 import { useNotifications } from '@/features/notifications/hooks/useNotifications';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,7 @@ export const TopNav: React.FC = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   // Click outside to close notification dropdown
   useEffect(() => {
@@ -34,6 +36,10 @@ export const TopNav: React.FC = () => {
   }, [dropdownOpen]);
 
   const handleLogout = () => {
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleConfirmLogout = () => {
     logout();
     navigate('/login');
   };
@@ -190,6 +196,12 @@ export const TopNav: React.FC = () => {
           </div>
         )}
       </div>
+
+      <LogoutFeedbackModal 
+        isOpen={isLogoutModalOpen} 
+        onClose={() => setIsLogoutModalOpen(false)} 
+        onConfirmLogout={handleConfirmLogout} 
+      />
     </header>
   );
 };

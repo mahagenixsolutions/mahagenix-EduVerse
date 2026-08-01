@@ -14,8 +14,8 @@ export const NotFoundPage: React.FC = () => {
       illustration="not-found"
       showSearch
       primaryAction={{
-        label: 'Back to Home',
-        onClick: () => navigate('/'),
+        label: 'Back to Dashboard',
+        onClick: () => navigate('/app'),
         icon: <Home size={16} />
       }}
       secondaryAction={{
@@ -24,7 +24,7 @@ export const NotFoundPage: React.FC = () => {
         icon: <ArrowLeft size={16} />
       }}
       suggestions={[
-        { label: 'Student Dashboard', path: '/' },
+        { label: 'Dashboard', path: '/app' },
         { label: 'Courses & Curriculum', path: '/learn' },
         { label: 'Homework & Assignments', path: '/learn/homework' },
         { label: 'School Calendar', path: '/school/calendar' },

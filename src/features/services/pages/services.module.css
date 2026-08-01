@@ -98,6 +98,163 @@
   }
 }
 
+/* Service Cards */
+.serviceCard {
+  background: #ffffff; /* Pure white to blend sticker borders */
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 24px;
+  padding: 32px 24px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Better hierarchy with left-alignment */
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+  cursor: pointer;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 250px;
+}
+
+.serviceCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.libraryHighlight {
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.02) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.serviceIconWrap {
+  width: 100%;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  margin-top: 8px;
+  position: relative;
+}
+
+.serviceSticker {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  /* Removed drop-shadow to fix the white square background shadow issue */
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.serviceCard:hover .serviceSticker {
+  transform: scale(1.1) rotate(-4deg);
+}
+
+.fallbackIconWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.serviceBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 0;
+  width: 100%;
+  padding-right: 40px; /* Space for the arrow button */
+}
+
+.serviceTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-main);
+  font-family: 'Century Gothic', 'Inter', sans-serif;
+  line-height: 1.2;
+}
+
+.serviceStatus {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Badges */
+.statusBadge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.badgeActionNeeded {
+  background: #FEF2F2;
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.1);
+}
+
+.badgeActive {
+  background: #EFF6FF;
+  color: #3B82F6;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.badgeAvailable {
+  background: #F8FAFC;
+  color: #64748B;
+  border: 1px solid rgba(100, 116, 139, 0.1);
+}
+
+.badgeReady {
+  background: #ECFDF5;
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+/* Action Arrow Button */
+.serviceAction {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F8FAFC;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.serviceCard:hover .serviceAction {
+  background: #10B981;
+  border-color: #10B981;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.serviceAction svg {
+  transition: stroke 200ms ease, color 200ms ease;
+}
+
+.serviceCard:hover .serviceAction svg,
+.serviceCard:hover .serviceAction svg * {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+
 /* Recent Transactions */
 .txCard {
   background: var(--surface-color);

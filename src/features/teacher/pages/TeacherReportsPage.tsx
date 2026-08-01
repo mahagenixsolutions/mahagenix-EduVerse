@@ -93,7 +93,7 @@ export const TeacherReportsPage: React.FC = () => {
     <div className={styles.container}>
       {/* Breadcrumbs */}
       <nav className={styles.breadcrumbs}>
-        <span className={styles.crumbLink} onClick={() => navigate('/')}>
+        <span className={styles.crumbLink} onClick={() => navigate('/app')}>
           Dashboard
         </span>
         <ChevronRight size={12} style={{ color: '#cbd5e1' }} />
