@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { UserRole as UserRoleEnum } from '@/constants/roles';
 
-export type UserRole = 'student' | 'parent' | 'teacher';
+export type UserRole = `${UserRoleEnum}`;
 
 export interface UserProfile {
   name: string;
@@ -52,6 +53,13 @@ const DEFAULT_PERMISSIONS: Record<UserRole, Permissions> = {
     canPublishMarks: true,
     canCreateAnnouncements: true,
   },
+  admin: {
+    canCreateHomework: true,
+    canEditHomework: true,
+    canMarkAttendance: true,
+    canPublishMarks: true,
+    canCreateAnnouncements: true,
+  },
 };
 
 const USER_MOCKS: Record<UserRole, UserProfile> = {
@@ -78,6 +86,14 @@ const USER_MOCKS: Record<UserRole, UserProfile> = {
     details: 'Senior Math & Physics Teacher',
     email: 'john.smith@eduverse.com',
     phone: '+1 (555) 019-4321',
+  },
+  admin: {
+    name: 'Admin User',
+    role: 'admin',
+    avatar: 'https://i.pravatar.cc/150?u=admin',
+    details: 'System Administrator',
+    email: 'admin@eduverse.com',
+    phone: '+1 (555) 019-9999',
   },
 };
 
@@ -127,7 +143,14 @@ export const RoleProvider: React.FC<{ children: React.ReactNode }> = ({ children
 export const useRole = () => {
   const context = useContext(RoleContext);
   if (!context) {
-    throw new Error('useRole must be used within a RoleProvider');
+    return {
+      currentUser: null,
+      currentPlan: 'starter' as PlanTierId,
+      permissions: DEFAULT_PERMISSIONS.student,
+      login: () => {},
+      logout: () => {},
+      setPlan: () => {},
+    };
   }
   return context;
 };

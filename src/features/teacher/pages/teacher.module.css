@@ -1023,3 +1023,236 @@
   }
 }
 
+/* ============================================================
+   TEACHER DASHBOARD — Missing Classes Fix
+   ============================================================ */
+
+/* Page-level wrapper */
+.teacherPageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 40px;
+}
+
+/* Two-column layout (schedule + quick overview) */
+.dashboardTwoColumnLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .dashboardTwoColumnLayout {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+}
+
+/* Quick Overview card (right column) */
+.quickOverviewCard {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.quickOverviewCard h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 10px;
+}
+
+.overviewDesc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* Action button grid inside quick overview */
+.actionBtnGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.actionTile {
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 14px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.4;
+  transition: all 150ms ease;
+}
+
+.actionTile:hover {
+  border-color: var(--primary-color);
+  background: rgba(95, 175, 136, 0.06);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(95, 175, 136, 0.12);
+}
+
+/* ============================================================
+   STATS GRID — TeacherStatsGrid
+   ============================================================ */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px !important;
+}
+
+.statIconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statLabel {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  white-space: nowrap;
+}
+
+.statValue {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  line-height: 1;
+}
+
+/* ============================================================
+   SCHEDULE WIDGET — TeacherScheduleWidget
+   ============================================================ */
+.dashboardSection {
+  padding: 20px !important;
+}
+
+.sectionHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.sectionHeaderRow h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin: 0;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 10px;
+}
+
+.viewAllLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.775rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.viewAllLink:hover {
+  opacity: 0.75;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.scheduleItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.scheduleItem:last-child {
+  border-bottom: none;
+}
+
+.timeCol {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  background: rgba(95, 175, 136, 0.1);
+  padding: 5px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 100px;
+  justify-content: center;
+}
+
+.scheduleDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.subjectTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.classInfo {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.statusChip {
+  font-size: 0.688rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(95, 175, 136, 0.12);
+  color: var(--primary-color);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-transform: capitalize;
+}

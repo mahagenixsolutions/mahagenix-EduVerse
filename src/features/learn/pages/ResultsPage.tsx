@@ -66,8 +66,8 @@ export const ResultsPage: React.FC = () => {
             <span>Results</span>
           </nav>
 
-          <h1>Results & Report Card</h1>
-          <p>View your exam results and performance overview</p>
+          <p className={styles.heroTitle}>Results & Report Card</p>
+          <p className={styles.heroDesc}>View your exam results and performance overview</p>
         </div>
 
         <img
@@ -81,31 +81,31 @@ export const ResultsPage: React.FC = () => {
       <section className={styles.metricsGrid} aria-label="Performance summary">
         <article className={`${styles.metricCard} ${styles.metricGreen}`}>
           <div className={styles.metricIcon}>
-            <LineChart size={33} />
+            <LineChart size={28} />
           </div>
           <div className={styles.metricBody}>
             <strong>{selected.percentage}%</strong>
             <span>Percentage</span>
             <p>Overall Performance</p>
           </div>
-          <BarChart3 className={styles.metricArt} size={58} />
+          <BarChart3 className={styles.metricArt} size={48} />
         </article>
 
         <article className={`${styles.metricCard} ${styles.metricBlue}`}>
           <div className={styles.metricIcon}>
-            <Award size={34} />
+            <Award size={28} />
           </div>
           <div className={styles.metricBody}>
             <strong>#{selected.rank}</strong>
             <span>Class Rank</span>
             <p>Top 10 Position</p>
           </div>
-          <BarChart3 className={styles.metricArt} size={58} />
+          <BarChart3 className={styles.metricArt} size={48} />
         </article>
 
         <article className={`${styles.metricCard} ${styles.metricPurple}`}>
           <div className={styles.metricIcon}>
-            <ClipboardList size={34} />
+            <ClipboardList size={28} />
           </div>
           <div className={styles.metricBody}>
             <strong>{selected.obtained}/{selected.totalMarks}</strong>
@@ -165,12 +165,12 @@ export const ResultsPage: React.FC = () => {
                     <td>
                       <div className={styles.subjectCell}>
                         <span className={`${styles.subjectIcon} ${meta.className}`}>
-                          <Icon size={20} />
+                          <Icon size={18} />
                         </span>
-                        <strong>{subject.name}</strong>
+                        <p style={{ margin: 0, fontSize: '13.5px', fontWeight: 600, color: '#0F172A' }}>{subject.name}</p>
                       </div>
                     </td>
-                    <td className={styles.markCell}>{subject.obtained}</td>
+                    <td style={{ fontWeight: 600, color: '#0F172A', fontSize: '13.5px' }}>{subject.obtained}</td>
                     <td>{subject.total}</td>
                     <td>
                       <span className={`${styles.gradeBadge} ${subject.grade === 'B+' ? styles.gradeBlue : styles.gradeGreen}`}>
@@ -179,7 +179,6 @@ export const ResultsPage: React.FC = () => {
                     </td>
                     <td>
                       <span className={`${styles.performanceBadge} ${meta.performanceClass}`}>
-                        <span />
                         {meta.performance}
                       </span>
                     </td>

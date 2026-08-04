@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check, Crown, Users, Box, Lock, GraduationCap } from 'lucide-react';
-import { PLANS } from '@/features/marketing/data/plans';
-import { MODULES } from '@/features/marketing/data/modules';
-import { ROLES } from '@/features/marketing/data/roles';
-import { DynamicIcon } from '@/features/marketing/components/DynamicIcon';
-import type { PlanTierId } from '@/features/marketing/types';
+import { PLANS, MODULES, ROLES, DynamicIcon, type PlanTierId } from '@/features/marketing';
 import styles from './provisioning.module.css';
 
 interface ProvisioningScreenProps {

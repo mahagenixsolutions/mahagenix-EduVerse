@@ -1,7 +1,5 @@
 import React from 'react';
-import { Card } from '@/components/ui/Card';
-import { ProgressBar } from '@/components/ui/ProgressBar';
-import { CheckSquare, BookOpen, Layers } from 'lucide-react';
+import { BookOpen, Code, Sigma } from 'lucide-react';
 
 export const ContinueLearning: React.FC = () => {
   const items = [
@@ -11,9 +9,9 @@ export const ContinueLearning: React.FC = () => {
       course: 'Mathematics',
       duration: '12 min',
       progress: 85,
-      icon: CheckSquare,
-      color: '#10B981', // green
-      bg: 'rgba(16, 185, 129, 0.08)'
+      icon: Sigma,
+      color: '#10B981',
+      bg: '#ECFDF5',
     },
     {
       id: 2,
@@ -22,8 +20,8 @@ export const ContinueLearning: React.FC = () => {
       duration: '9 min read',
       progress: 60,
       icon: BookOpen,
-      color: '#EC4899', // pink
-      bg: 'rgba(236, 72, 153, 0.08)'
+      color: '#C026D3',
+      bg: '#FDF4FF',
     },
     {
       id: 3,
@@ -31,71 +29,107 @@ export const ContinueLearning: React.FC = () => {
       course: 'Computer Science',
       duration: '18 min',
       progress: 90,
-      icon: Layers,
-      color: '#6366F1', // blue/purple
-      bg: 'rgba(99, 102, 241, 0.08)'
-    }
+      icon: Code,
+      color: '#3B82F6',
+      bg: '#EFF6FF',
+    },
   ];
 
   return (
-    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-        <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
+    <div
+      style={{
+        background: '#FFFFFF',
+        borderRadius: '20px',
+        padding: '18px 20px',
+        border: '1px solid #F1F5F9',
+        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.02)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '14px',
+        height: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Section Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <p style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1E293B' }}>
           Continue Learning
         </p>
-        <a href="/learn" style={{ fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'none' }}>
+        <a
+          href="/learn"
+          style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}
+        >
           View All
         </a>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
-        {items.map(item => {
+      {/* Item List */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {items.map((item) => {
           const Icon = item.icon;
           return (
-            <div 
-              key={item.id} 
-              className="hover-lift"
+            <div
+              key={item.id}
               style={{
                 display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '12px 14px',
-                border: '1px solid var(--border-color)',
-                borderRadius: '16px',
-                background: 'var(--surface-color)',
-                cursor: 'pointer',
-                width: '100%',
-                maxWidth: '100%',
-                boxSizing: 'border-box',
-                overflow: 'hidden'
+                gap: '10px',
+                alignItems: 'flex-start',
               }}
             >
-              <div style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '10px',
-                background: item.bg,
-                color: item.color,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
-              }}>
-                <Icon size={18} />
+              <div
+                style={{
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '8px',
+                  background: item.bg,
+                  color: item.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  marginTop: '1px',
+                }}
+              >
+                <Icon size={15} />
               </div>
 
-              <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
-                <h4 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p
+                  style={{
+                    margin: '0 0 2px 0',
+                    fontSize: '13.5px',
+                    fontWeight: 600,
+                    color: '#1E293B',
+                    lineHeight: 1.3,
+                  }}
+                >
                   {item.title}
-                </h4>
-                <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                </p>
+                <div style={{ fontSize: '0.7rem', color: '#64748B', marginBottom: '5px', fontWeight: 400 }}>
                   {item.course} • {item.duration}
-                </span>
-                
-                {/* Progress row */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '4px', width: '100%' }}>
-                  <div style={{ flex: 1, minWidth: 0 }}><ProgressBar value={item.progress} size="sm" color={item.color} /></div>
-                  <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-muted)', width: '28px', textAlign: 'right', flexShrink: 0 }}>
+                </div>
+
+                {/* Progress Bar & Percentage */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div
+                    style={{
+                      flex: 1,
+                      height: '4px',
+                      borderRadius: '999px',
+                      background: '#F1F5F9',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${item.progress}%`,
+                        height: '100%',
+                        borderRadius: '999px',
+                        background: item.color,
+                      }}
+                    />
+                  </div>
+                  <span style={{ fontSize: '0.675rem', fontWeight: 600, color: '#64748B', width: '26px', textAlign: 'right' }}>
                     {item.progress}%
                   </span>
                 </div>
@@ -104,6 +138,6 @@ export const ContinueLearning: React.FC = () => {
           );
         })}
       </div>
-    </Card>
+    </div>
   );
 };

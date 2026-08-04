@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/Card";
 import { motion } from "framer-motion";
 import { Avatar } from "@/components/ui/Avatar";
 import { GraduationCap, Briefcase, Users, LogIn } from "lucide-react";
-import styles from "./login.module.css";
+import styles from "./LoginPage.module.css";
 
 export const LoginPage: React.FC = () => {
   const { login } = useRole();

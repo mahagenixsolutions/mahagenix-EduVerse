@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card } from '@/components/ui/Card';
-import { Sigma, Atom, Book, Coffee, Monitor } from 'lucide-react';
+import { Sigma, Grid, BookOpen, Coffee, Code } from 'lucide-react';
 
 export const TodaySchedule: React.FC = () => {
   const schedule = [
@@ -9,141 +8,132 @@ export const TodaySchedule: React.FC = () => {
       subject: 'Mathematics',
       detail: 'Room 101 • Mr. Smith',
       icon: Sigma,
-      color: '#10B981', // green
-      bg: 'rgba(16, 185, 129, 0.04)'
+      color: '#10B981',
+      bg: '#ECFDF5',
     },
     {
       time: '08:50 AM',
       subject: 'Physics',
       detail: 'Lab 3 • Mrs. Davis',
-      icon: Atom,
-      color: '#8B5CF6', // purple
-      bg: 'rgba(139, 92, 246, 0.04)'
+      icon: Grid,
+      color: '#8B5CF6',
+      bg: '#F3E8FF',
     },
     {
       time: '09:40 AM',
       subject: 'English',
-      detail: 'Room 105 • Mr. Wilson',
-      icon: Book,
-      color: '#F59E0B', // yellow
-      bg: 'rgba(245, 158, 11, 0.04)'
+      detail: 'Room 105 • Ms. Wilson',
+      icon: BookOpen,
+      color: '#F97316',
+      bg: '#FFF7ED',
     },
     {
       time: '10:25 AM',
       subject: 'Break',
       detail: 'Cafeteria',
       icon: Coffee,
-      color: '#6B7280', // gray
-      bg: 'rgba(107, 114, 128, 0.04)'
+      color: '#64748B',
+      bg: '#F1F5F9',
     },
     {
       time: '10:45 AM',
       subject: 'Computer Science',
       detail: 'Lab 1 • Mr. Johnson',
-      icon: Monitor,
-      color: '#3B82F6', // blue
-      bg: 'rgba(59, 130, 246, 0.04)'
-    }
+      icon: Code,
+      color: '#3B82F6',
+      bg: '#EFF6FF',
+    },
   ];
 
   return (
-    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', flexWrap: 'wrap', width: '100%' }}>
-        <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
+    <div
+      style={{
+        background: '#FFFFFF',
+        borderRadius: '20px',
+        padding: '18px 20px',
+        border: '1px solid #F1F5F9',
+        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.02)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '14px',
+        height: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Section Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <p style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1E293B' }}>
           Today's Schedule
         </p>
-        <a href="/learn/attendance" style={{ fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'none' }}>
+        <a
+          href="/app/school/events"
+          style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}
+        >
           View Timetable
         </a>
       </div>
 
-      {/* Timeline container */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', position: 'relative', width: '100%' }}>
-        {schedule.map((item, idx) => {
+      {/* Timeline List */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {schedule.map((item) => {
           const Icon = item.icon;
           return (
-            <div key={item.time} style={{ display: 'flex', gap: '8px', alignItems: 'stretch', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
-              {/* Left Column: Time */}
-              <div style={{
-                width: '56px',
-                fontSize: '0.72rem',
-                color: 'var(--text-light)',
-                fontWeight: 600,
-                textAlign: 'right',
-                paddingTop: '16px',
-                flexShrink: 0
-              }}>
+            <div key={item.time} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {/* Time Label */}
+              <div
+                style={{
+                  width: '56px',
+                  fontSize: '0.7rem',
+                  fontWeight: 500,
+                  color: '#64748B',
+                  textAlign: 'right',
+                  flexShrink: 0,
+                }}
+              >
                 {item.time}
               </div>
 
-              {/* Middle Column: Line and Dot */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', width: '16px', flexShrink: 0 }}>
-                <div style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  backgroundColor: item.color,
-                  border: '2px solid var(--surface-color)',
-                  zIndex: 2,
-                  marginTop: '19px'
-                }} />
-                {idx !== schedule.length - 1 && (
-                  <div style={{
-                    position: 'absolute',
-                    top: '29px',
-                    bottom: '-4px',
-                    width: '2px',
-                    backgroundColor: 'var(--border-color)',
-                    zIndex: 1
-                  }} />
-                )}
-              </div>
-
-              {/* Right Column: Card */}
-              <div 
-                className="hover-lift"
+              {/* Vertical Bar Indicator */}
+              <div
                 style={{
-                  flex: 1,
-                  minWidth: 0,
-                  background: 'var(--surface-color)',
-                  border: '1px solid var(--border-color)',
-                  borderLeft: `4px solid ${item.color}`,
-                  borderRadius: '16px',
-                  padding: '10px 12px',
-                  margin: '4px 0',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '10px',
-                  boxShadow: '0 2px 8px rgba(15, 23, 42, 0.01)',
-                  overflow: 'hidden'
+                  width: '2.5px',
+                  height: '24px',
+                  borderRadius: '999px',
+                  background: item.color,
+                  flexShrink: 0,
                 }}
-              >
-                <div style={{
-                  width: '32px',
-                  height: '32px',
+              />
+
+              {/* Icon Box */}
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
                   borderRadius: '8px',
                   background: item.bg,
                   color: item.color,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  flexShrink: 0
-                }}>
-                  <Icon size={16} />
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: 0, overflow: 'hidden' }}>
-                  <h4 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {item.subject}
-                  </h4>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {item.detail}
-                  </span>
+                  flexShrink: 0,
+                }}
+              >
+                <Icon size={14} />
+              </div>
+
+              {/* Subject & Room */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ margin: '0 0 1px 0', fontSize: '13.5px', fontWeight: 600, color: '#1E293B' }}>
+                  {item.subject}
+                </p>
+                <div style={{ fontSize: '0.7rem', color: '#64748B', fontWeight: 400 }}>
+                  {item.detail}
                 </div>
               </div>
             </div>
           );
         })}
       </div>
-    </Card>
+    </div>
   );
 };

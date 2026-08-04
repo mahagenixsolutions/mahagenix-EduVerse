@@ -1,559 +1,574 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { PageHeader } from "@/components/navigation/PageHeader";
-import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
-import { useAttendance } from "@/features/attendance/hooks/useAttendance";
-import { useRole } from "@/contexts/RoleContext";
+import React, { useState } from 'react';
 import {
-  Calendar,
-  CalendarDays,
-  ChevronRight,
+  Calendar as CalendarIcon,
+  CheckCircle2,
+  XCircle,
   Clock,
+  Flame,
   TrendingUp,
-  UserX,
-  BarChart2,
-  PieChart,
-  CheckCircle,
-  ChevronDown,
-  MoreVertical,
-  ArrowUp,
-  AlertTriangle,
-  Trophy,
-  ArrowRight
-} from "lucide-react";
-import styles from "./AttendancePage.module.css";
-
-const statusTheme = {
-  present: {
-    dot: styles.dotPresent,
-    badge: styles.badgePresent,
-    date: styles.datePresent,
-    label: "Present",
-  },
-  absent: {
-    dot: styles.dotAbsent,
-    badge: styles.badgeAbsent,
-    date: styles.dateAbsent,
-    label: "Absent",
-  },
-  late: {
-    dot: styles.dotLate,
-    badge: styles.badgeLate,
-    date: styles.dateLate,
-    label: "Late",
-  },
-} as const;
-
-const splitDate = (date: string) => {
-  const parts = date.replace(",", "").split(" ");
-
-  if (parts.length >= 2 && Number.isNaN(Number(parts[0]))) {
-    return { day: parts[1].padStart(2, "0"), month: parts[0] };
-  }
-
-  return { day: parts[0].padStart(2, "0"), month: parts[1] || "Oct" };
-};
-
-const Sparkline: React.FC<{
-  tone: "green" | "red" | "orange";
-  variant?: "soft" | "peaks";
-}> = ({ tone, variant = "soft" }) => {
-  const strokeClass =
-    tone === "green"
-      ? styles.sparkGreen
-      : tone === "red"
-        ? styles.sparkRed
-        : styles.sparkOrange;
-  const path =
-    variant === "peaks"
-      ? "M4 42 C18 42 22 30 34 31 C44 32 46 42 60 42 C74 42 76 30 90 30 C102 30 104 41 120 41"
-      : "M4 42 C20 42 24 40 36 40 C50 40 48 32 62 34 C76 38 78 42 90 42 C104 42 104 34 118 35 C128 36 132 41 140 42";
-
-  return (
-    <svg className={styles.sparkline} viewBox="0 0 144 48" aria-hidden="true">
-      <path d={path} className={strokeClass} />
-    </svg>
-  );
-};
+  Download,
+  Filter,
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  ShieldCheck,
+} from 'lucide-react';
+import { useAttendance } from '@/features/attendance/hooks/useAttendance';
+import { useRole } from '@/contexts/RoleContext';
 
 export const AttendancePage: React.FC = () => {
-  const navigate = useNavigate();
   const { currentUser } = useRole();
   const { attendance, markAttendance, isMarking } = useAttendance();
+  const [selectedMonth, setSelectedMonth] = useState('August 2026');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
 
-  const isTeacher = currentUser?.role === "teacher";
-  const isParent = currentUser?.role === "parent";
+  const isTeacher = currentUser?.role === 'teacher';
 
-  const [attendStatus, setAttendStatus] = useState<
-    Record<string, "present" | "absent" | "late">
-  >({
-    "Sarah Doe": "present",
-    "John Lee": "present",
-    "Alex Vance": "present",
-    "Emily Rose": "present",
+  const metrics = [
+    {
+      title: 'Overall Attendance',
+      value: '96.4%',
+      subtext: '+1.2% vs last month',
+      subColor: '#10B981',
+      icon: CheckCircle2,
+      iconBg: '#ECFDF5',
+      iconColor: '#10B981',
+      sparklineColor: '#10B981',
+    },
+    {
+      title: 'Total Present Days',
+      value: '162 Days',
+      subtext: 'Academic Year 2025-26',
+      subColor: '#64748B',
+      icon: CalendarIcon,
+      iconBg: '#EFF6FF',
+      iconColor: '#3B82F6',
+      sparklineColor: '#3B82F6',
+    },
+    {
+      title: 'Absences / Late',
+      value: '3 Days',
+      subtext: '2 Excused, 1 Unexcused',
+      subColor: '#EF4444',
+      icon: XCircle,
+      iconBg: '#FEF2F2',
+      iconColor: '#EF4444',
+      sparklineColor: '#EF4444',
+      borderLeft: '4px solid #EF4444',
+    },
+    {
+      title: 'Current Streak',
+      value: '18 Days',
+      subtext: 'Best: 45 Days 🔥',
+      subColor: '#F97316',
+      icon: Flame,
+      iconBg: '#FFF7ED',
+      iconColor: '#F97316',
+      sparklineColor: '#F97316',
+    },
+  ];
+
+  const subjectAttendance = [
+    { subject: 'Mathematics', rate: 98, color: '#10B981' },
+    { subject: 'Physics', rate: 94, color: '#10B981' },
+    { subject: 'English', rate: 96, color: '#10B981' },
+    { subject: 'Computer Science', rate: 100, color: '#10B981' },
+    { subject: 'Chemistry', rate: 92, color: '#10B981' },
+  ];
+
+  // Calendar Grid Mock Data for 31 Days
+  const calendarDays = Array.from({ length: 31 }, (_, i) => {
+    const day = i + 1;
+    if (day === 7 || day === 14 || day === 21 || day === 28) {
+      return { day, status: 'weekend' };
+    }
+    if (day === 12) return { day, status: 'absent' };
+    if (day === 19) return { day, status: 'late' };
+    if (day === 15) return { day, status: 'holiday' };
+    return { day, status: 'present' };
   });
 
-  const studentsList = Object.keys(attendStatus);
+  // Recent Attendance Logs Table Data
+  const recentLogs = [
+    { date: 'Aug 03, 2026', time: '08:00 AM', subject: 'Mathematics', status: 'present', teacher: 'Mr. Smith' },
+    { date: 'Aug 02, 2026', time: '08:00 AM', subject: 'Physics', status: 'present', teacher: 'Mrs. Davis' },
+    { date: 'Aug 01, 2026', time: '08:00 AM', subject: 'English', status: 'present', teacher: 'Ms. Wilson' },
+    { date: 'Jul 31, 2026', time: '08:00 AM', subject: 'Computer Science', status: 'late', teacher: 'Mr. Johnson' },
+    { date: 'Jul 30, 2026', time: '08:00 AM', subject: 'Chemistry', status: 'present', teacher: 'Dr. Brown' },
+    { date: 'Jul 29, 2026', time: '08:00 AM', subject: 'Mathematics', status: 'absent', teacher: 'Mr. Smith' },
+  ];
 
-  const handleMarkAttendanceSubmit = async () => {
-    const todayStr = new Date().toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
-    const records = Object.entries(attendStatus).map(([, status]) => ({
-      date: todayStr,
-      day: new Date().toLocaleDateString("en-US", { weekday: "long" }),
-      status,
-      reason: status === "absent" ? "Unexcused Absence" : undefined,
-    }));
-    await markAttendance(records);
-    alert("Attendance published successfully!");
-  };
-
-  const totalDays = attendance.length;
-  const presentDays = attendance.filter((a) => a.status === "present").length;
-  const absentDays = attendance.filter((a) => a.status === "absent").length;
-  const lateDays = attendance.filter((a) => a.status === "late").length;
-  const overallRate =
-    totalDays > 0 ? Math.round((presentDays / totalDays) * 100) : 100;
-
-  if (isTeacher) {
-    return (
-      <div>
-        <PageHeader
-          title="Attendance Controls"
-          subtitle="Submit and update class attendance logs"
-          breadcrumbs={[
-            { label: "Home", path: "/" },
-            { label: "Learn", path: "/learn" },
-            { label: "Attendance" },
-          ]}
-        />
-
-        <Card
-          style={{ marginTop: "var(--space-4)", padding: "var(--space-4)" }}
-        >
-          <h3 style={{ marginBottom: "var(--space-3)" }}>
-            Mark Student Attendance (Today)
-          </h3>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "var(--space-3)",
-              marginBottom: "var(--space-4)",
-            }}
-          >
-            {studentsList.map((student) => (
-              <div
-                key={student}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "12px 0",
-                  borderBottom: "1px solid var(--border-color)",
-                }}
-              >
-                <span style={{ fontWeight: 500 }}>{student}</span>
-                <div style={{ display: "flex", gap: "8px" }}>
-                  {(["present", "absent", "late"] as const).map((mode) => {
-                    const active = attendStatus[student] === mode;
-                    let activeBg = "var(--bg-color)";
-                    let activeColor = "var(--text-muted)";
-                    let activeBorder = "var(--border-color)";
-
-                    if (active) {
-                      if (mode === "present") {
-                        activeBg = "rgba(16, 185, 129, 0.15)";
-                        activeColor = "var(--success)";
-                        activeBorder = "var(--success)";
-                      }
-                      if (mode === "absent") {
-                        activeBg = "rgba(239, 68, 68, 0.15)";
-                        activeColor = "var(--danger)";
-                        activeBorder = "var(--danger)";
-                      }
-                      if (mode === "late") {
-                        activeBg = "rgba(245, 158, 11, 0.15)";
-                        activeColor = "var(--warning)";
-                        activeBorder = "var(--warning)";
-                      }
-                    }
-
-                    return (
-                      <button
-                        key={mode}
-                        onClick={() =>
-                          setAttendStatus((prev) => ({
-                            ...prev,
-                            [student]: mode,
-                          }))
-                        }
-                        style={{
-                          padding: "6px 16px",
-                          borderRadius: "var(--radius-full)",
-                          fontSize: "0.75rem",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          background: activeBg,
-                          color: activeColor,
-                          border: `1px solid ${activeBorder}`,
-                          transition: "all var(--transition-fast)",
-                        }}
-                      >
-                        {mode.toUpperCase()}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              variant="primary"
-              onClick={handleMarkAttendanceSubmit}
-              disabled={isMarking}
-            >
-              {isMarking ? "Publishing..." : "Publish Today's Attendance"}
-            </Button>
-          </div>
-        </Card>
-      </div>
-    );
-  }
-
-  const title = isParent ? "Sarah's Attendance" : "Attendance";
+  const filteredLogs = recentLogs.filter((log) => {
+    const matchesSearch =
+      log.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      log.date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      log.teacher.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = statusFilter === 'all' || log.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   return (
-    <div className={styles.attendancePage}>
-      <div className={styles.overviewContainer}>
-        <div className={styles.overviewHeader}>
-          <div className={styles.overviewTitleWrap}>
-            <h2>Attendance Overview</h2>
-            <p>Track daily attendance trends and stay updated</p>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '24px',
+        width: '100%',
+        paddingBottom: '40px',
+      }}
+    >
+      {/* Page Header Banner */}
+      <div
+        style={{
+          background: '#FFFFFF',
+          borderRadius: '24px',
+          padding: '24px 32px',
+          border: '1px solid #F1F5F9',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '16px',
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                color: '#10B981',
+                background: '#ECFDF5',
+                padding: '3px 10px',
+                borderRadius: '999px',
+              }}
+            >
+              Academic Year 2025-26
+            </span>
+            <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>• Student Portal</span>
           </div>
-          <div className={styles.overviewControls}>
-            <button className={styles.controlDropdown}>
-              <Calendar size={16} />
-              This Month
-              <ChevronDown size={16} />
-            </button>
-            <button className={styles.controlButton}>
-              <TrendingUp size={16} />
-              View Detailed Report
-            </button>
-          </div>
+          <p
+            style={{
+              fontSize: '1.35rem',
+              fontWeight: 800,
+              color: '#0F172A',
+              margin: '0 0 4px 0',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Student Attendance Log 📅
+          </p>
+          <p style={{ fontSize: '0.85rem', color: '#64748B', margin: 0 }}>
+            Track daily presence, view attendance rates, and monitor historical records.
+          </p>
         </div>
 
-        <div className={styles.overviewCards}>
-          <div className={`${styles.overviewCard} ${styles.green}`}>
-            <div className={styles.cardTopRow}>
-              <div className={`${styles.cardIconWrap} ${styles.green}`}>
-                <TrendingUp size={24} />
-              </div>
-              <div className={styles.cardBadgeWrap}>
-                <div className={`${styles.cardBadge} ${styles.green}`}>
-                  <ArrowUp size={14} /> 12%
-                </div>
-                <span className={styles.cardBadgeSub}>vs last 30 days</span>
-              </div>
-            </div>
-            <div className={`${styles.cardNumber} ${styles.green}`}>{overallRate}%</div>
-            <div className={styles.cardTitle}>Overall Attendance</div>
-            <div className={styles.cardSubtitle}>Average attendance percentage</div>
-            <div className={styles.cardChart}>
-              <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="gradGreen" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#10b981" stopOpacity="0.2" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                <path d="M0 35 C 15 35, 20 20, 35 25 C 50 30, 60 25, 75 25 C 85 25, 95 15, 100 15 L 100 40 L 0 40 Z" fill="url(#gradGreen)" />
-                <path d="M0 35 C 15 35, 20 20, 35 25 C 50 30, 60 25, 75 25 C 85 25, 95 15, 100 15" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" />
-                <circle cx="100" cy="15" r="3" fill="#10b981" />
-              </svg>
-            </div>
-          </div>
-
-          <div className={`${styles.overviewCard} ${styles.blue}`}>
-            <div className={styles.cardTopRow}>
-              <div className={`${styles.cardIconWrap} ${styles.blue}`}>
-                <CalendarDays size={24} />
-              </div>
-              <div className={styles.cardBadgeWrap}>
-                <div className={`${styles.cardBadge} ${styles.blue}`}>
-                  <CheckCircle size={14} /> Good
-                </div>
-              </div>
-            </div>
-            <div className={`${styles.cardNumber} ${styles.blue}`}>{presentDays}</div>
-            <div className={styles.cardTitle}>Days Present</div>
-            <div className={styles.cardSubtitle}>Total days students were present</div>
-            <div className={styles.cardChart}>
-              <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
-                <rect x="5" y="25" width="6" height="15" fill="#93c5fd" rx="2" />
-                <rect x="18" y="25" width="6" height="15" fill="#93c5fd" rx="2" />
-                <rect x="31" y="20" width="6" height="20" fill="#93c5fd" rx="2" />
-                <rect x="44" y="25" width="6" height="15" fill="#93c5fd" rx="2" />
-                <rect x="57" y="15" width="6" height="25" fill="#93c5fd" rx="2" />
-                <rect x="70" y="20" width="6" height="20" fill="#93c5fd" rx="2" />
-                <rect x="83" y="25" width="6" height="15" fill="#93c5fd" rx="2" />
-                <rect x="94" y="10" width="6" height="30" fill="#3b82f6" rx="2" />
-              </svg>
-            </div>
-          </div>
-
-          <div className={`${styles.overviewCard} ${styles.red}`}>
-            <div className={styles.cardTopRow}>
-              <div className={`${styles.cardIconWrap} ${styles.red}`}>
-                <UserX size={24} />
-              </div>
-              <div className={styles.cardBadgeWrap}>
-                <div className={`${styles.cardBadge} ${styles.red}`}>
-                  <AlertTriangle size={14} /> Needs Attention
-                </div>
-              </div>
-            </div>
-            <div className={`${styles.cardNumber} ${styles.red}`}>{absentDays}</div>
-            <div className={styles.cardTitle}>Days Absent</div>
-            <div className={styles.cardSubtitle}>Total days students were absent</div>
-            <div className={styles.cardChart}>
-              <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="gradRed" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#ef4444" stopOpacity="0.15" />
-                    <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                <path d="M0 35 C 15 35, 20 32, 35 32 C 45 32, 55 18, 65 25 C 75 32, 85 30, 100 28 L 100 40 L 0 40 Z" fill="url(#gradRed)" />
-                <path d="M0 35 C 15 35, 20 32, 35 32 C 45 32, 55 18, 65 25 C 75 32, 85 30, 100 28" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" />
-                <circle cx="100" cy="28" r="3" fill="#ef4444" />
-              </svg>
-            </div>
-          </div>
-
-          <div className={`${styles.overviewCard} ${styles.orange}`}>
-            <div className={styles.cardTopRow}>
-              <div className={`${styles.cardIconWrap} ${styles.orange}`}>
-                <Clock size={24} />
-              </div>
-              <div className={styles.cardBadgeWrap}>
-                <div className={`${styles.cardBadge} ${styles.orange}`}>
-                  <ArrowUp size={14} /> 8%
-                </div>
-                <span className={styles.cardBadgeSub}>vs last 30 days</span>
-              </div>
-            </div>
-            <div className={`${styles.cardNumber} ${styles.orange}`}>{lateDays}</div>
-            <div className={styles.cardTitle}>Days Late</div>
-            <div className={styles.cardSubtitle}>Total days students were late</div>
-            <div className={styles.cardChart}>
-              <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="gradOrange" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.15" />
-                    <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-                <path d="M0 35 L 20 35 C 30 35, 35 25, 45 25 C 55 25, 60 33, 75 33 C 85 33, 95 28, 100 28 L 100 40 L 0 40 Z" fill="url(#gradOrange)" />
-                <path d="M0 35 L 20 35 C 30 35, 35 25, 45 25 C 55 25, 60 33, 75 33 C 85 33, 95 28, 100 28" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" />
-                <circle cx="100" cy="28" r="3" fill="#f59e0b" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.overviewFooter}>
-          <div className={styles.footerLeft}>
-            <div className={styles.footerIcon}>
-              <Trophy size={16} />
-            </div>
-            <div className={styles.footerText}>
-              <strong>Keep it up!</strong> Your attendance is better than 72% of other classes.
-            </div>
-          </div>
-          <button className={styles.footerButton}>
-            View Insights <ArrowRight size={14} />
+        {/* Action Controls */}
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <button
+            style={{
+              padding: '10px 18px',
+              borderRadius: '12px',
+              border: '1px solid #E2E8F0',
+              background: '#FFFFFF',
+              color: '#334155',
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer',
+            }}
+          >
+            <Download size={16} /> Export Report
           </button>
         </div>
       </div>
 
-      <section className={styles.notificationGrid}>
-        <div className={styles.notificationHeader}>
-          <h3>Attendance Alerts</h3>
-        </div>
-        <div className={styles.notificationCardsList}>
-          {attendance.filter(a => a.status !== 'present').map((day, index) => {
-            const theme = statusTheme[day.status];
-            const date = splitDate(day.date);
-            return (
-              <div key={`alert-${index}`} className={`${styles.notificationCard} ${theme.badge}`}>
-                <div className={`${styles.notificationIcon} ${theme.dot}`}></div>
-                <div className={styles.notificationContent}>
-                  <p className={styles.notificationTitle}>
-                    <strong>{theme.label}</strong> on {day.day}, {date.month} {date.day}
-                  </p>
-                  <p className={styles.notificationReason}>{day.reason || 'Please check with your teacher.'}</p>
+      {/* 4 Metrics Cards Row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+        {metrics.map((m, idx) => {
+          const IconC = m.icon;
+          return (
+            <div
+              key={idx}
+              style={{
+                background: '#FFFFFF',
+                borderRadius: '20px',
+                padding: '18px 20px',
+                border: '1px solid #F1F5F9',
+                borderLeft: m.borderLeft || 'none',
+                boxShadow: '0 4px 18px rgba(0, 0, 0, 0.03)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+                <div
+                  style={{
+                    width: '28px',
+                    height: '28px',
+                    borderRadius: '8px',
+                    background: m.iconBg,
+                    color: m.iconColor,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                  }}
+                >
+                  <IconC size={16} />
                 </div>
+                <span style={{ fontSize: '13.5px', fontWeight: 600, color: '#475569' }}>
+                  {m.title}
+                </span>
               </div>
-            );
-          })}
-        </div>
-      </section>
 
-      <section className={styles.dashboardGrid}>
-        {/* Attendance Overview (Area Chart) */}
-        <div className={styles.chartCard}>
-          <div className={styles.chartHeader}>
-            <div className={styles.chartTitleWrap}>
-              <BarChart2 size={20} className={styles.chartIcon} />
-              <h3>Attendance Overview</h3>
+              <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.1, marginBottom: '6px' }}>
+                {m.value}
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.725rem', fontWeight: 600, color: m.subColor }}>
+                  {m.subtext}
+                </span>
+
+                <svg width="42" height="18" viewBox="0 0 48 20" fill="none">
+                  <path
+                    d="M 2 14 C 10 17, 16 6, 24 11 C 32 15, 38 3, 46 5"
+                    stroke={m.sparklineColor}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
             </div>
-            <div className={styles.chartControls}>
-              <button className={styles.filterSelect}>
-                <Calendar size={14} color="#64748B" />
-                Last 30 Days
-                <ChevronDown size={14} color="#64748B" />
+          );
+        })}
+      </div>
+
+      {/* Grid Row 2: Monthly Calendar Visual + Subject-Wise Attendance */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '24px' }}>
+        {/* Monthly Attendance Calendar Box */}
+        <div
+          style={{
+            background: '#FFFFFF',
+            borderRadius: '24px',
+            padding: '24px 28px',
+            border: '1px solid #F1F5F9',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <p style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>
+              Monthly Attendance Map
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <button
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  border: '1px solid #E2E8F0',
+                  background: '#FFFFFF',
+                  color: '#64748B',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                }}
+              >
+                <ChevronLeft size={16} />
               </button>
-              <MoreVertical size={16} color="#94A3B8" style={{ cursor: 'pointer' }} />
+              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0F172A' }}>
+                {selectedMonth}
+              </span>
+              <button
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  border: '1px solid #E2E8F0',
+                  background: '#FFFFFF',
+                  color: '#64748B',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                }}
+              >
+                <ChevronRight size={16} />
+              </button>
             </div>
           </div>
-          
-          <div className={styles.areaChartContainer}>
-            <svg width="100%" height="100%" viewBox="0 0 800 250" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="greenGradient" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="rgba(16, 185, 129, 0.25)" />
-                  <stop offset="100%" stopColor="rgba(16, 185, 129, 0.0)" />
-                </linearGradient>
-              </defs>
-              
-              {/* Horizontal Grid Lines */}
-              <line x1="0" y1="20" x2="800" y2="20" className={styles.gridLine} />
-              <line x1="0" y1="70" x2="800" y2="70" className={styles.gridLine} />
-              <line x1="0" y1="120" x2="800" y2="120" className={styles.gridLine} />
-              <line x1="0" y1="170" x2="800" y2="170" className={styles.gridLine} />
-              <line x1="0" y1="220" x2="800" y2="220" className={styles.gridLine} />
-              
-              {/* Y-axis Labels */}
-              <text x="0" y="24" className={styles.axisLabel}>100%</text>
-              <text x="0" y="74" className={styles.axisLabel}>75%</text>
-              <text x="0" y="124" className={styles.axisLabel}>50%</text>
-              <text x="0" y="174" className={styles.axisLabel}>25%</text>
-              <text x="0" y="224" className={styles.axisLabel}>0%</text>
 
-              {/* X-axis Labels */}
-              <text x="60" y="245" className={styles.axisLabel}>Apr 24</text>
-              <text x="180" y="245" className={styles.axisLabel}>Apr 28</text>
-              <text x="300" y="245" className={styles.axisLabel}>May 2</text>
-              <text x="420" y="245" className={styles.axisLabel}>May 6</text>
-              <text x="540" y="245" className={styles.axisLabel}>May 10</text>
-              <text x="660" y="245" className={styles.axisLabel}>May 14</text>
-              <text x="760" y="245" className={styles.axisLabel}>May 18</text>
+          {/* 7 Days Weekday Legend */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, 1fr)',
+              gap: '10px',
+              textAlign: 'center',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              color: '#94A3B8',
+              marginBottom: '12px',
+            }}
+          >
+            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => (
+              <div key={day}>{day}</div>
+            ))}
+          </div>
 
-              {/* Chart Paths */}
-              <g transform="translate(60, 0)">
-                <path className={styles.areaPath} d="M0 220 L0 100 C 60 100, 90 120, 120 120 C 180 120, 210 90, 240 90 C 300 90, 330 110, 360 110 C 420 110, 450 90, 480 120 C 540 150, 570 90, 600 100 C 660 110, 690 90, 720 100 L720 220 Z" />
-                <path className={styles.linePath} d="M0 100 C 60 100, 90 120, 120 120 C 180 120, 210 90, 240 90 C 300 90, 330 110, 360 110 C 420 110, 450 90, 480 120 C 540 150, 570 90, 600 100 C 660 110, 690 90, 720 100" />
-                
-                {/* Points */}
-                <circle cx="0" cy="100" r="4" className={styles.dataPoint} />
-                <circle cx="120" cy="120" r="4" className={styles.dataPoint} />
-                <circle cx="240" cy="90" r="4" className={styles.dataPoint} />
-                <circle cx="360" cy="110" r="4" className={styles.dataPoint} />
-                
-                {/* Active Point (May 10) */}
-                <g transform="translate(480, 120)">
-                  <circle cx="0" cy="0" r="6" className={styles.dataPointActive} />
-                  <line x1="0" y1="0" x2="0" y2="100" className={styles.gridLine} style={{ stroke: '#94A3B8' }} />
-                </g>
+          {/* 31 Days Visual Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '10px', marginBottom: '20px' }}>
+            {calendarDays.map((item) => {
+              let bg = '#ECFDF5';
+              let color = '#10B981';
+              let label = 'P';
 
-                <circle cx="600" cy="100" r="4" className={styles.dataPoint} />
-                <circle cx="720" cy="100" r="4" className={styles.dataPoint} />
-              </g>
-            </svg>
-            
-            {/* Tooltip Overlay */}
-            <div className={styles.chartTooltip} style={{ left: '540px', top: '100px' }}>
-              <p className={styles.tooltipDate}>May 10</p>
-              <p className={styles.tooltipValue}>
-                <span className={styles.tooltipDot}></span>
-                Attendance: <strong>72%</strong>
-              </p>
-            </div>
+              if (item.status === 'absent') {
+                bg = '#FEF2F2';
+                color = '#EF4444';
+                label = 'A';
+              } else if (item.status === 'late') {
+                bg = '#FFF7ED';
+                color = '#F97316';
+                label = 'L';
+              } else if (item.status === 'holiday') {
+                bg = '#F1F5F9';
+                color = '#64748B';
+                label = 'H';
+              } else if (item.status === 'weekend') {
+                bg = '#F8FAFC';
+                color = '#CBD5E1';
+                label = '-';
+              }
+
+              return (
+                <div
+                  key={item.day}
+                  style={{
+                    background: bg,
+                    color: color,
+                    borderRadius: '12px',
+                    padding: '10px',
+                    textAlign: 'center',
+                    fontSize: '0.8rem',
+                    fontWeight: 700,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '2px',
+                  }}
+                >
+                  <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>{item.day}</span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800 }}>{label}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Status Legend Row */}
+          <div style={{ display: 'flex', gap: '20px', fontSize: '0.775rem', color: '#64748B', justifyContent: 'center' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10B981' }} />
+              Present (22)
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#EF4444' }} />
+              Absent (1)
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#F97316' }} />
+              Late (1)
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#64748B' }} />
+              Holiday (1)
+            </span>
           </div>
         </div>
 
-        {/* Attendance Summary (Donut Chart) */}
-        <div className={styles.chartCard}>
-          <div className={styles.chartHeader}>
-            <div className={styles.chartTitleWrap}>
-              <PieChart size={20} className={styles.chartIcon} color="#64748B" />
-              <h3>Attendance Summary</h3>
+        {/* Subject-Wise Attendance Breakdown */}
+        <div
+          style={{
+            background: '#FFFFFF',
+            borderRadius: '24px',
+            padding: '24px 28px',
+            border: '1px solid #F1F5F9',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <p style={{ margin: '0 0 16px 0', fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>
+              Subject-Wise Breakdown
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {subjectAttendance.map((sub) => (
+                <div key={sub.subject} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13.5px', fontWeight: 600, color: '#475569' }}>
+                    <span>{sub.subject}</span>
+                    <span style={{ fontWeight: 700, color: '#0F172A' }}>{sub.rate}%</span>
+                  </div>
+                  <div style={{ height: '6px', width: '100%', background: '#F1F5F9', borderRadius: '999px', overflow: 'hidden' }}>
+                    <div style={{ width: `${sub.rate}%`, height: '100%', background: sub.color, borderRadius: '999px' }} />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className={styles.donutContainer}>
-            <div className={styles.donutSvgWrap}>
-              <svg width="100%" height="100%" viewBox="0 0 100 100">
-                {/* Background Circle */}
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#F1F5F9" strokeWidth="12" />
-                
-                {/* Present (Green) */}
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#10B981" strokeWidth="12" 
-                        strokeDasharray="168.3 251.2" strokeDashoffset="62.8" strokeLinecap="round" />
-                
-                {/* Absent (Red) */}
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#EF4444" strokeWidth="12" 
-                        strokeDasharray="42.7 251.2" strokeDashoffset="-105.5" strokeLinecap="round" />
-                
-                {/* Late (Orange) */}
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#F59E0B" strokeWidth="12" 
-                        strokeDasharray="42.7 251.2" strokeDashoffset="-148.2" strokeLinecap="round" />
-              </svg>
-              <div className={styles.donutCenter}>
-                <span className={styles.donutNumber}>6</span>
-                <span className={styles.donutLabel}>Total Days</span>
-              </div>
-            </div>
-
-            <div className={styles.donutLegend}>
-              <div className={styles.legendItem}>
-                <div className={styles.legendLeft}>
-                  <span className={styles.legendDot} style={{ background: '#10B981' }}></span>
-                  Present
-                </div>
-                <div className={styles.legendRight}>4 (67%)</div>
-              </div>
-              <div className={styles.legendItem}>
-                <div className={styles.legendLeft}>
-                  <span className={styles.legendDot} style={{ background: '#EF4444' }}></span>
-                  Absent
-                </div>
-                <div className={styles.legendRight}>1 (17%)</div>
-              </div>
-              <div className={styles.legendItem}>
-                <div className={styles.legendLeft}>
-                  <span className={styles.legendDot} style={{ background: '#F59E0B' }}></span>
-                  Late
-                </div>
-                <div className={styles.legendRight}>1 (17%)</div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ marginTop: 'auto' }}>
-            <div className={styles.successBanner}>
-              <CheckCircle size={16} />
-              Great job! Keep up the consistency.
-            </div>
+          <div
+            style={{
+              background: '#F8FAFC',
+              borderRadius: '16px',
+              padding: '14px',
+              marginTop: '20px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              fontSize: '0.8rem',
+              color: '#64748B',
+            }}
+          >
+            <ShieldCheck size={20} color="#10B981" />
+            <span>Attendance meets the minimum 75% school requirement for term exams.</span>
           </div>
         </div>
-      </section>
+      </div>
+
+      {/* Roster & Historical Attendance Table Section */}
+      <div
+        style={{
+          background: '#FFFFFF',
+          borderRadius: '24px',
+          padding: '28px 32px',
+          border: '1px solid #F1F5F9',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '20px',
+            flexWrap: 'wrap',
+            gap: '16px',
+          }}
+        >
+          <p style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>
+            Daily Attendance Roster
+          </p>
+
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            {/* Search Input */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: '12px',
+                padding: '8px 14px',
+                fontSize: '0.85rem',
+              }}
+            >
+              <Search size={16} color="#94A3B8" />
+              <input
+                type="text"
+                placeholder="Search subject or date..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ border: 'none', background: 'transparent', outline: 'none', color: '#0F172A' }}
+              />
+            </div>
+
+            {/* Status Filter */}
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              style={{
+                background: '#F8FAFC',
+                border: '1px solid #E2E8F0',
+                borderRadius: '12px',
+                padding: '8px 14px',
+                fontSize: '0.85rem',
+                color: '#334155',
+                fontWeight: 600,
+                outline: 'none',
+              }}
+            >
+              <option value="all">All Statuses</option>
+              <option value="present">Present</option>
+              <option value="absent">Absent</option>
+              <option value="late">Late</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Attendance Table */}
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem' }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid #F1F5F9', color: '#64748B', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <th style={{ padding: '12px 16px' }}>Date</th>
+                <th style={{ padding: '12px 16px' }}>Time</th>
+                <th style={{ padding: '12px 16px' }}>Subject</th>
+                <th style={{ padding: '12px 16px' }}>Teacher</th>
+                <th style={{ padding: '12px 16px' }}>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredLogs.map((row, i) => {
+                let badgeBg = '#ECFDF5';
+                let badgeColor = '#10B981';
+                if (row.status === 'absent') {
+                  badgeBg = '#FEF2F2';
+                  badgeColor = '#EF4444';
+                } else if (row.status === 'late') {
+                  badgeBg = '#FFF7ED';
+                  badgeColor = '#F97316';
+                }
+
+                return (
+                  <tr key={i} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                    <td style={{ padding: '14px 16px', fontWeight: 600, color: '#0F172A', fontSize: '13.5px' }}>{row.date}</td>
+                    <td style={{ padding: '14px 16px', color: '#64748B' }}>{row.time}</td>
+                    <td style={{ padding: '14px 16px', fontWeight: 600, color: '#0F172A', fontSize: '13.5px' }}>{row.subject}</td>
+                    <td style={{ padding: '14px 16px', color: '#64748B' }}>{row.teacher}</td>
+                    <td style={{ padding: '14px 16px' }}>
+                      <span
+                        style={{
+                          background: badgeBg,
+                          color: badgeColor,
+                          padding: '4px 12px',
+                          borderRadius: '999px',
+                          fontSize: '0.725rem',
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {row.status}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

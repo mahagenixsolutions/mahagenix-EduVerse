@@ -4,50 +4,45 @@ import { AnnouncementsSection } from '../components/AnnouncementsSection';
 import { SummaryCards } from '../components/SummaryCards';
 import { ContinueLearning } from '../components/ContinueLearning';
 import { TodaySchedule } from '../components/TodaySchedule';
-import { LearningProgress } from '../components/LearningProgress';
 import { PendingHomework } from '../components/PendingHomework';
-import { UpcomingExams } from '../components/UpcomingExams';
-import { EventsPreview } from '../components/EventsPreview';
+import { LearningProgress } from '../components/LearningProgress';
 import { AchievementsPreview } from '../components/AchievementsPreview';
 import { NewsPreview } from '../components/NewsPreview';
 import { AITutorCard } from '../components/AITutorCard';
-import { FeatureGuard } from '@/contexts/SubscriptionContext';
 import styles from './home.module.css';
 
 export const HomePage: React.FC = () => {
   return (
     <div className={styles.dashboard}>
+      {/* Welcome Hero Banner */}
       <HomeHero />
+
+      {/* Announcements Auto-scroll Carousel */}
       <AnnouncementsSection />
+
+      {/* 5 Metric Summary Cards */}
       <SummaryCards />
 
-      <div className={styles.mainGrid}>
-        {/* Left Column: Learning activities */}
-        <div className={styles.leftCol} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          <ContinueLearning />
-          <TodaySchedule />
-          <PendingHomework />
-          <FeatureGuard flag="live_classes">
-            <EventsPreview />
-          </FeatureGuard>
-        </div>
+      {/* Row 1: Continue Learning | Today's Schedule | Pending Homework */}
+      <div className={styles.threeColGrid}>
+        <ContinueLearning />
+        <TodaySchedule />
+        <PendingHomework />
+      </div>
 
-        {/* Right Column: Progress & Updates */}
-        <div className={styles.rightCol} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          <FeatureGuard flag="learning_analytics">
-            <LearningProgress />
-          </FeatureGuard>
-          <FeatureGuard flag="online_exams">
-            <UpcomingExams />
-          </FeatureGuard>
-          <FeatureGuard flag="achievements">
-            <AchievementsPreview />
-          </FeatureGuard>
-          <NewsPreview />
-          <FeatureGuard flag="ai_study_assistant">
-            <AITutorCard />
-          </FeatureGuard>
-        </div>
+      {/* Row 2: Learning Progress | Recent Achievements | School News */}
+      <div className={styles.threeColGrid}>
+        <LearningProgress />
+        <AchievementsPreview />
+        <NewsPreview />
+      </div>
+
+      {/* Row 3: AI Tutor Banner */}
+      <AITutorCard />
+
+      {/* Footer copyright */}
+      <div className={styles.footerText}>
+        © 2025 EduTrack AI. All rights reserved.
       </div>
     </div>
   );

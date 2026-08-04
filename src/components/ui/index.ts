@@ -1,6 +1,8 @@
-export { Avatar } from './Avatar';
-export { Badge } from './Badge';
-export { Button } from './Button';
-export { Card } from './Card';
-export { ProgressBar } from './ProgressBar';
-export { Tabs } from './Tabs';
+export * from './Avatar';
+export * from './Badge';
+export * from './Button';
+export * from './Card';
+export * from './ProgressBar';
+export * from './Tabs';
+export * from './Modal';
+export * from './Input';

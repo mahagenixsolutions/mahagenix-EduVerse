@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card } from '@/components/ui/Card';
 
 export const NewsPreview: React.FC = () => {
   const newsItems = [
@@ -8,71 +7,90 @@ export const NewsPreview: React.FC = () => {
       category: 'EVENT',
       title: 'Annual Science Fair Registration Open',
       time: '2 hrs ago',
-      color: '#10B981' // green
+      color: '#2563EB',
     },
     {
       id: 2,
       category: 'NOTICE',
       title: 'Holiday Notice: Diwali Break',
       time: '1 day ago',
-      color: '#3B82F6' // blue
+      color: '#7C3AED',
     },
     {
       id: 3,
       category: 'SPORTS',
       title: 'Varsity Basketball Team Tryouts',
       time: '2 days ago',
-      color: '#F59E0B' // orange
-    }
+      color: '#EF4444',
+    },
   ];
 
   return (
-    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
+    <div
+      style={{
+        background: '#FFFFFF',
+        borderRadius: '20px',
+        padding: '18px 20px',
+        border: '1px solid #F1F5F9',
+        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.02)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '14px',
+        height: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Section Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
+        <p style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1E293B' }}>
           School News
         </p>
-        <a href="/messages" style={{ fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'none' }}>
-          See All
+        <a
+          href="/app/school/events"
+          style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}
+        >
+          View All
         </a>
       </div>
 
-      {/* news list vertical layout */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      {/* News List */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {newsItems.map((item, idx) => (
-          <div 
+          <div
             key={item.id}
             style={{
-              paddingBottom: idx === newsItems.length - 1 ? 0 : '12px',
-              borderBottom: idx === newsItems.length - 1 ? 'none' : '1px solid var(--border-color)',
+              paddingBottom: idx === newsItems.length - 1 ? 0 : '8px',
+              borderBottom: idx === newsItems.length - 1 ? 'none' : '1px solid #F1F5F9',
               display: 'flex',
               flexDirection: 'column',
-              gap: '4px'
+              gap: '2px',
             }}
           >
-            <span style={{
-              fontSize: '0.68rem',
-              fontWeight: 700,
-              color: item.color,
-              letterSpacing: '0.5px'
-            }}>
+            <span
+              style={{
+                fontSize: '0.6rem',
+                fontWeight: 700,
+                color: item.color,
+                letterSpacing: '0.05em',
+              }}
+            >
               {item.category}
             </span>
-            <h4 style={{
-              margin: 0,
-              fontSize: '0.875rem',
-              fontWeight: 700,
-              color: 'var(--text-main)',
-              lineHeight: 1.3
-            }}>
+            <p
+              style={{
+                margin: 0,
+                fontSize: '13.5px',
+                fontWeight: 600,
+                color: '#1E293B',
+                lineHeight: 1.3,
+              }}
+            >
               {item.title}
-            </h4>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-light)' }}>
-              {item.time}
-            </span>
+            </p>
+            <span style={{ fontSize: '0.675rem', color: '#94A3B8', fontWeight: 400 }}>{item.time}</span>
           </div>
         ))}
       </div>
-    </Card>
+    </div>
   );
 };

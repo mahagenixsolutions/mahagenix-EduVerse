@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { GraduationCap, ArrowLeft, ArrowRight, Check } from 'lucide-react';
-import { PLANS } from '@/features/marketing/data/plans';
-import type { PlanTierId } from '@/features/marketing/types';
+import { PLANS, type PlanTierId } from '@/features/marketing';
 import '@/features/marketing/marketing.css';
 import { ProvisioningScreen } from '../components/ProvisioningScreen';
 

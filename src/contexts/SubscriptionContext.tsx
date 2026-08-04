@@ -61,7 +61,12 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
 export const useSubscription = (): SubscriptionContextType => {
   const context = useContext(SubscriptionContext);
   if (!context) {
-    throw new Error('useSubscription must be used within a SubscriptionProvider');
+    return {
+      currentPlan: 'starter',
+      enabledFlags: new Set<FeatureFlag>(),
+      isFeatureEnabled: () => true,
+      setPlan: () => {},
+    };
   }
   return context;
 };

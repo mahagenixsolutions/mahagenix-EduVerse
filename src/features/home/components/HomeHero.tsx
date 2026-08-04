@@ -1,58 +1,202 @@
 import React from 'react';
+import { CalendarCheck, BookOpen, Award, Clock } from 'lucide-react';
+import heroStudentImg from 'C:/Users/vasal/.gemini/antigravity-ide/brain/c58dd6cc-1480-439b-b957-e260fd2574c0/media__1785744822150.png';
 
-export const HomeHero: React.FC = () => (
-  <section style={{
-    background: 'linear-gradient(to right, #0D7C66 30%, #11997E 65%, #94B3EB 100%)',
-    borderRadius: '24px',
-    padding: '36px 48px',
-    color: 'white',
-    minHeight: '160px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    position: 'relative',
-    overflow: 'hidden',
-    boxShadow: '0 8px 24px rgba(13, 124, 102, 0.1)',
-    marginBottom: '24px'
-  }}>
-    {/* Overlay text on the left */}
-    <div style={{ position: 'relative', zIndex: 2, maxWidth: '50%' }}>
-      <h1 style={{ 
-        fontSize: '1.95rem', 
-        fontWeight: 700, 
-        marginBottom: '10px', 
-        color: 'white', 
-        fontFamily: "'Century Gothic', sans-serif",
-        letterSpacing: '-0.5px'
-      }}>
-        Welcome back, Sarah! 👋
-      </h1>
-      <p style={{ 
-        opacity: 0.95, 
-        fontSize: '0.9rem', 
-        margin: 0, 
-        lineHeight: 1.4,
-        fontFamily: "'Century Gothic', sans-serif"
-      }}>
-        You have 2 upcoming exams, 1 pending homework, and a 12-day learning streak.
-      </p>
-    </div>
-
-    {/* Right-aligned 3D illustration fitting the banner height perfectly with zero cropping */}
-    <img 
-      src="/hero_learning_illustration.png" 
-      alt="Learning Illustration"
+export const HomeHero: React.FC = () => {
+  return (
+    <section
       style={{
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        bottom: 0,
-        height: '100%',
-        width: 'auto',
-        objectFit: 'contain',
-        pointerEvents: 'none',
-        zIndex: 1
+        background: '#FFFFFF',
+        borderRadius: '24px',
+        padding: '28px 36px',
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+        marginBottom: '24px',
+        border: '1px solid #F1F5F9',
       }}
-    />
-  </section>
-);
+    >
+      {/* Left Content Area */}
+      <div style={{ flex: 1, zIndex: 2, paddingRight: '20px' }}>
+        <h1
+          style={{
+            fontSize: '1.45rem',
+            fontWeight: 800,
+            color: '#0F172A',
+            margin: '0 0 6px 0',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          Welcome back, Sarah! 👋
+        </h1>
+        <p
+          style={{
+            fontSize: '0.875rem',
+            color: '#64748B',
+            margin: '0 0 24px 0',
+          }}
+        >
+          Here's what's happening with your studies today.
+        </p>
+
+        {/* 4 Stat Stickers Row */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            maxWidth: '640px',
+            gap: '32px',
+            alignItems: 'flex-start',
+          }}
+        >
+          {/* Sticker 1: Attendance */}
+          <div style={{ minWidth: '90px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '8px',
+                  background: '#ECFDF5',
+                  color: '#10B981',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                <CalendarCheck size={16} />
+              </div>
+              <span style={{ fontSize: '0.8rem', color: '#475569', fontWeight: 600 }}>
+                Attendance
+              </span>
+            </div>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2, marginBottom: '2px' }}>
+              92%
+            </div>
+            <div style={{ fontSize: '0.725rem', color: '#94A3B8' }}>
+              This Month
+            </div>
+          </div>
+
+          {/* Sticker 2: Homework */}
+          <div style={{ minWidth: '90px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '8px',
+                  background: '#FFF7ED',
+                  color: '#F97316',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                <BookOpen size={16} />
+              </div>
+              <span style={{ fontSize: '0.8rem', color: '#475569', fontWeight: 600 }}>
+                Homework
+              </span>
+            </div>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2, marginBottom: '2px' }}>
+              3
+            </div>
+            <div style={{ fontSize: '0.725rem', color: '#94A3B8' }}>
+              Pending
+            </div>
+          </div>
+
+          {/* Sticker 3: Exams */}
+          <div style={{ minWidth: '90px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '8px',
+                  background: '#EFF6FF',
+                  color: '#3B82F6',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                <Award size={16} />
+              </div>
+              <span style={{ fontSize: '0.8rem', color: '#475569', fontWeight: 600 }}>
+                Exams
+              </span>
+            </div>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2, marginBottom: '2px' }}>
+              2
+            </div>
+            <div style={{ fontSize: '0.725rem', color: '#94A3B8' }}>
+              Upcoming
+            </div>
+          </div>
+
+          {/* Sticker 4: Classes Today */}
+          <div style={{ minWidth: '90px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              <div
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '8px',
+                  background: '#F3E8FF',
+                  color: '#A855F7',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                <Clock size={16} />
+              </div>
+              <span style={{ fontSize: '0.8rem', color: '#475569', fontWeight: 600 }}>
+                Classes Today
+              </span>
+            </div>
+            <div style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0F172A', lineHeight: 1.2, marginBottom: '2px' }}>
+              5
+            </div>
+            <div style={{ fontSize: '0.725rem', color: '#94A3B8' }}>
+              Scheduled
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Content Area: Student Illustration Image */}
+      <div
+        style={{
+          width: '300px',
+          height: '190px',
+          flexShrink: 0,
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginRight: '-10px',
+        }}
+      >
+        <img
+          src={heroStudentImg}
+          alt="Sarah Student Learning"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+          }}
+        />
+      </div>
+    </section>
+  );
+};

@@ -34,7 +34,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, breadcr
       )}
       <div className={styles.titleRow}>
         <div>
-          <h1 className={styles.title}>{title}</h1>
+          <p className={styles.title}>{title}</p>
           {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         </div>
         {actions && <div className={styles.actions}>{actions}</div>}

@@ -4,3 +4,5 @@ export const attendanceService = {
   getAttendanceList: () => MockServer.getAttendance(),
   markAttendance: (records: AttendanceRecord[]) => MockServer.markAttendance(records)
 };
+
+export const AttendanceService = attendanceService;

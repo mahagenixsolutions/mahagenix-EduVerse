@@ -4,7 +4,6 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Tabs } from '@/components/ui/Tabs';
-import { ProgressBar } from '@/components/ui/ProgressBar';
 import { 
   BookOpen, Video, FileText, Download, Bookmark, 
   CheckCircle2, Clock, Play, FileCheck, Star, Sparkles, ChevronRight
@@ -151,9 +150,9 @@ export const LessonsPage: React.FC = () => {
                 <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#10b981', textTransform: 'uppercase' }}>
                   {activeLesson.unit}
                 </span>
-                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', margin: '4px 0 8px 0' }}>
+                <p style={{ fontSize: '1.3rem', fontWeight: 800, color: '#ffffff', margin: '4px 0 8px 0', lineHeight: 1.2 }}>
                   {activeLesson.title}
-                </h2>
+                </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px', color: '#cbd5e1', fontSize: '0.85rem' }}>
                   <span>Instructor: {activeLesson.teacher}</span>
                   <span>Duration: {activeLesson.duration}</span>
@@ -202,9 +201,9 @@ export const LessonsPage: React.FC = () => {
 
           {/* Teacher Materials & Handouts */}
           <Card style={{ padding: '20px', borderRadius: '18px' }}>
-            <h4 style={{ margin: '0 0 14px 0', fontSize: '1rem', fontWeight: 700 }}>
+            <p style={{ margin: '0 0 14px 0', fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-main)' }}>
               Lesson Attachments & Slides
-            </h4>
+            </p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', borderRadius: '12px', background: 'var(--bg-color)', border: '1px solid var(--border-color)' }}>
                 <FileText size={24} style={{ color: '#2563eb' }} />
@@ -233,7 +232,9 @@ export const LessonsPage: React.FC = () => {
 
         {/* Sidebar Playlist */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>Course Lessons</h3>
+          <p style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0, color: 'var(--text-main)' }}>
+            Course Lessons
+          </p>
           {filtered.map(lesson => (
             <Card
               key={lesson.id}
@@ -251,9 +252,9 @@ export const LessonsPage: React.FC = () => {
                 {lesson.completed && <Badge variant="success">Done</Badge>}
               </div>
 
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, margin: '0 0 6px 0', color: 'var(--text-main)' }}>
+              <p style={{ fontSize: '13.5px', fontWeight: 600, margin: '0 0 6px 0', color: '#1E293B', lineHeight: 1.3 }}>
                 {lesson.title}
-              </h4>
+              </p>
 
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'flex', gap: '12px' }}>
                 <span><Clock size={12} /> {lesson.duration}</span>

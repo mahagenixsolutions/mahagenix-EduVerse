@@ -9,3 +9,5 @@ export const homeworkService = {
   gradeHomework: (id: number, grade: string, feedback: string) => 
     MockServer.gradeHomework(id, grade, feedback)
 };
+
+export const HomeworkService = homeworkService;

@@ -80,7 +80,7 @@ export const AnnouncementsPage: React.FC = () => {
                 <Badge variant={item.priority === 'high' ? 'danger' : 'info'}>
                   {item.category.toUpperCase()}
                 </Badge>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                   Published by: <strong>{item.author}</strong> • {item.date}
                 </span>
               </div>
@@ -92,11 +92,11 @@ export const AnnouncementsPage: React.FC = () => {
               )}
             </div>
 
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: '0 0 8px 0', color: 'var(--text-main)' }}>
+            <p style={{ fontSize: '13.5px', fontWeight: 600, margin: '0 0 6px 0', color: '#1E293B', lineHeight: 1.3 }}>
               {item.title}
-            </h3>
+            </p>
 
-            <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: 1.5 }}>
+            <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748B', lineHeight: 1.4 }}>
               {item.content}
             </p>
           </Card>

@@ -74,7 +74,15 @@ export const SplashProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 export const useSplashScreenContext = (): SplashContextType => {
   const context = useContext(SplashContext);
   if (!context) {
-    throw new Error('useSplashScreen must be used within a SplashProvider');
+    return {
+      isSplashActive: false,
+      isSplashFinished: true,
+      isFadingOut: false,
+      triggerLaunchExperience: (_role, onComplete) => {
+        if (onComplete) onComplete();
+      },
+      finishVideo: () => {},
+    };
   }
   return context;
 };

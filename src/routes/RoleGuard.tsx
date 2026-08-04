@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { useRole } from '@/contexts/RoleContext';
 import type { UserRole } from '@/contexts/RoleContext';
 import { useSubscription } from '@/contexts/SubscriptionContext';
@@ -8,7 +8,7 @@ import type { FeatureFlag } from '@/config/featureFlags';
 interface RoleGuardProps {
   allowedRoles: UserRole[];
   featureFlag?: FeatureFlag;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const RoleGuard: React.FC<RoleGuardProps> = ({ allowedRoles, featureFlag, children }) => {
@@ -27,5 +27,5 @@ export const RoleGuard: React.FC<RoleGuardProps> = ({ allowedRoles, featureFlag,
     return <Navigate to="/app" replace />;
   }
 
-  return <>{children}</>;
+  return children ? <>{children}</> : <Outlet />;
 };

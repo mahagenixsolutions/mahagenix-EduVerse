@@ -126,7 +126,7 @@ export const ClassDiscussionPage: React.FC = () => {
 
       {/* Ask Question Card */}
       <Card style={{ padding: '20px', borderRadius: '18px', marginBottom: '24px' }}>
-        <h3 style={{ margin: '0 0 12px 0', fontSize: '1rem', fontWeight: 700 }}>Ask a Question to the Class & Teacher</h3>
+        <p style={{ margin: '0 0 12px 0', fontSize: '0.95rem', fontWeight: 700, color: '#0F172A' }}>Ask a Question to the Class & Teacher</p>
         <form onSubmit={handlePostSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <textarea
             rows={3}
@@ -161,18 +161,18 @@ export const ClassDiscussionPage: React.FC = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
               <img src={post.avatar} alt={post.author} style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />
               <div>
-                <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700 }}>
+                <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: '#0F172A' }}>
                   {post.author} <Badge variant={post.role === 'teacher' ? 'info' : 'secondary'}>{post.role.toUpperCase()}</Badge>
-                </h4>
+                </p>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{post.time}</span>
               </div>
             </div>
 
-            <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-main)', margin: '0 0 8px 0' }}>
+            <p style={{ fontSize: '13.5px', fontWeight: 600, color: '#1E293B', margin: '0 0 6px 0', lineHeight: 1.3 }}>
               {post.topic}
-            </h3>
+            </p>
 
-            <p style={{ fontSize: '0.92rem', color: 'var(--text-main)', lineHeight: 1.5, margin: '0 0 16px 0' }}>
+            <p style={{ fontSize: '0.85rem', color: '#64748B', lineHeight: 1.4, margin: '0 0 14px 0' }}>
               {post.content}
             </p>
 
@@ -197,7 +197,7 @@ export const ClassDiscussionPage: React.FC = () => {
                       <span style={{ color: 'var(--text-main)' }}>{r.author} ({r.role})</span>
                       <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}>{r.time}</span>
                     </div>
-                    <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text-main)' }}>{r.content}</p>
+                    <p style={{ margin: 0, fontSize: '0.85rem', color: '#475569' }}>{r.content}</p>
                   </div>
                 ))}
               </div>

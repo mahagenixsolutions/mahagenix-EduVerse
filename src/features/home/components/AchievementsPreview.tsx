@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card } from '@/components/ui/Card';
-import { Award, Star, Trophy } from 'lucide-react';
+import { Medal, Star, Trophy } from 'lucide-react';
 
 export const AchievementsPreview: React.FC = () => {
   const achievements = [
@@ -8,86 +7,101 @@ export const AchievementsPreview: React.FC = () => {
       id: 1,
       title: 'Math Olympiad — Gold Medal',
       detail: 'Sep 2025 • Competition',
-      icon: Trophy,
-      color: '#F59E0B', // gold
-      bg: 'rgba(245, 158, 11, 0.08)'
+      icon: Medal,
+      color: '#F97316',
+      bg: '#FFF7ED',
     },
     {
       id: 2,
-      title: '100% Attendance — August',
-      detail: 'Aug 2025 • Attendance',
+      title: '100% Attendance — April',
+      detail: 'Apr 2025 • Attendance',
       icon: Star,
-      color: '#3B82F6', // blue
-      bg: 'rgba(59, 130, 246, 0.08)'
+      color: '#3B82F6',
+      bg: '#EFF6FF',
     },
     {
       id: 3,
       title: 'Science Fair — Best Project',
       detail: 'Jul 2025 • Academic',
-      icon: Award,
-      color: '#EAB308', // yellow-gold
-      bg: 'rgba(234, 179, 8, 0.08)'
-    }
+      icon: Trophy,
+      color: '#10B981',
+      bg: '#ECFDF5',
+    },
   ];
 
   return (
-    <Card style={{ padding: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-        <p style={{ margin: 0, fontSize: '13.8px', fontWeight: 600, color: 'var(--text-main)', fontFamily: '"Century Gothic", "Inter", sans-serif' }}>
+    <div
+      style={{
+        background: '#FFFFFF',
+        borderRadius: '20px',
+        padding: '18px 20px',
+        border: '1px solid #F1F5F9',
+        boxShadow: '0 2px 12px rgba(0, 0, 0, 0.02)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '14px',
+        height: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
+      {/* Section Header */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <p style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: '#1E293B' }}>
           Recent Achievements
         </p>
-        <a href="/profile" style={{ fontSize: '0.85rem', color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'none' }}>
+        <a
+          href="/app/profile"
+          style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: 600, textDecoration: 'none' }}
+        >
           View All
         </a>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
-        {achievements.map(a => {
-          const Icon = a.icon;
+      {/* Achievements List */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        {achievements.map((item) => {
+          const Icon = item.icon;
           return (
-            <div 
-              key={a.id} 
-              className="hover-lift"
+            <div
+              key={item.id}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                padding: '12px 14px',
-                border: '1px solid var(--border-color)',
-                borderRadius: '16px',
-                background: 'var(--surface-color)',
-                cursor: 'pointer',
-                width: '100%',
-                maxWidth: '100%',
-                boxSizing: 'border-box',
-                overflow: 'hidden'
+                gap: '10px',
+                padding: '8px 12px',
+                borderRadius: '12px',
+                background: '#F8FAFC',
+                border: '1px solid #F1F5F9',
               }}
             >
-              <div style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '10px',
-                background: a.bg,
-                color: a.color,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
-              }}>
-                <Icon size={18} />
+              <div
+                style={{
+                  width: '26px',
+                  height: '26px',
+                  borderRadius: '7px',
+                  background: item.bg,
+                  color: item.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                }}
+              >
+                <Icon size={13} />
               </div>
-              <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: '2px', overflow: 'hidden' }}>
-                <h4 style={{ margin: 0, fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-main)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
-                  {a.title}
-                </h4>
-                <span style={{ fontSize: '0.72rem', color: 'var(--text-light)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                  {a.detail}
-                </span>
+
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ margin: '0 0 1px 0', fontSize: '13.5px', fontWeight: 600, color: '#1E293B', lineHeight: 1.3 }}>
+                  {item.title}
+                </p>
+                <div style={{ fontSize: '0.675rem', color: '#64748B', fontWeight: 400 }}>
+                  {item.detail}
+                </div>
               </div>
             </div>
           );
         })}
       </div>
-    </Card>
+    </div>
   );
 };

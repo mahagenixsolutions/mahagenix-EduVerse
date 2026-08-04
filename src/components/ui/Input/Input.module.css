@@ -1,0 +1,33 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-main, #1f2937);
+}
+
+.inputField {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-md, 12px);
+  border: 1px solid var(--border-color, #e8ecea);
+  background: var(--surface-color, #ffffff);
+  font-size: 0.95rem;
+  color: var(--text-main, #1f2937);
+  transition: border-color var(--transition-fast, 180ms ease);
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: var(--primary-color, #5faf88);
+}
+
+.errorText {
+  font-size: 0.8rem;
+  color: var(--danger, #ef4444);
+}
