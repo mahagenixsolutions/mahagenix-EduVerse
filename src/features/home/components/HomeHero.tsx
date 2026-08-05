@@ -1,6 +1,6 @@
 import React from 'react';
 import { CalendarCheck, BookOpen, Award, Clock } from 'lucide-react';
-import heroStudentImg from 'C:/Users/vasal/.gemini/antigravity-ide/brain/c58dd6cc-1480-439b-b957-e260fd2574c0/media__1785744822150.png';
+const heroStudentImg = '/hero_student_illustration.png';
 
 export const HomeHero: React.FC = () => {
   return (
